@@ -476,12 +476,14 @@ a:hover {
     gap: var(--spacing-md);
     flex-grow: 1;
     min-height: auto;
+    min-width: 0;
     align-items: flex-start;
     justify-content: flex-start;
     padding: var(--spacing-lg);
     background-color: rgba(63, 94, 117, 0.08);
     border-radius: 0.4rem;
     border: 1px dashed var(--color-border);
+    overflow: hidden;
 }
 
 .hobby-showcase p {
@@ -492,9 +494,10 @@ a:hover {
 
 .videos-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--spacing-lg);
     width: 100%;
+    max-width: 100%;
     padding: 0;
     background-color: transparent;
     border: none;
@@ -516,9 +519,10 @@ a:hover {
 
 .cooking-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--spacing-lg);
     width: 100%;
+    max-width: 100%;
     padding: 0;
     background-color: transparent;
     border: none;
