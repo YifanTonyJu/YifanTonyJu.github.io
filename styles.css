@@ -508,6 +508,13 @@ a:hover {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    width: 100%;
+}
+
+.video-item iframe {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
 }
 
 .video-item video {
@@ -533,6 +540,7 @@ a:hover {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .dish-item img {
