@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yifan (Tony) Ju - Personal Website</title>
+    <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, software engineering and human-computer
+                    interaction.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Yifan Ju</a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#interests">Interests</a></li>
+                <li><a href="#hobbies">Hobbies</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Yifan (Tony) Ju</h1>
+                <p class="subtitle">Computer Science Specialist Student<br>University of Toronto Scarborough</p>
+                <p class="description">
+                    I am interested in robotics, systems programming, intelligent systems, software engineering and
+                    human-computer interaction.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">Projects</a>
+                    <a href="Yifan Ju _ CV.pdf" class="btn btn-primary" target="_blank">CV</a>
+                    <a href="Academic History.pdf" class="btn btn-primary" target="_blank">Transcript</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About</h2>
+            <p>
+                I'm a Computer Science Specialist Student at University of Toronto Scarborough who is passionate about
+                well-structured, logically elegant, and abstract systems. I am particularly fascinated by robotics and
+                exploring how intelligent systems can interact with the physical world. While I'm still discovering my
+                exact career path, I'm driven by the desire to build systems that are both intellectually rigorous and
+                practically impactful.
+            </p>
+            <p style="text-align: center; margin-top: 2rem; font-style: italic; color: #C2A46D;">
+                "Simple is good, rules make perfect."
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <h3>MyMonitoringTool</h3>
+                    <p>
+                        A Linux system monitoring tool written in C that displays real-time memory usage, CPU usage, CPU
+                        core count, and maximum frequency. It reads system data from /proc and /sys filesystems, uses
+                        pipes and forked child processes for concurrent data collection. Features signal handling for
+                        Ctrl-C/Ctrl-Z, customizable command-line arguments for sample count, interval, and monitoring
+                        components.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">C</span>
+                        <span class="tag">Linux</span>
+                        <span class="tag">fork</span>
+                        <span class="tag">pipe</span>
+                        <span class="tag">signal handling</span>
+                        <span class="tag">/proc filesystem</span>
+                        <span class="tag">System Monitoring</span>
+                    </div>
+                    <a href="https://github.com/YifanTonyJu/CSCB09-MyMonitoringTool" target="_blank"
+                        class="project-link">View on GitHub</a>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <h3>File Management System</h3>
+                    <p>
+                        Developed a full-stack file management system in C++ using the OATPP framework and RESTful HTTP
+                        APIs. Developed and managed the application remotely over SSH on Linux systems to ensure
+                        compatibility with the Linux OS. Built a responsive frontend using Vue.js for intuitive file
+                        browsing and management. Maintained a clear separation between front-end and back-end components
+                        for modularity and scalability.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">OATPP</span>
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">REST API</span>
+                        <span class="tag">Linux</span>
+                        <span class="tag">SSH</span>
+                        <span class="tag">HTTP</span>
+                    </div>
+                    <a href="https://github.com/YifanTonyJu/File_Management_System" target="_blank"
+                        class="project-link">View on GitHub</a>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card">
+                    <h3>Personal Latex Template</h3>
+                    <p>
+                        A personal customizable LaTeX writing template. Supports flexible customization of cover page,
+                        title page, and header according to your needs. Features integrated table of contents
+                        functionality for easy navigation and organization of sections and subsections.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">LaTeX</span>
+                    </div>
+                    <a href="https://github.com/YifanTonyJu/Personal-Latex-Template" target="_blank"
+                        class="project-link">View on GitHub</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <!-- Programming Languages -->
+                <div class="skill-category">
+                    <h3>Programming</h3>
+                    <p>Python, C, C++, Java, Haskell, JavaScript, Shell Script, MIPS Assembly, Racket, Prolog</p>
+                </div>
+
+                <!-- Frameworks & Platforms -->
+                <div class="skill-category">
+                    <h3>Frameworks & Platforms</h3>
+                    <p>PyTorch, OATPP, Vue.js, Vite, Android SDK</p>
+                </div>
+
+                <!-- Data & Visualization Libraries -->
+                <div class="skill-category">
+                    <h3>Data & Visualization Libraries</h3>
+                    <p>Pandas, NumPy, Matplotlib, Plotly</p>
+                </div>
+
+                <!-- Databases -->
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <p>MySQL, MySQL Workbench</p>
+                </div>
+
+                <!-- Systems & Tools -->
+                <div class="skill-category">
+                    <h3>Systems & Tools</h3>
+                    <p>Linux, Git, GitHub, CMake, Makefile, VS Code, Remote SSH, JIRA, Markdown, LaTeX</p>
+                </div>
+
+                <!-- Machine Learning -->
+                <div class="skill-category">
+                    <h3>Machine Learning</h3>
+                    <p>Machine Learning, Deep Learning, Transformers, Model Training & Evaluation, Data Analysis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Interests Section -->
+    <section id="interests" class="interests">
+        <div class="container">
+            <h2>Research Interests</h2>
+            <div class="interests-grid">
+                <span class="interest-tag">Robotics</span>
+                <span class="interest-tag">Systems Programming</span>
+                <span class="interest-tag">Intelligent Systems</span>
+                <span class="interest-tag">Software Engineering</span>
+                <span class="interest-tag">Human-Computer Interaction</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section id="hobbies" class="hobbies">
+        <div class="container">
+            <h2>Hobbies</h2>
+            <div class="hobbies-grid">
+                <!-- Hobby 1 -->
+                <article class="hobby-card">
+                    <h3>Basketball</h3>
+                    <div class="hobby-showcase">
+                        <p>Coming soon...</p>
+                    </div>
+                </article>
+
+                <!-- Hobby 2 -->
+                <article class="hobby-card">
+                    <h3>Singing</h3>
+                    <div class="hobby-showcase">
+                        <p>Coming soon...</p>
+                    </div>
+                </article>
+
+                <!-- Hobby 3 -->
+                <article class="hobby-card">
+                    <h3>Cycling</h3>
+                    <div class="hobby-showcase">
+                        <p>Coming soon...</p>
+                    </div>
+                </article>
+
+                <!-- Hobby 4 -->
+                <article class="hobby-card">
+                    <h3>Table Tennis</h3>
+                    <div class="hobby-showcase">
+                        <p>Coming soon...</p>
+                    </div>
+                </article>
+
+                <!-- Hobby 5 -->
+                <article class="hobby-card">
+                    <h3>Violin</h3>
+                    <div class="hobby-showcase">
+                        <div class="videos-container">
+                            <div class="video-item">
+                                <iframe width="100%" height="200" src="https://www.youtube.com/embed/wt-ANPjkoF8"
+                                    title="UTSC Fall Flourish Concert 2023" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen style="border-radius: 0.4rem;"></iframe>
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Fall Flourish 2023</p>
+                            </div>
+                            <div class="video-item">
+                                <iframe width="100%" height="200" src="https://www.youtube.com/embed/kHayDMtB7AY"
+                                    title="UTSC Spring Awakening Concert 2024" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen style="border-radius: 0.4rem;"></iframe>
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Spring Awakening 2024</p>
+                            </div>
+                            <div class="video-item">
+                                <iframe width="100%" height="200" src="https://www.youtube.com/embed/-8FdtuPvODY"
+                                    title="UTSC Fall Flourish Concert 2024" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen style="border-radius: 0.4rem;"></iframe>
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Fall Flourish 2024</p>
+                            </div>
+                            <div class="video-item">
+                                <iframe width="100%" height="200" src="https://www.youtube.com/embed/lJU7AxdR8q4"
+                                    title="UTSC Spring Awakening Concert 2025" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen style="border-radius: 0.4rem;"></iframe>
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Spring Awakening 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Hobby 6 -->
+                <article class="hobby-card">
+                    <h3>Cooking</h3>
+                    <div class="hobby-showcase">
+                        <div class="cooking-gallery">
+                            <div class="dish-item">
+                                <img src="graphs/cooking/番茄牛腩.jpg" alt="番茄牛腩"
+                                    style="max-width: 300px; max-height: 300px; border-radius: 0.4rem; object-fit: cover;">
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">番茄牛腩</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Hobby 7 -->
+                <article class="hobby-card">
+                    <h3>Swimming</h3>
+                    <div class="hobby-showcase">
+                        <p>Coming soon...</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <p>Feel free to reach out for opportunities, collaborations, or just to chat.</p>
+            <div class="contact-info">
+                <p>
+                    <strong>Email:</strong>
+                    <a href="mailto:yifan.ju@mail.utoronto.ca">yifan.ju@mail.utoronto.ca</a>
+                </p>
+                <p>
+                    <strong>GitHub:</strong>
+                    <a href="https://github.com/YifanTonyJu" target="_blank">github.com/YifanTonyJu</a>
+                </p>
+                <p>
+                    <strong>WeChat:</strong>
+                    <span>twowheeljourney</span>
+                </p>
+                <p>
+                    <strong>Location:</strong> Toronto, Canada
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Yifan (Tony) Ju. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
