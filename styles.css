@@ -444,9 +444,8 @@ a:hover {
 
 .hobbies-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-lg);
-    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -477,8 +476,8 @@ a:hover {
     gap: var(--spacing-md);
     flex-grow: 1;
     min-height: auto;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     padding: var(--spacing-lg);
     background-color: rgba(63, 94, 117, 0.08);
     border-radius: 0.4rem;
