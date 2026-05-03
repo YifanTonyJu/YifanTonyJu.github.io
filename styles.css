@@ -477,13 +477,14 @@ a:hover {
     flex-grow: 1;
     min-height: auto;
     min-width: 0;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     padding: var(--spacing-lg);
     background-color: rgba(63, 94, 117, 0.08);
     border-radius: 0.4rem;
     border: 1px dashed var(--color-border);
     overflow: hidden;
+}
 }
 
 .hobby-showcase p {
