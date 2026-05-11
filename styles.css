@@ -111,74 +111,60 @@ a:hover {
     z-index: 100;
 }
 
-.navbar .container {
+.navbar-content {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: var(--spacing-sm) var(--spacing-lg);
-}
-
-.logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-gold);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-.logo:hover {
-    color: var(--color-gold-light);
-    text-decoration: none;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: var(--spacing-lg);
-    flex: 1;
     justify-content: center;
-    margin: 0 auto;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: 1rem var(--spacing-lg);
+    flex-wrap: wrap;
 }
 
-.nav-links a {
-    color: var(--color-gold);
+.nav-item {
     font-size: 0.95rem;
     font-weight: 500;
+    color: var(--color-gold);
     transition: var(--transition);
+    text-decoration: none;
 }
 
-.nav-links a:hover {
+.nav-item:first-child {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-item:hover {
     color: var(--color-gold-light);
-    text-decoration: none;
 }
 
 /* Mobile Navigation */
 @media (max-width: 768px) {
-    .nav-links {
+    .navbar-content {
         gap: var(--spacing-md);
     }
 
-    .nav-links a {
+    .nav-item {
         font-size: 0.9rem;
+    }
+
+    .nav-item:first-child {
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 600px) {
-    .navbar .container {
-        flex-direction: column;
-        gap: var(--spacing-md);
+    .navbar-content {
+        gap: var(--spacing-sm);
+        padding: 1rem var(--spacing-md);
     }
 
-    .nav-links {
-        gap: var(--spacing-md);
+    .nav-item {
         font-size: 0.85rem;
+    }
+
+    .nav-item:first-child {
+        font-size: 1rem;
     }
 }
 
@@ -187,7 +173,7 @@ a:hover {
    ========================================== */
 
 .hero {
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     text-align: center;
 }
 
@@ -495,7 +481,6 @@ a:hover {
     border-radius: 0.4rem;
     border: 1px dashed var(--color-border);
     overflow: hidden;
-}
 }
 
 .hobby-showcase p {
