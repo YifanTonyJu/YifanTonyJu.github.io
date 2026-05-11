@@ -113,9 +113,8 @@ a:hover {
 
 .navbar .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: var(--spacing-xl);
     padding: var(--spacing-sm) var(--spacing-lg);
 }
 
