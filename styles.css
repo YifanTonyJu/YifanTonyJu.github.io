@@ -394,7 +394,7 @@ a:hover {
 
 .interests {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg);
 }
 
 .interests h2 {
@@ -589,7 +589,7 @@ a:hover {
 
 .contact {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg);
     text-align: center;
 }
 
