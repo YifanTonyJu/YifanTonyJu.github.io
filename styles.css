@@ -115,28 +115,7 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-xl);
     padding: var(--spacing-sm) var(--spacing-lg);
-}
-
-.logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-gold);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.logo-icon {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-}
-
-.logo:hover {
-    color: var(--color-gold-light);
-    text-decoration: none;
 }
 
 .nav-links {
