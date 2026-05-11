@@ -123,6 +123,15 @@ a:hover {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 .logo:hover {

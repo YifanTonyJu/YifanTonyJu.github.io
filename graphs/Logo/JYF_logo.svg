@@ -1,0 +1,50 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Transparent background -->
+
+      <!-- Outer circle segments -->
+      <path d="M205 92 A170 170 0 0 1 307 92"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+
+      <path d="M307 420 A170 170 0 0 1 205 420"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+
+      <path d="M180 105 A170 170 0 0 0 180 407"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+
+      <path d="M332 105 A170 170 0 0 1 332 407"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+
+      <!-- Dots -->
+      <circle cx="256" cy="88" r="5" fill="#C2A46D" />
+      <circle cx="256" cy="424" r="5" fill="#C2A46D" />
+      <circle cx="104" cy="256" r="5" fill="#C2A46D" />
+      <circle cx="408" cy="256" r="5" fill="#C2A46D" />
+
+      <!-- J -->
+      <path d="M183 180 H145"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+      <path d="M183 180 V300 Q183 342 145 342 Q128 342 118 330"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+
+      <!-- Y -->
+      <path d="M220 180 L256 220 L292 180"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M256 220 V342"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+
+      <!-- F -->
+      <path d="M329 180 V342"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+      <path d="M329 180 H374"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+      <path d="M329 235 H367"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+
+      <!-- Code symbol -->
+      <path d="M220 375 L204 391 L220 407"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M292 375 L308 391 L292 407"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M264 372 L248 410"
+            stroke="#C2A46D" stroke-width="8" stroke-linecap="round" />
+</svg>
