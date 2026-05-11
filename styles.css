@@ -129,8 +129,8 @@ a:hover {
 }
 
 .logo-icon {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
 }
 
@@ -146,14 +146,14 @@ a:hover {
 }
 
 .nav-links a {
-    color: var(--color-text-light);
+    color: var(--color-gold);
     font-size: 0.95rem;
     font-weight: 500;
     transition: var(--transition);
 }
 
 .nav-links a:hover {
-    color: var(--color-accent);
+    color: var(--color-gold-light);
     text-decoration: none;
 }
 
