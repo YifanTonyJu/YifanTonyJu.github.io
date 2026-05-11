@@ -121,7 +121,7 @@ a:hover {
 }
 
 .nav-item {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     font-weight: 500;
     color: var(--color-gold);
     transition: var(--transition);
@@ -129,7 +129,7 @@ a:hover {
 }
 
 .nav-item:first-child {
-    font-size: 1.15rem;
+    font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
@@ -145,11 +145,11 @@ a:hover {
     }
 
     .nav-item {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .nav-item:first-child {
-        font-size: 1rem;
+        font-size: 1.15rem;
     }
 }
 
@@ -160,11 +160,11 @@ a:hover {
     }
 
     .nav-item {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
     }
 
     .nav-item:first-child {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 }
 
