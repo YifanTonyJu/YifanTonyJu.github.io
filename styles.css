@@ -1,5 +1,5 @@
 /* ==========================================
-   CSS Reset & Root Variables
+   Minimalism Design - Simplified CSS
    ========================================== */
 
 * {
@@ -9,16 +9,13 @@
 }
 
 :root {
-    --color-bg: #121A21;
-    --color-bg-secondary: #1E2A33;
-    --color-text: #E6E0D6;
-    --color-text-light: #B0A99F;
-    --color-text-weak: #6E6E6E;
-    --color-accent: #3F5E75;
-    --color-accent-dark: #2d4457;
-    --color-border: #2A3945;
-    --color-hover: #1E2A33;
-    --color-card-bg: #1E2A33;
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f5f5f5;
+    --color-text: #000000;
+    --color-text-light: #555555;
+    --color-text-weak: #888888;
+    --color-accent: #000000;
+    --color-border: #e0e0e0;
     --color-gold: #C2A46D;
     --color-gold-light: #E0C48F;
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', sans-serif;
@@ -31,7 +28,7 @@
     --spacing-xl: 3rem;
     --spacing-2xl: 4rem;
 
-    --transition: all 0.3s ease;
+    --transition: all 0.2s ease;
 }
 
 /* ==========================================
@@ -51,7 +48,7 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
 }
@@ -63,28 +60,37 @@ h4,
 h5,
 h6 {
     line-height: 1.2;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: var(--spacing-md);
+    letter-spacing: -0.02em;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: var(--color-text);
+    font-weight: 700;
+    letter-spacing: -0.03em;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--color-text);
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+    font-weight: 700;
 }
 
 h3 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: var(--color-text);
+    font-weight: 600;
 }
 
 p {
     color: var(--color-text-light);
     margin-bottom: var(--spacing-md);
+    line-height: 1.7;
 }
 
 a {
@@ -95,7 +101,6 @@ a {
 
 a:hover {
     color: var(--color-gold-light);
-    text-decoration: underline;
 }
 
 /* ==========================================
@@ -103,39 +108,47 @@ a:hover {
    ========================================== */
 
 .navbar {
-    background-color: rgba(18, 26, 33, 0.95);
-    backdrop-filter: blur(8px);
+    background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .navbar-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-lg);
-    padding: 1rem var(--spacing-lg);
+    gap: 2.5rem;
+    padding: 1.2rem var(--spacing-lg);
     flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .nav-item {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 500;
-    color: var(--color-gold);
+    color: var(--color-text);
     transition: var(--transition);
     text-decoration: none;
+    letter-spacing: 0.3px;
 }
 
 .nav-item:first-child {
-    font-size: 1.35rem;
+    font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0;
 }
 
 .nav-item:hover {
-    color: var(--color-gold-light);
+    color: var(--color-gold);
+}
+
+.nav-item:hover {
+    color: var(--color-gold);
 }
 
 /* Mobile Navigation */
@@ -145,26 +158,7 @@ a:hover {
     }
 
     .nav-item {
-        font-size: 1rem;
-    }
-
-    .nav-item:first-child {
-        font-size: 1.15rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .navbar-content {
-        gap: var(--spacing-sm);
-        padding: 1rem var(--spacing-md);
-    }
-
-    .nav-item {
-        font-size: 0.95rem;
-    }
-
-    .nav-item:first-child {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -173,36 +167,40 @@ a:hover {
    ========================================== */
 
 .hero {
-    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: 8rem var(--spacing-lg) 10rem var(--spacing-lg);
     text-align: center;
 }
 
 .hero-content {
-    max-width: 700px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
 .hero h1 {
     font-size: 3.5rem;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
     font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
 }
 
 .subtitle {
-    font-size: 1.5rem;
-    color: var(--color-text);
-    margin-bottom: var(--spacing-md);
-    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-xl);
+    font-weight: 400;
+    letter-spacing: 0;
 }
 
 .description {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--color-text-light);
-    margin-bottom: var(--spacing-lg);
-    max-width: 600px;
+    margin-bottom: var(--spacing-xl);
+    max-width: 550px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 .cta-buttons {
@@ -213,53 +211,54 @@ a:hover {
 }
 
 .btn {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border-radius: 0.5rem;
-    font-weight: 500;
-    font-size: 1rem;
-    border: 2px solid;
+    padding: 0.75rem 2rem;
+    border-radius: 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1.5px solid var(--color-text);
     transition: var(--transition);
     cursor: pointer;
     display: inline-block;
     text-decoration: none;
+    background-color: transparent;
+    letter-spacing: 0.5px;
 }
 
 .btn-primary {
-    background-color: var(--color-accent);
-    color: #EAE6DC;
-    border-color: var(--color-accent);
-    font-weight: 600;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-text);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-accent-dark);
-    border-color: var(--color-accent-dark);
-    text-decoration: none;
+    background-color: #333333;
+    border-color: #333333;
+    color: var(--color-bg);
 }
 
 .btn-secondary {
     background-color: transparent;
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+    color: var(--color-text);
+    border-color: var(--color-text);
 }
 
 .btn-secondary:hover {
-    background-color: var(--color-accent);
-    color: #EAE6DC;
-    text-decoration: none;
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-text);
 }
 
 @media (max-width: 768px) {
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .subtitle {
-        font-size: 1.25rem;
+        font-size: 1rem;
     }
 
     .description {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .cta-buttons {
@@ -267,8 +266,8 @@ a:hover {
     }
 
     .btn {
-        padding: var(--spacing-xs) var(--spacing-md);
-        font-size: 0.95rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -282,17 +281,18 @@ a:hover {
 }
 
 .about .container {
-    max-width: 800px;
+    max-width: 700px;
 }
 
 .about h2 {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
 .about p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--color-text-light);
     line-height: 1.8;
+    margin-bottom: var(--spacing-lg);
 }
 
 /* ==========================================
@@ -301,7 +301,7 @@ a:hover {
 
 .projects {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-secondary);
 }
 
 .projects h2 {
@@ -310,36 +310,37 @@ a:hover {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--color-border);
 }
 
 .project-card {
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-lg);
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    background-color: var(--color-card-bg);
+    padding: var(--spacing-xl);
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg);
     transition: var(--transition);
 }
 
 .project-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 4px 20px rgba(63, 94, 117, 0.2);
-    transform: translateY(-2px);
+    border-bottom-color: var(--color-text);
 }
 
 .project-card h3 {
     color: var(--color-text);
     margin-bottom: var(--spacing-md);
+    margin-top: 0;
+    font-weight: 700;
 }
 
 .project-card p {
     color: var(--color-text-light);
     margin-bottom: var(--spacing-md);
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .tech-tags {
@@ -352,40 +353,37 @@ a:hover {
 
 .tag {
     display: inline-block;
-    background-color: rgba(63, 94, 117, 0.15);
-    color: var(--color-accent);
-    padding: 0.35rem 0.75rem;
-    border-radius: 2rem;
-    font-size: 0.85rem;
+    background-color: transparent;
+    color: var(--color-text-light);
+    padding: 0.3rem 0.6rem;
+    border-radius: 0;
+    font-size: 0.8rem;
     font-weight: 500;
-    border: 1px solid rgba(63, 94, 117, 0.3);
+    border: 1px solid var(--color-border);
 }
 
 .tag:hover {
-    background-color: rgba(63, 94, 117, 0.25);
-    border-color: var(--color-accent);
+    background-color: var(--color-border);
+    border-color: var(--color-text);
 }
 
 .project-link {
     display: inline-block;
     margin-top: var(--spacing-md);
-    color: var(--color-gold);
+    color: var(--color-text);
     background-color: transparent;
-    border: 1.5px solid var(--color-gold);
-    padding: 0.6rem 1.2rem;
-    border-radius: 0.4rem;
+    border: none;
+    padding: 0;
+    border-radius: 0;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.95rem;
     transition: var(--transition);
-    text-align: center;
+    text-align: left;
 }
 
 .project-link:hover {
-    background-color: var(--color-gold);
-    color: var(--color-bg);
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(194, 164, 109, 0.2);
+    color: var(--color-gold);
 }
 
 /* ==========================================
@@ -398,22 +396,22 @@ a:hover {
 }
 
 .interests h2 {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
 .interests-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-md);
-    justify-content: center;
+    gap: var(--spacing-sm);
+    justify-content: flex-start;
 }
 
 .interest-tag {
-    background-color: rgba(63, 94, 117, 0.1);
+    background-color: transparent;
     color: var(--color-text);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border: 1px solid rgba(63, 94, 117, 0.3);
-    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0;
     font-size: 0.95rem;
     font-weight: 500;
     transition: var(--transition);
@@ -421,9 +419,8 @@ a:hover {
 }
 
 .interest-tag:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background-color: rgba(63, 94, 117, 0.2);
+    border-color: var(--color-text);
+    background-color: var(--color-bg-secondary);
 }
 
 /* ==========================================
@@ -432,7 +429,7 @@ a:hover {
 
 .hobbies {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-secondary);
 }
 
 .hobbies h2 {
@@ -442,29 +439,26 @@ a:hover {
 .hobbies-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-    margin: 0 auto;
+    gap: var(--spacing-xl);
 }
 
 .hobby-card {
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    background-color: var(--color-card-bg);
+    background-color: var(--color-bg);
     transition: var(--transition);
 }
 
 .hobby-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 4px 20px rgba(63, 94, 117, 0.2);
-    transform: translateY(-2px);
+    border-color: var(--color-text);
 }
 
 .hobby-card h3 {
     color: var(--color-text);
     margin-bottom: var(--spacing-md);
+    font-weight: 700;
 }
 
 .hobby-showcase {
@@ -476,9 +470,8 @@ a:hover {
     min-width: 0;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-lg);
-    background-color: rgba(63, 94, 117, 0.08);
-    border-radius: 0.4rem;
+    padding: var(--spacing-xl);
+    background-color: var(--color-bg-secondary);
     border: 1px dashed var(--color-border);
     overflow: hidden;
 }
@@ -491,13 +484,9 @@ a:hover {
 
 .videos-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: var(--spacing-lg);
     width: 100%;
-    max-width: 100%;
-    padding: 0;
-    background-color: transparent;
-    border: none;
 }
 
 .video-item {
@@ -518,18 +507,13 @@ a:hover {
     width: 100%;
     height: auto;
     background-color: #000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .cooking-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: var(--spacing-lg);
     width: 100%;
-    max-width: 100%;
-    padding: 0;
-    background-color: transparent;
-    border: none;
 }
 
 .dish-item {
@@ -543,7 +527,6 @@ a:hover {
 .dish-item img {
     width: 100%;
     height: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* ==========================================
@@ -562,25 +545,30 @@ a:hover {
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-lg);
+    gap: var(--spacing-xl);
 }
 
 .skill-category {
-    padding: var(--spacing-lg);
-    background-color: var(--color-card-bg);
-    border-radius: 0.5rem;
+    padding: var(--spacing-xl);
+    background-color: transparent;
     border: 1px solid var(--color-border);
+    transition: var(--transition);
+}
+
+.skill-category:hover {
+    border-color: var(--color-text);
 }
 
 .skill-category h3 {
     color: var(--color-text);
     margin-bottom: var(--spacing-md);
+    font-weight: 700;
 }
 
 .skill-category p {
     color: var(--color-text-light);
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 /* ==========================================
@@ -589,16 +577,18 @@ a:hover {
 
 .contact {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-secondary);
     text-align: center;
 }
 
 .contact h2 {
     margin-bottom: var(--spacing-md);
+    border: none;
+    padding-bottom: 0;
 }
 
 .contact>.container>p:nth-of-type(1) {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--color-text-light);
     margin-bottom: var(--spacing-xl);
 }
@@ -607,6 +597,9 @@ a:hover {
     max-width: 600px;
     margin: 0 auto;
     text-align: center;
+    padding: var(--spacing-xl);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
 }
 
 .contact-info p {
@@ -616,13 +609,14 @@ a:hover {
 }
 
 .contact-info a {
-    color: var(--color-gold-light);
-    font-weight: 500;
+    color: var(--color-gold);
+    font-weight: 700;
     text-decoration: none;
+    transition: var(--transition);
 }
 
 .contact-info a:hover {
-    text-decoration: underline;
+    color: var(--color-gold-light);
 }
 
 /* ==========================================
@@ -653,11 +647,11 @@ a:hover {
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .container {
@@ -678,6 +672,22 @@ a:hover {
         font-size: 0.9rem;
         padding: var(--spacing-xs) var(--spacing-sm);
     }
+
+    .hero {
+        padding: 3rem var(--spacing-md) 4rem var(--spacing-md);
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .about,
+    .projects,
+    .interests,
+    .skills,
+    .contact {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
 }
 
 @media (max-width: 600px) {
@@ -687,24 +697,24 @@ a:hover {
     }
 
     h1 {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
 
     h2 {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
 
     .hero {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: 2rem var(--spacing-md);
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
         margin-bottom: var(--spacing-sm);
     }
 
     .subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
         margin-bottom: var(--spacing-md);
     }
 
@@ -722,24 +732,26 @@ a:hover {
         text-align: center;
     }
 
-    .about,
-    .projects,
-    .interests,
-    .skills,
-    .contact {
-        padding: var(--spacing-lg) var(--spacing-md);
-    }
-
-    .projects h2,
-    .interests h2,
-    .skills h2,
-    .contact h2 {
-        margin-bottom: var(--spacing-lg);
-    }
-
     .project-card,
     .skill-category {
         padding: var(--spacing-md);
+    }
+
+    .hobbies {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .hobby-card {
+        padding: var(--spacing-md);
+    }
+
+    .hobby-showcase {
+        padding: var(--spacing-md);
+    }
+
+    .videos-container,
+    .cooking-gallery {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -748,7 +760,6 @@ a:hover {
    ========================================== */
 
 @media print {
-
     .navbar,
     .footer {
         display: none;
@@ -756,10 +767,5 @@ a:hover {
 
     body {
         background-color: white;
-    }
-
-    .project-card,
-    .skill-category {
-        page-break-inside: avoid;
     }
 }
