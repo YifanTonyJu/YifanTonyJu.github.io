@@ -10,7 +10,9 @@
 
 :root {
     --color-bg: #ffffff;
-    --color-bg-secondary: #f5f5f5;
+    --color-bg-secondary: #fefdfb;
+    --color-surface: #ffffff;
+    --color-surface-soft: #faf9f7;
     --color-text: #000000;
     --color-text-light: #555555;
     --color-text-weak: #888888;
@@ -29,6 +31,12 @@
     --spacing-2xl: 4rem;
 
     --transition: all 0.2s ease;
+
+    /* Neomorphism Shadows */
+    --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+    --shadow-large: 0 12px 32px rgba(0, 0, 0, 0.12), 0 6px 16px rgba(0, 0, 0, 0.06);
+    --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.08), inset 0 -2px 4px rgba(255, 255, 255, 0.6);
 }
 
 /* ==========================================
@@ -41,10 +49,15 @@ html {
 
 body {
     font-family: var(--font-family);
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-secondary);
     color: var(--color-text);
     line-height: 1.6;
     overflow-x: hidden;
+}
+
+section {
+    background-color: transparent;
+    scroll-snap-align: start;
 }
 
 .container {
@@ -109,12 +122,13 @@ a:hover {
 
 .navbar {
     background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: none;
     position: sticky;
     top: 0;
     z-index: 100;
     backdrop-filter: blur(20px);
     background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: var(--shadow-soft);
 }
 
 .navbar-content {
@@ -167,13 +181,21 @@ a:hover {
    ========================================== */
 
 .hero {
-    padding: 8rem var(--spacing-lg) 10rem var(--spacing-lg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem var(--spacing-lg) 8rem var(--spacing-lg);
     text-align: center;
 }
 
 .hero-content {
-    max-width: 600px;
+    max-width: 620px;
     margin: 0 auto;
+    padding: 4rem 2.5rem;
+    background-color: var(--color-surface);
+    border-radius: 28px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .hero h1 {
@@ -210,9 +232,14 @@ a:hover {
     flex-wrap: wrap;
 }
 
+.cta-buttons .btn {
+    min-width: 140px;
+    text-align: center;
+}
+
 .btn {
     padding: 0.75rem 2rem;
-    border-radius: 0;
+    border-radius: 12px;
     font-weight: 600;
     font-size: 0.95rem;
     border: 1.5px solid var(--color-text);
@@ -222,18 +249,27 @@ a:hover {
     text-decoration: none;
     background-color: transparent;
     letter-spacing: 0.5px;
+    box-shadow: var(--shadow-soft);
 }
 
 .btn-primary {
     background-color: var(--color-text);
     color: var(--color-bg);
     border-color: var(--color-text);
+    box-shadow: var(--shadow-medium);
 }
 
 .btn-primary:hover {
     background-color: #333333;
     border-color: #333333;
     color: var(--color-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    box-shadow: var(--shadow-inset);
+    transform: translateY(0);
 }
 
 .btn-secondary {
@@ -243,9 +279,16 @@ a:hover {
 }
 
 .btn-secondary:hover {
-    background-color: var(--color-text);
-    color: var(--color-bg);
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
     border-color: var(--color-text);
+    box-shadow: var(--shadow-soft);
+    transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+    box-shadow: var(--shadow-inset);
+    transform: translateY(0);
 }
 
 @media (max-width: 768px) {
@@ -277,11 +320,11 @@ a:hover {
 
 .about {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg);
 }
 
 .about .container {
     max-width: 700px;
+    background-color: transparent;
 }
 
 .about h2 {
@@ -301,7 +344,6 @@ a:hover {
 
 .projects {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg-secondary);
 }
 
 .projects h2 {
@@ -311,8 +353,7 @@ a:hover {
 .projects-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0;
-    border-top: 1px solid var(--color-border);
+    gap: var(--spacing-lg);
 }
 
 .project-card {
@@ -320,13 +361,16 @@ a:hover {
     flex-direction: column;
     padding: var(--spacing-xl);
     border: none;
-    border-bottom: 1px solid var(--color-border);
+    border-radius: 16px;
     background-color: var(--color-bg);
     transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: var(--spacing-md);
 }
 
 .project-card:hover {
-    border-bottom-color: var(--color-text);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-4px);
 }
 
 .project-card h3 {
@@ -353,18 +397,22 @@ a:hover {
 
 .tag {
     display: inline-block;
-    background-color: transparent;
+    background-color: var(--color-bg);
     color: var(--color-text-light);
-    padding: 0.3rem 0.6rem;
-    border-radius: 0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
     font-size: 0.8rem;
     font-weight: 500;
     border: 1px solid var(--color-border);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
 }
 
 .tag:hover {
-    background-color: var(--color-border);
-    border-color: var(--color-text);
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-text-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
 .project-link {
@@ -392,7 +440,6 @@ a:hover {
 
 .interests {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg);
 }
 
 .interests h2 {
@@ -407,20 +454,23 @@ a:hover {
 }
 
 .interest-tag {
-    background-color: transparent;
+    background-color: var(--color-bg);
     color: var(--color-text);
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     border: 1px solid var(--color-border);
-    border-radius: 0;
+    border-radius: 10px;
     font-size: 0.95rem;
     font-weight: 500;
     transition: var(--transition);
     cursor: default;
+    box-shadow: var(--shadow-soft);
 }
 
 .interest-tag:hover {
     border-color: var(--color-text);
     background-color: var(--color-bg-secondary);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
 }
 
 /* ==========================================
@@ -429,7 +479,6 @@ a:hover {
 
 .hobbies {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg-secondary);
 }
 
 .hobbies h2 {
@@ -446,13 +495,16 @@ a:hover {
     display: flex;
     flex-direction: column;
     padding: var(--spacing-xl);
-    border: 1px solid var(--color-border);
+    border: none;
+    border-radius: 16px;
     background-color: var(--color-bg);
     transition: var(--transition);
+    box-shadow: var(--shadow-soft);
 }
 
 .hobby-card:hover {
-    border-color: var(--color-text);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-4px);
 }
 
 .hobby-card h3 {
@@ -472,8 +524,10 @@ a:hover {
     justify-content: center;
     padding: var(--spacing-xl);
     background-color: var(--color-bg-secondary);
-    border: 1px dashed var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: var(--shadow-inset);
 }
 
 .hobby-showcase p {
@@ -535,7 +589,6 @@ a:hover {
 
 .skills {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg);
 }
 
 .skills h2 {
@@ -550,13 +603,16 @@ a:hover {
 
 .skill-category {
     padding: var(--spacing-xl);
-    background-color: transparent;
-    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    border: none;
+    border-radius: 14px;
     transition: var(--transition);
+    box-shadow: var(--shadow-soft);
 }
 
 .skill-category:hover {
-    border-color: var(--color-text);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-3px);
 }
 
 .skill-category h3 {
@@ -577,7 +633,6 @@ a:hover {
 
 .contact {
     padding: var(--spacing-2xl) var(--spacing-lg);
-    background-color: var(--color-bg-secondary);
     text-align: center;
 }
 
@@ -598,8 +653,16 @@ a:hover {
     margin: 0 auto;
     text-align: center;
     padding: var(--spacing-xl);
-    border: 1px solid var(--color-border);
+    border: none;
+    border-radius: 16px;
     background-color: var(--color-bg);
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+}
+
+.contact-info:hover {
+    box-shadow: var(--shadow-large);
+    transform: translateY(-2px);
 }
 
 .contact-info p {
@@ -674,7 +737,12 @@ a:hover {
     }
 
     .hero {
-        padding: 3rem var(--spacing-md) 4rem var(--spacing-md);
+        padding: 11rem var(--spacing-md) 3rem var(--spacing-md);
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding: 2.5rem 1.5rem;
     }
 
     .hero h1 {
@@ -705,10 +773,13 @@ a:hover {
     }
 
     .hero {
-        padding: 2rem var(--spacing-md);
+        padding: 6rem var(--spacing-md) 3rem var(--spacing-md);
+        min-height: auto;
     }
 
-    .hero h1 {
+    .hero-content {
+        padding: 2rem 1.2rem;
+    }
         font-size: 1.8rem;
         margin-bottom: var(--spacing-sm);
     }
@@ -753,6 +824,22 @@ a:hover {
     .cooking-gallery {
         grid-template-columns: 1fr;
     }
+
+    .contact-info {
+        padding: var(--spacing-md);
+        max-width: 100%;
+    }
+
+    .contact-info p {
+        font-size: 0.9rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .contact-info a {
+        display: block;
+        word-break: break-all;
+    }
 }
 
 /* ==========================================
@@ -768,4 +855,28 @@ a:hover {
     body {
         background-color: white;
     }
+}
+
+/* ==========================================
+   Scroll Animation
+   ========================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section:not(#hero) {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+section.scroll-visible {
+    animation: fadeInUp 0.8s ease-out forwards;
 }

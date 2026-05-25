@@ -341,6 +341,49 @@
             <p>&copy; 2026 Yifan (Tony) Ju. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && window.scrollY > 100) {
+                    entry.target.classList.add('scroll-visible');
+                } else if (!entry.isIntersecting && window.scrollY < 100) {
+                    entry.target.classList.remove('scroll-visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections except hero
+        setTimeout(() => {
+            document.querySelectorAll('section:not(#hero)').forEach(section => {
+                observer.observe(section);
+            });
+        }, 200);
+
+        // Enhanced scroll event listener
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('section:not(#hero)').forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const isInViewport = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+                
+                if (isInViewport && window.scrollY > 0) {
+                    // Add animation when scrolling down and section is in view
+                    if (!section.classList.contains('scroll-visible')) {
+                        section.classList.add('scroll-visible');
+                    }
+                } else if (window.scrollY < 100 && section.classList.contains('scroll-visible')) {
+                    // Remove animation when scrolling back to top
+                    section.classList.remove('scroll-visible');
+                }
+            });
+        }, { passive: true });
+    </script>
 </body>
 
 </html>
