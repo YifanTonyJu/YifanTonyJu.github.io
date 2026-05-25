@@ -837,8 +837,8 @@ a:hover {
     }
 
     .contact-info a {
-        display: block;
-        word-break: break-all;
+        display: inline;
+        word-break: break-word;
     }
 }
 
