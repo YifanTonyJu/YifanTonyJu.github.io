@@ -1,0 +1,9 @@
+{
+  "buildCommand": "echo 'build complete'",
+  "outputDirectory": ".",
+  "functions": {
+    "api/chat.js": {
+      "runtime": "python@3.9"
+    }
+  }
+}

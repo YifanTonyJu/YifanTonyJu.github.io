@@ -352,6 +352,62 @@
         </div>
     </footer>
 
+    <!-- YJ AI Assistant -->
+    <div id="yj-assistant">
+        <!-- Assistant Button -->
+        <button id="yj-toggle" class="yj-toggle" title="Talk to YJ">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Head -->
+                <circle cx="50" cy="25" r="10" fill="none" stroke="black" stroke-width="2.5"/>
+                <!-- Body -->
+                <line x1="50" y1="35" x2="50" y2="65" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Left Arm -->
+                <line x1="50" y1="45" x2="25" y2="55" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Right Arm -->
+                <line x1="50" y1="45" x2="75" y2="55" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Left Leg -->
+                <line x1="50" y1="65" x2="30" y2="85" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Right Leg -->
+                <line x1="50" y1="65" x2="70" y2="85" stroke="black" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="yj-chat" class="yj-chat">
+            <div class="yj-header">
+                <div class="yj-title">
+                    <span class="yj-name">YJ</span>
+                    <span class="yj-status">Online</span>
+                </div>
+                <button id="yj-close" class="yj-close">&times;</button>
+            </div>
+            
+            <div class="yj-messages" id="yj-messages">
+                <div class="yj-message assistant">
+                    <p>Hi! I'm YJ, Yifan's AI assistant. I'm here to help you learn more about him. Ask me anything! 👋</p>
+                </div>
+            </div>
+
+            <div class="yj-input-area">
+                <input 
+                    type="text" 
+                    id="yj-input" 
+                    class="yj-input" 
+                    placeholder="Ask me something..."
+                    autocomplete="off"
+                />
+                <button id="yj-send" class="yj-send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="yj-assistant.js"></script>
+
     <script>
         // Intersection Observer for scroll animations
         const observerOptions = {
