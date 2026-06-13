@@ -1,8 +1,9 @@
 {
+  "buildCommand": "echo 'Static site with API functions'",
+  "outputDirectory": ".",
   "functions": {
     "api/chat.js": {
-      "memory": 128,
-      "maxDuration": 10
+      "runtime": "nodejs20.x"
     }
   }
 }
