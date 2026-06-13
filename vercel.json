@@ -1,9 +1,1 @@
-{
-  "buildCommand": "echo 'Static site with API functions'",
-  "outputDirectory": ".",
-  "functions": {
-    "api/chat.js": {
-      "runtime": "nodejs@20"
-    }
-  }
-}
+{}
