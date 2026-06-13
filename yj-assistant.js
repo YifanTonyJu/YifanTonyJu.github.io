@@ -42,7 +42,7 @@ TECHNICAL SKILLS:
 HOBBIES & INTERESTS:
 - Basketball - active hobby
 - Singing - enjoys singing as a hobby
-- Violin - plays in university orchestra (Fall Flourish 2023, Spring Awakening 2024, Fall Flourish 2024, Spring Awakening 2025)
+- Violin - plays in university orchestra for Flourish concerts (Fall Flourish 2023, Spring Awakening 2024, Fall Flourish 2024, Spring Awakening 2025)
 - Cycling - recreational activity
 - Table Tennis - sport hobby
 - Cooking - hobby with Chinese cuisine expertise (dishes: 功夫蛋炒饭, 番茄牛腩, 红烧肉, 脆哨油菜, 蒜片西洋菜, 蒜泥空心菜)
