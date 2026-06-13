@@ -888,44 +888,42 @@ section.scroll-visible {
 
 #yj-assistant {
     position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 2rem;
+    right: 2rem;
     font-family: var(--font-family);
     z-index: 9999;
 }
 
 /* Toggle Button */
 .yj-toggle {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0080FF 0%, #0055BB 100%);
-    color: white;
-    border: none;
+    background: white;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-text);
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0, 128, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
     padding: 0;
 }
 
 .yj-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 24px rgba(0, 128, 255, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: var(--color-bg-secondary);
 }
 
 .yj-toggle:active {
-    transform: scale(0.95);
+    transform: translateY(-2px);
 }
 
 .yj-toggle svg {
-    width: 32px;
-    height: 32px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    width: 28px;
+    height: 28px;
 }
 
 /* Chat Window */
@@ -933,11 +931,11 @@ section.scroll-visible {
     position: absolute;
     bottom: 80px;
     right: 0;
-    width: 380px;
+    width: 400px;
     max-height: 600px;
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
     opacity: 0;
@@ -955,25 +953,26 @@ section.scroll-visible {
 
 /* Header */
 .yj-header {
-    padding: 1rem 1.25rem;
+    padding: 1.25rem;
     border-bottom: 1px solid var(--color-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, rgba(0, 128, 255, 0.05) 0%, rgba(194, 164, 109, 0.05) 100%);
-    border-radius: 16px 16px 0 0;
+    background: white;
+    border-radius: 12px 12px 0 0;
 }
 
 .yj-title {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .yj-name {
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 600;
+    font-size: 1rem;
     color: var(--color-text);
+    letter-spacing: 0.5px;
 }
 
 .yj-status {
@@ -1012,7 +1011,7 @@ section.scroll-visible {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    background: #fafafa;
+    background: white;
 }
 
 .yj-message {
@@ -1025,9 +1024,9 @@ section.scroll-visible {
 }
 
 .yj-message p {
-    max-width: 85%;
+    max-width: 80%;
     padding: 0.75rem 1rem;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 0.95rem;
     line-height: 1.4;
     word-wrap: break-word;
@@ -1035,16 +1034,15 @@ section.scroll-visible {
 }
 
 .yj-message.user p {
-    background: linear-gradient(135deg, #0080FF 0%, #0055BB 100%);
+    background: var(--color-text);
     color: white;
-    border-radius: 12px 4px 12px 12px;
+    border-radius: 10px 4px 10px 10px;
 }
 
 .yj-message.assistant p {
-    background: white;
+    background: var(--color-bg-secondary);
     color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: 12px 12px 4px 12px;
+    border-radius: 10px 10px 4px 10px;
 }
 
 .yj-message.loading p {
@@ -1057,7 +1055,7 @@ section.scroll-visible {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #0080FF;
+    background: var(--color-text);
     animation: pulse 1.4s infinite;
 }
 
@@ -1087,23 +1085,24 @@ section.scroll-visible {
     display: flex;
     gap: 0.5rem;
     background: white;
-    border-radius: 0 0 16px 16px;
+    border-radius: 0 0 12px 12px;
 }
 
 .yj-input {
     flex: 1;
     border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
     font-family: var(--font-family);
     font-size: 0.95rem;
     outline: none;
     transition: var(--transition);
+    background: white;
 }
 
 .yj-input:focus {
-    border-color: #0080FF;
-    box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.1);
+    border-color: var(--color-text);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
 .yj-input::placeholder {
@@ -1113,10 +1112,10 @@ section.scroll-visible {
 .yj-send {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #0080FF 0%, #0055BB 100%);
+    background: var(--color-text);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1126,8 +1125,8 @@ section.scroll-visible {
 }
 
 .yj-send:hover {
+    background: var(--color-text-light);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 128, 255, 0.3);
 }
 
 .yj-send:active {
@@ -1165,19 +1164,19 @@ section.scroll-visible {
     }
 
     .yj-toggle {
-        width: 56px;
-        height: 56px;
+        width: 52px;
+        height: 52px;
     }
 
     .yj-toggle svg {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
     }
 
     .yj-chat {
         width: calc(100vw - 2rem);
-        max-width: 380px;
+        max-width: 400px;
         max-height: calc(100vh - 120px);
-        bottom: 70px;
+        bottom: 65px;
     }
 }
