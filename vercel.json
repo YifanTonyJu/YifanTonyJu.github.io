@@ -3,7 +3,7 @@
   "outputDirectory": ".",
   "functions": {
     "api/chat.js": {
-      "runtime": "nodejs20.x"
+      "runtime": "nodejs@20"
     }
   }
 }
