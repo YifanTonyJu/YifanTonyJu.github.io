@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
         model: 'gpt-4o-mini',
         messages: messages,
         temperature: 0.7,
-        max_tokens: 100,
+        max_tokens: 80,
       }),
     });
 
@@ -44,9 +44,9 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
     const assistantMessage = data.choices[0].message.content;
     
-    // Limit response to reasonable length (approx 180 chars)
-    const truncatedMessage = assistantMessage.length > 180 
-      ? assistantMessage.substring(0, 180).trim() + '.'
+    // Limit response to reasonable length (approx 200 chars)
+    const truncatedMessage = assistantMessage.length > 200 
+      ? assistantMessage.substring(0, 200).trim() + '.'
       : assistantMessage;
 
     return res.status(200).json({
