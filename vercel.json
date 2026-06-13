@@ -1,9 +1,4 @@
 {
   "buildCommand": "echo 'build complete'",
-  "outputDirectory": ".",
-  "functions": {
-    "api/chat.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "outputDirectory": "."
 }
