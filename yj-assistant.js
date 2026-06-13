@@ -105,13 +105,7 @@ Yifan: CS student at UofT Scarborough, from Shanghai. Loves robotics, systems pr
       const data = await response.json();
       
       if (data.success) {
-        let assistantMessage = data.message;
-        
-        // Truncate to first sentence to keep responses punchy
-        const firstSentence = assistantMessage.match(/^[^.!?]*[.!?]/);
-        if (firstSentence) {
-          assistantMessage = firstSentence[0].trim();
-        }
+        const assistantMessage = data.message;
         
         // Add to conversation history
         this.conversationHistory.push({

@@ -21,37 +21,65 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // 调用OpenAI API
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: messages,
-        temperature: 0.7,
-        max_tokens: 80,
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      return res.status(response.status).json({ error: error.error.message });
-    }
-
-    const data = await response.json();
-    const assistantMessage = data.choices[0].message.content;
+    // 自动调整参数
+    let maxTokens = 100;
+    const tokenIncrement = 50;
+    const maxAttempts = 5;
+    let lastMessage = '';
     
-    // Limit response to reasonable length (approx 220 chars)
-    const truncatedMessage = assistantMessage.length > 220 
-      ? assistantMessage.substring(0, 220).trim() + '.'
-      : assistantMessage;
+    // 循环调用，直到信息完整或达到最大尝试次数
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: messages,
+          temperature: 0.7,
+          max_tokens: maxTokens,
+        }),
+      });
 
+      if (!response.ok) {
+        const error = await response.json();
+        return res.status(response.status).json({ error: error.error.message });
+      }
+
+      const data = await response.json();
+      const assistantMessage = data.choices[0].message.content;
+      const finishReason = data.choices[0].finish_reason;
+      
+      lastMessage = assistantMessage;
+      
+      // 如果正常完成（finish_reason === 'stop'），直接返回
+      if (finishReason === 'stop') {
+        return res.status(200).json({
+          success: true,
+          message: assistantMessage,
+        });
+      }
+      
+      // 如果因为 token 限制被截断（finish_reason === 'length'），增加 max_tokens 再试
+      if (finishReason === 'length') {
+        maxTokens += tokenIncrement;
+        console.log(`Response truncated, trying again with max_tokens: ${maxTokens}`);
+        continue;
+      }
+      
+      // 其他 finish_reason，直接返回
+      return res.status(200).json({
+        success: true,
+        message: assistantMessage,
+      });
+    }
+    
+    // 超过最大尝试次数，返回最后的结果
     return res.status(200).json({
       success: true,
-      message: truncatedMessage,
+      message: lastMessage,
     });
   } catch (error) {
     console.error('Error:', error);
