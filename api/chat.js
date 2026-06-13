@@ -44,9 +44,10 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
     const assistantMessage = data.choices[0].message.content;
     
-    // Truncate to first sentence, but only if there are multiple sentences
-    const sentences = assistantMessage.match(/[^.!?]*[.!?]/g);
-    const truncatedMessage = sentences && sentences.length > 1 ? sentences[0].trim() : assistantMessage;
+    // Limit response to reasonable length (approx 150 chars = ~1-2 sentences)
+    const truncatedMessage = assistantMessage.length > 150 
+      ? assistantMessage.substring(0, 150).trim() + '.'
+      : assistantMessage;
 
     return res.status(200).json({
       success: true,
