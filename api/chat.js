@@ -44,9 +44,9 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
     const assistantMessage = data.choices[0].message.content;
     
-    // Limit response to reasonable length (approx 150 chars = ~1-2 sentences)
-    const truncatedMessage = assistantMessage.length > 150 
-      ? assistantMessage.substring(0, 150).trim() + '.'
+    // Limit response to reasonable length (approx 250 chars = ~2-3 sentences max)
+    const truncatedMessage = assistantMessage.length > 250 
+      ? assistantMessage.substring(0, 250).trim() + '.'
       : assistantMessage;
 
     return res.status(200).json({
