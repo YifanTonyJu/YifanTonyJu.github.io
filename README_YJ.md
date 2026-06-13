@@ -55,7 +55,7 @@ Personal Website/
 1. 部署完成后，进入 "Settings" → "Environment Variables"
 2. 添加新变量：
    - **Name**: `OPENAI_API_KEY`
-   - **Value**: `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`
+   - **Value**: 你的OpenAI API密钥（sk-proj-...）
 3. 点击 "Save"
 4. 重新部署（Vercel会自动重新部署）
 
