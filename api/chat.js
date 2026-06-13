@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
         model: 'gpt-4o-mini',
         messages: messages,
         temperature: 0.7,
-        max_tokens: 300,
+        max_tokens: 150,
       }),
     });
 
