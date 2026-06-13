@@ -44,9 +44,9 @@ module.exports = async function handler(req, res) {
     const data = await response.json();
     const assistantMessage = data.choices[0].message.content;
     
-    // Truncate to first sentence to keep responses punchy
-    const firstSentence = assistantMessage.match(/^[^.!?]*[.!?]/);
-    const truncatedMessage = firstSentence ? firstSentence[0].trim() : assistantMessage;
+    // Truncate to first sentence, but only if there are multiple sentences
+    const sentences = assistantMessage.match(/[^.!?]*[.!?]/g);
+    const truncatedMessage = sentences && sentences.length > 1 ? sentences[0].trim() : assistantMessage;
 
     return res.status(200).json({
       success: true,
