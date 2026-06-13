@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Personal website with YJ AI assistant",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vercel dev"
   }

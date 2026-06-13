@@ -1,7 +1,7 @@
 // Vercel Serverless Function - API代理
 // 安全地调用OpenAI API，隐藏密钥
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // 仅允许POST请求
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
