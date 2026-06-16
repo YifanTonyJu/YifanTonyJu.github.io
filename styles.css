@@ -382,8 +382,7 @@ a:hover {
 
 .projects {
     width: 100%;
-    padding: var(--spacing-2xl) var(--spacing-lg);
-    margin-top: -1.5rem;
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -482,7 +481,7 @@ a:hover {
 
 .interests {
     width: 100%;
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -527,7 +526,7 @@ a:hover {
 
 .hobbies {
     width: 100%;
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -639,8 +638,7 @@ a:hover {
 
 .skills {
     width: 100%;
-    padding: var(--spacing-2xl) var(--spacing-lg);
-    margin-top: -1.5rem;
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -838,11 +836,11 @@ a:hover {
     }
 
     .projects {
-        padding: 4rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+        padding: 2rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
     }
 
     .skills {
-        padding: 4rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+        padding: 2rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
     }
 
     .project-card {
@@ -924,20 +922,20 @@ a:hover {
     }
 
     .about,
+    .contact {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
     .projects,
     .interests,
     .skills,
-    .contact {
-        padding: var(--spacing-lg) var(--spacing-md);
+    .hobbies {
+        padding: 1.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .project-card,
     .skill-category {
         padding: var(--spacing-md);
-    }
-
-    .hobbies {
-        padding: var(--spacing-lg) var(--spacing-md);
     }
 
     .hobby-card {
