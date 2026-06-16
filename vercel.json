@@ -6,7 +6,7 @@
       "methods": ["POST", "OPTIONS"]
     },
     {
-      "src": "/(?!api/)(.*\\.(js|css|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|eot|ttf|otf|webp)$|.*\/$)",
+      "src": "/(?!api/)(.*\\.(js|css|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|eot|ttf|otf|webp|pdf)$|.*\/$)",
       "dest": "/$1",
       "headers": {
         "Cache-Control": "public, max-age=3600, s-maxage=3600"
