@@ -51,7 +51,7 @@ html {
 
 @media (max-width: 600px) {
     html {
-        scroll-padding-top: 320px;
+        scroll-padding-top: 420px;
     }
 }
 
@@ -799,7 +799,7 @@ a:hover {
 
     .hero {
         padding: 8rem var(--spacing-md) 2rem var(--spacing-md);
-        min-height: auto;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
