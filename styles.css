@@ -803,9 +803,6 @@ a:hover {
     .hero-content {
         padding: 2rem 1.2rem;
     }
-        font-size: 1.8rem;
-        margin-bottom: var(--spacing-sm);
-    }
 
     .subtitle {
         font-size: 1rem;
