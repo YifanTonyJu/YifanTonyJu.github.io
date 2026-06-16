@@ -29,20 +29,8 @@
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
     --spacing-2xl: 4rem;
-    --spacing-3xl: 6.472rem;
 
     --transition: all 0.2s ease;
-
-    /* Golden Ratio Responsive Variables (defaults - overridden by JavaScript) */
-    --base-unit: 1rem;
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.618rem;
-    --font-size-xl: 2.618rem;
-    --font-size-2xl: 4.236rem;
-    --font-size-3xl: 6.854rem;
-    --section-top-padding: 5rem;
 
     /* Neomorphism Shadows */
     --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
@@ -362,7 +350,7 @@ a:hover {
 
 .about {
     width: 100%;
-    padding: var(--section-top-padding) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -388,7 +376,7 @@ a:hover {
 
 .projects {
     width: 100%;
-    padding: var(--section-top-padding) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
     margin-top: -1.5rem;
     box-sizing: border-box;
 }
@@ -487,7 +475,7 @@ a:hover {
 
 .interests {
     width: 100%;
-    padding: var(--section-top-padding) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -531,7 +519,7 @@ a:hover {
 
 .hobbies {
     width: 100%;
-    padding: var(--section-top-padding) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -643,7 +631,7 @@ a:hover {
 
 .skills {
     width: 100%;
-    padding: var(--section-top-padding) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
     margin-top: -1.5rem;
     box-sizing: border-box;
 }
@@ -690,7 +678,7 @@ a:hover {
 
 .contact {
     width: 100%;
-    padding: var(--section-top-padding) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-2xl) var(--spacing-lg);
     text-align: center;
     box-sizing: border-box;
 }
@@ -830,7 +818,7 @@ a:hover {
     .interests,
     .skills,
     .contact {
-        padding: var(--section-top-padding) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+        padding: var(--spacing-xl) var(--spacing-md);
     }
 
     .project-card {
@@ -903,7 +891,7 @@ a:hover {
     .interests,
     .skills,
     .contact {
-        padding: var(--section-top-padding) var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: var(--spacing-lg) var(--spacing-md);
     }
 
     .project-card,
@@ -912,7 +900,7 @@ a:hover {
     }
 
     .hobbies {
-        padding: var(--section-top-padding) var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: var(--spacing-lg) var(--spacing-md);
     }
 
     .hobby-card {
@@ -1000,7 +988,12 @@ a:hover {
     .interests,
     .skills,
     .contact {
-        padding: var(--section-top-padding) var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .project-card {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
     }
 
     .project-card h3 {
