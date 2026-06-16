@@ -745,16 +745,17 @@ a:hover {
 
 @media (max-width: 768px) {
     :root {
-        --spacing-xl: 2.5rem;
+        --spacing-xl: 2rem;
         --spacing-2xl: 2.5rem;
+        --spacing-lg: 1.75rem;
     }
 
     h1 {
-        font-size: 1.75rem;
+        font-size: 1.6rem;
     }
 
     h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .container {
@@ -772,21 +773,106 @@ a:hover {
     }
 
     .interest-tag {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         padding: var(--spacing-xs) var(--spacing-sm);
     }
 
     .hero {
-        padding: 11rem var(--spacing-md) 3rem var(--spacing-md);
+        padding: 8rem var(--spacing-md) 2rem var(--spacing-md);
         min-height: auto;
     }
 
     .hero-content {
-        padding: 2.5rem 1.5rem;
+        padding: 2rem 1.5rem;
+        max-width: 100%;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .subtitle {
+        font-size: 1.05rem;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .description {
+        font-size: 0.95rem;
+        max-width: 100%;
+    }
+
+    .about,
+    .projects,
+    .interests,
+    .skills,
+    .contact {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .project-card {
+        padding: var(--spacing-lg);
+    }
+
+    .skill-category {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --spacing-lg: 1.5rem;
+        --spacing-md: 1rem;
+        --spacing-xl: 1.5rem;
+        --spacing-2xl: 2rem;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .hero {
+        padding: 4rem var(--spacing-md) 2rem var(--spacing-md);
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding: 1.5rem 1rem;
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 1.3rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+        margin-bottom: var(--spacing-md);
+        line-height: 1.5;
+    }
+
+    .description {
+        font-size: 0.9rem;
+        margin-bottom: var(--spacing-lg);
+        line-height: 1.6;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
     }
 
     .about,
@@ -795,49 +881,6 @@ a:hover {
     .skills,
     .contact {
         padding: var(--spacing-lg) var(--spacing-md);
-    }
-}
-
-@media (max-width: 600px) {
-    :root {
-        --spacing-lg: 1.5rem;
-        --spacing-md: 1rem;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    h2 {
-        font-size: 1.2rem;
-    }
-
-    .hero {
-        padding: 6rem var(--spacing-md) 3rem var(--spacing-md);
-        min-height: auto;
-    }
-
-    .hero-content {
-        padding: 2rem 1.2rem;
-    }
-
-    .subtitle {
-        font-size: 1rem;
-        margin-bottom: var(--spacing-md);
-    }
-
-    .description {
-        font-size: 0.95rem;
-        margin-bottom: var(--spacing-lg);
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 100%;
-        text-align: center;
     }
 
     .project-card,
@@ -850,11 +893,11 @@ a:hover {
     }
 
     .hobby-card {
-        padding: var(--spacing-md);
+        padding: var(--spacing-sm);
     }
 
     .hobby-showcase {
-        padding: var(--spacing-md);
+        padding: var(--spacing-sm);
     }
 
     .videos-container,
@@ -876,6 +919,80 @@ a:hover {
     .contact-info a {
         display: inline;
         word-break: break-word;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --spacing-lg: 1.2rem;
+        --spacing-md: 0.8rem;
+        --spacing-xl: 1.2rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-lg);
+        padding-bottom: var(--spacing-sm);
+    }
+
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    .hero {
+        padding: 3rem var(--spacing-md) 1.5rem var(--spacing-md);
+    }
+
+    .hero-content {
+        padding: 1.2rem 0.8rem;
+        border-radius: 16px;
+    }
+
+    .hero h1 {
+        font-size: 1.1rem;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .description {
+        font-size: 0.85rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .about,
+    .projects,
+    .interests,
+    .skills,
+    .contact {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .project-card {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .project-card h3 {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
     }
 }
 
