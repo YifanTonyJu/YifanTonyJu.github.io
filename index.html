@@ -438,23 +438,12 @@
             });
         }
         
-        // Prevent PDF links from being intercepted or double-opened
-        let pdfLinkDebounce = {};
+        // Prevent PDF links from being intercepted by navigation
         document.querySelectorAll('.pdf-link').forEach(link => {
             link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                const now = Date.now();
-                
-                // Prevent multiple clicks on the same link within 1 second
-                if (pdfLinkDebounce[href] && now - pdfLinkDebounce[href] < 1000) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return;
-                }
-                
-                pdfLinkDebounce[href] = now;
-                // Let the browser handle PDF links normally with target="_blank"
+                // Stop event propagation to prevent accidental triggering of other handlers
                 e.stopPropagation();
+                // Don't prevent default - let the browser open the PDF normally
             });
         });
         
