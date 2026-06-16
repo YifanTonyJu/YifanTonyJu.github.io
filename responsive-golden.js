@@ -16,10 +16,10 @@ function calculateResponsiveUnits() {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     
-    // 基础单位：视口宽度的1/20作为基准
-    // 这样在 375px 手机上是 ~18.75px
-    // 在 1200px 桌面上是 60px
-    const baseUnit = viewportWidth / 20;
+    // 基础单位：视口宽度的1/25作为基准
+    // 这样在 375px 手机上是 ~15px
+    // 在 1200px 桌面上是 48px
+    const baseUnit = viewportWidth / 25;
     
     // 计算页面高度占比系数
     // 用于确定顶部间距
@@ -51,8 +51,8 @@ function calculateResponsiveUnits() {
     };
     
     // 顶部间距（导航栏到标题的距离）
-    // 使用黄金比例，在不同设备上都显得适中
-    const sectionTopPadding = baseUnit * Math.pow(GOLDEN_RATIO, 2.5) * heightCoefficient;
+    // 保持原有的紧凑感（约 5rem ≈ 80px），同时保留响应式特性
+    const sectionTopPadding = baseUnit * 1.4 * heightCoefficient;
     
     return {
         baseUnit,
