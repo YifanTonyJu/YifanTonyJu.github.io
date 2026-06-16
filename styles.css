@@ -475,35 +475,38 @@ a:hover {
     box-sizing: border-box;
 }
 
+.interests>.container {
+    text-align: center;
+}
+
 .interests h2 {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
 }
 
 .interests-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    justify-content: flex-start;
+    gap: 0.8rem;
+    justify-content: center;
 }
 
 .interest-tag {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    padding: 0.6rem 1.2rem;
+    background-color: transparent;
+    color: var(--color-text-light);
+    padding: 0.5rem 1rem;
     border: 1px solid var(--color-border);
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 500;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 400;
     transition: var(--transition);
     cursor: default;
-    box-shadow: var(--shadow-soft);
+    box-shadow: none;
 }
 
 .interest-tag:hover {
     border-color: var(--color-text);
     background-color: var(--color-bg-secondary);
-    box-shadow: var(--shadow-medium);
-    transform: translateY(-2px);
+    color: var(--color-text);
 }
 
 /* ==========================================
@@ -676,44 +679,47 @@ a:hover {
     box-sizing: border-box;
 }
 
+.contact>.container {
+    max-width: 700px;
+}
+
 .contact h2 {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
     border: none;
     padding-bottom: 0;
 }
 
 .contact>.container>p:nth-of-type(1) {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--color-text-light);
     margin-bottom: var(--spacing-xl);
 }
 
 .contact-info {
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
     text-align: center;
-    padding: var(--spacing-xl);
+    padding: 0;
     border: none;
-    border-radius: 16px;
-    background-color: var(--color-bg);
-    box-shadow: var(--shadow-medium);
-    transition: var(--transition);
-}
-
-.contact-info:hover {
-    box-shadow: var(--shadow-large);
-    transform: translateY(-2px);
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
 }
 
 .contact-info p {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: var(--spacing-md);
     color: var(--color-text-light);
 }
 
+.contact-info strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
 .contact-info a {
     color: var(--color-gold);
-    font-weight: 700;
+    font-weight: 500;
     text-decoration: none;
     transition: var(--transition);
 }
