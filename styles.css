@@ -389,7 +389,7 @@ a:hover {
 
 .projects h2 {
     margin-bottom: var(--spacing-xl);
-    text-align: right;
+    text-align: left;
 }
 
 .projects-grid {
@@ -492,7 +492,7 @@ a:hover {
 
 .interests h2 {
     margin-bottom: var(--spacing-lg);
-    text-align: right;
+    text-align: left;
 }
 
 .interests-grid {
@@ -646,7 +646,7 @@ a:hover {
 
 .skills h2 {
     margin-bottom: var(--spacing-xl);
-    text-align: right;
+    text-align: left;
 }
 
 .skills-grid {
@@ -865,19 +865,19 @@ a:hover {
     h2 {
         font-size: 1.1rem;
         margin-bottom: var(--spacing-lg);
-        text-align: right;
+        text-align: left;
     }
 
     .interests h2 {
-        text-align: right;
+        text-align: left;
     }
 
     .projects h2 {
-        text-align: right;
+        text-align: left;
     }
 
     .skills h2 {
-        text-align: right;
+        text-align: left;
     }
 
     .hero {
