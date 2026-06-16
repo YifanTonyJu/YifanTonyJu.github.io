@@ -14,12 +14,12 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="#" class="nav-item">Yifan Ju</a>
-            <a href="#projects" class="nav-item">Projects</a>
-            <a href="#skills" class="nav-item">Skills</a>
-            <a href="#interests" class="nav-item">Interests</a>
-            <a href="#hobbies" class="nav-item">Hobbies</a>
-            <a href="#contact" class="nav-item">Contact</a>
+            <a href="#hero" class="nav-item nav-home" data-section="hero">Yifan Ju</a>
+            <a href="#projects" class="nav-item" data-section="projects">Projects</a>
+            <a href="#skills" class="nav-item" data-section="skills">Skills</a>
+            <a href="#interests" class="nav-item" data-section="interests">Interests</a>
+            <a href="#hobbies" class="nav-item" data-section="hobbies">Hobbies</a>
+            <a href="#contact" class="nav-item" data-section="contact">Contact</a>
         </div>
     </nav>
 
@@ -399,7 +399,66 @@
     <script src="yj-assistant.js?v=5"></script>
 
     <script>
-        // Intersection Observer for scroll animations
+        // Section Navigation System
+        let currentSection = 'hero';
+        
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('section-visible');
+                section.classList.add('section-hidden');
+            });
+            
+            // Show the selected section with animation
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                // Remove hidden class first
+                targetSection.classList.remove('section-hidden');
+                
+                // Force reflow to restart animation
+                void targetSection.offsetHeight;
+                
+                // Add visible class to trigger animation
+                targetSection.classList.add('section-visible');
+                currentSection = sectionId;
+            }
+            
+            // Update nav item active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === sectionId) {
+                    item.classList.add('active');
+                }
+            });
+            
+            // Scroll to top smoothly
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Initialize navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = item.getAttribute('data-section');
+                showSection(sectionId);
+            });
+        });
+        
+        // Show hero section on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            showSection('hero');
+        });
+        
+        // Handle back/forward button navigation
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.substring(1) || 'hero';
+            showSection(hash);
+        });
+
+        // Intersection Observer for scroll animations (only for visible section)
         const observerOptions = {
             threshold: 0.05,
             rootMargin: '0px 0px -50px 0px'
@@ -415,7 +474,7 @@
             });
         }, observerOptions);
 
-        // Observe all sections except hero
+        // Observe visible sections
         setTimeout(() => {
             document.querySelectorAll('section:not(#hero)').forEach(section => {
                 observer.observe(section);
@@ -425,17 +484,17 @@
         // Enhanced scroll event listener
         window.addEventListener('scroll', () => {
             document.querySelectorAll('section:not(#hero)').forEach(section => {
-                const rect = section.getBoundingClientRect();
-                const isInViewport = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
-                
-                if (isInViewport && window.scrollY > 0) {
-                    // Add animation when scrolling down and section is in view
-                    if (!section.classList.contains('scroll-visible')) {
-                        section.classList.add('scroll-visible');
+                if (section.classList.contains('section-visible')) {
+                    const rect = section.getBoundingClientRect();
+                    const isInViewport = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+                    
+                    if (isInViewport && window.scrollY > 0) {
+                        if (!section.classList.contains('scroll-visible')) {
+                            section.classList.add('scroll-visible');
+                        }
+                    } else if (window.scrollY < 100 && section.classList.contains('scroll-visible')) {
+                        section.classList.remove('scroll-visible');
                     }
-                } else if (window.scrollY < 100 && section.classList.contains('scroll-visible')) {
-                    // Remove animation when scrolling back to top
-                    section.classList.remove('scroll-visible');
                 }
             });
         }, { passive: true });
