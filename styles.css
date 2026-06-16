@@ -57,6 +57,7 @@ body {
 }
 
 section {
+    width: 100%;
     background-color: transparent;
     scroll-snap-align: start;
     opacity: 1;
@@ -74,9 +75,11 @@ section.section-visible {
 }
 
 .container {
+    width: 100%;
     max-width: 900px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
+    box-sizing: border-box;
 }
 
 h1,
@@ -196,12 +199,14 @@ a:hover {
    ========================================== */
 
 .hero {
+    width: 100%;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 var(--spacing-lg) 4rem var(--spacing-lg);
     text-align: center;
+    box-sizing: border-box;
 }
 
 .hero .container {
@@ -340,7 +345,9 @@ a:hover {
    ========================================== */
 
 .about {
+    width: 100%;
     padding: var(--spacing-2xl) var(--spacing-lg);
+    box-sizing: border-box;
 }
 
 .about .container {
@@ -364,8 +371,10 @@ a:hover {
    ========================================== */
 
 .projects {
+    width: 100%;
     padding: var(--spacing-2xl) var(--spacing-lg);
     margin-top: -1.5rem;
+    box-sizing: border-box;
 }
 
 .projects h2 {
@@ -461,7 +470,9 @@ a:hover {
    ========================================== */
 
 .interests {
+    width: 100%;
     padding: var(--spacing-2xl) var(--spacing-lg);
+    box-sizing: border-box;
 }
 
 .interests h2 {
@@ -500,7 +511,9 @@ a:hover {
    ========================================== */
 
 .hobbies {
+    width: 100%;
     padding: var(--spacing-2xl) var(--spacing-lg);
+    box-sizing: border-box;
 }
 
 .hobbies h2 {
@@ -610,8 +623,10 @@ a:hover {
    ========================================== */
 
 .skills {
+    width: 100%;
     padding: var(--spacing-2xl) var(--spacing-lg);
     margin-top: -1.5rem;
+    box-sizing: border-box;
 }
 
 .skills h2 {
@@ -655,8 +670,10 @@ a:hover {
    ========================================== */
 
 .contact {
+    width: 100%;
     padding: var(--spacing-2xl) var(--spacing-lg);
     text-align: center;
+    box-sizing: border-box;
 }
 
 .contact h2 {
