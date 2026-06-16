@@ -51,7 +51,7 @@ html {
 
 @media (max-width: 600px) {
     html {
-        scroll-padding-top: 140px;
+        scroll-padding-top: 180px;
     }
 }
 
@@ -227,7 +227,7 @@ a:hover {
 
 .hero-content {
     max-width: 620px;
-    margin: 8rem 0 0 0;
+    margin: 4rem 0 0 0;
     padding: 4rem 2.5rem;
     background-color: var(--color-surface);
     border-radius: 28px;
@@ -709,14 +709,14 @@ a:hover {
 }
 
 .contact-info {
-    max-width: 100%;
-    margin: 0;
+    max-width: 600px;
+    margin: 0 auto;
     text-align: center;
-    padding: 0;
+    padding: 3rem 2.5rem;
     border: none;
-    border-radius: 0;
-    background-color: transparent;
-    box-shadow: none;
+    border-radius: 28px;
+    background-color: var(--color-surface);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .contact-info p {
@@ -807,9 +807,9 @@ a:hover {
 
     .hero-content {
         padding: 2rem 1.5rem;
-        max-width: 90%;
-        margin: 0;
-        width: 100%;
+        max-width: 85%;
+        margin: 0 auto;
+        width: auto;
     }
 
     .hero h1 {
