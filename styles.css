@@ -51,7 +51,7 @@ html {
 
 @media (max-width: 600px) {
     html {
-        scroll-padding-top: 280px;
+        scroll-padding-top: 320px;
     }
 }
 
