@@ -289,6 +289,7 @@ body.navbar-active .navbar {
     text-align: center;
     box-sizing: border-box;
     position: relative;
+    padding-top: 40px;
 }
 
 .hero .container {
@@ -305,7 +306,7 @@ body.navbar-active .navbar {
     box-shadow: var(--shadow-soft);
     transition: var(--transition);
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

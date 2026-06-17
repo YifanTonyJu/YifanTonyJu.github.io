@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=11">
+    <link rel="stylesheet" href="styles.css?v=12">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/JYF_logo.svg">
 </head>
 
@@ -426,8 +426,9 @@
         // Also hide on DOMContentLoaded
         hideNavbar();
 
-        // Show navbar when mouse enters trigger area
+        // Show navbar when mouse enters trigger area (desktop)
         navbarTrigger.addEventListener('mouseenter', showNavbar);
+        navbarTrigger.addEventListener('click', showNavbar);
         
         // Hide navbar when mouse leaves navbar
         navbar.addEventListener('mouseleave', hideNavbar);
@@ -443,6 +444,20 @@
                 navbarTimeout = setTimeout(hideNavbar, 2000);
             });
         });
+        
+        // Mobile touch support - show navbar on tap
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            // If touch is in top area, show navbar
+            if (e.changedTouches[0].clientY < 50) {
+                showNavbar();
+            }
+        }, { passive: true });
 
         // WeChat redirection function for mobile devices
         function openWeChat() {
