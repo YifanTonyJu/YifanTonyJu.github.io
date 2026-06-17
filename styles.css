@@ -625,7 +625,7 @@ body.navbar-active .navbar {
 
 .hobbies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: 1fr;
     gap: var(--spacing-xl);
     max-width: 100%;
     margin: 0 auto;
@@ -683,7 +683,7 @@ body.navbar-active .navbar {
 .videos-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
     width: 100%;
     margin: 0 auto;
 }
@@ -711,8 +711,8 @@ body.navbar-active .navbar {
 
 .cooking-gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
     width: 100%;
     margin: 0 auto;
 }
