@@ -862,19 +862,19 @@ a:hover {
     .about,
     .interests,
     .contact {
-        padding: 3rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+        padding: 4rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
     }
 
     .projects {
-        padding: 3rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+        padding: 4rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
     }
 
     .skills {
-        padding: 3rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+        padding: 4rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
     }
 
     .hobbies {
-        padding: 3rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+        padding: 4rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
     }
 
     .project-card {
@@ -961,14 +961,14 @@ a:hover {
 
     .about,
     .contact {
-        padding: 3.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: 4rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .projects,
     .interests,
     .skills,
     .hobbies {
-        padding: 3.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: 4rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .project-card,
