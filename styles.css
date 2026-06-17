@@ -149,12 +149,35 @@ a:hover {
 .navbar {
     background-color: var(--color-bg);
     border-bottom: none;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 100;
     backdrop-filter: blur(20px);
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
     box-shadow: var(--shadow-soft);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar.show {
+    transform: translateY(0);
+}
+
+.navbar-trigger {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    z-index: 99;
+    cursor: pointer;
+}
+
+body {
+    padding-top: 30px;
 }
 
 .navbar-content {
@@ -373,6 +396,7 @@ a:hover {
 .about .container {
     max-width: 700px;
     background-color: transparent;
+    margin: 0 auto;
 }
 
 .about h2 {
@@ -398,13 +422,15 @@ a:hover {
 
 .projects h2 {
     margin-bottom: var(--spacing-xl);
-    text-align: left;
+    text-align: center;
 }
 
 .projects-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .project-card {
@@ -501,7 +527,7 @@ a:hover {
 
 .interests h2 {
     margin-bottom: var(--spacing-lg);
-    text-align: left;
+    text-align: center;
 }
 
 .interests-grid {
@@ -542,12 +568,15 @@ a:hover {
 
 .hobbies h2 {
     margin-bottom: var(--spacing-xl);
+    text-align: center;
 }
 
 .hobbies-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .hobby-card {
@@ -661,6 +690,8 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-xl);
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .skill-category {

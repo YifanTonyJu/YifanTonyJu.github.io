@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="styles.css?v=6">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/JYF_logo.svg">
 </head>
 
 <body>
+    <!-- Navigation Trigger Area -->
+    <div class="navbar-trigger" id="navbarTrigger"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="navbar-content">
             <a href="#hero" class="nav-item nav-home" data-section="hero">Yifan Ju</a>
             <a href="#projects" class="nav-item" data-section="projects">Projects</a>
@@ -397,6 +400,36 @@
     </div>
 
     <script>
+        // Navbar hide/show functionality
+        const navbar = document.getElementById('navbar');
+        const navbarTrigger = document.getElementById('navbarTrigger');
+        let navbarTimeout;
+
+        function showNavbar() {
+            navbar.classList.add('show');
+            clearTimeout(navbarTimeout);
+        }
+
+        function hideNavbar() {
+            navbarTimeout = setTimeout(() => {
+                navbar.classList.remove('show');
+            }, 3000);
+        }
+
+        navbarTrigger.addEventListener('mouseenter', showNavbar);
+        navbarTrigger.addEventListener('mouseleave', hideNavbar);
+        
+        navbar.addEventListener('mouseenter', () => {
+            clearTimeout(navbarTimeout);
+        });
+        
+        navbar.addEventListener('mouseleave', hideNavbar);
+
+        // Navigation link click - keep navbar visible for 3 seconds
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', showNavbar);
+        });
+
         // WeChat redirection function for mobile devices
         function openWeChat() {
             const userAgent = navigator.userAgent.toLowerCase();
