@@ -64,26 +64,6 @@ body {
     color: var(--color-text);
     line-height: 1.6;
     overflow-x: hidden;
-    position: relative;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(4px);
-    z-index: 98;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease-in-out;
-}
-
-body.navbar-active::before {
-    opacity: 1;
 }
 
 section {
@@ -169,65 +149,12 @@ a:hover {
 .navbar {
     background-color: var(--color-bg);
     border-bottom: none;
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
     z-index: 100;
     backdrop-filter: blur(20px);
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.8);
     box-shadow: var(--shadow-soft);
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
-    pointer-events: none;
-}
-
-.navbar.show {
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.navbar-trigger {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
-    z-index: 99;
-    cursor: pointer;
-    pointer-events: auto;
-}
-
-body {
-    padding-top: 0;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(3px);
-    z-index: 50;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease-in-out;
-}
-
-body.navbar-active::before {
-    opacity: 1;
-}
-
-body.navbar-active {
-    pointer-events: none;
-}
-
-body.navbar-active .navbar {
-    pointer-events: auto;
 }
 
 .navbar-content {
@@ -283,37 +210,34 @@ body.navbar-active .navbar {
 
 .hero {
     width: 100%;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--spacing-lg) 4rem var(--spacing-lg);
     text-align: center;
     box-sizing: border-box;
-    position: relative;
-    padding-top: 40px;
 }
 
 .hero .container {
     width: 100%;
-    height: 100%;
-    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .hero-content {
-    max-width: 900px;
-    padding: 2.5rem 3rem;
+    max-width: 620px;
+    margin: 6rem 0 0 0;
+    padding: 4rem 2.5rem;
     background-color: var(--color-surface);
     border-radius: 28px;
     box-shadow: var(--shadow-soft);
     transition: var(--transition);
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .hero-content:hover {
     box-shadow: var(--shadow-medium);
-    transform: translate(-50%, -50%) translateY(-2px);
+    transform: translateY(-4px);
 }
 
 .hero h1 {
@@ -381,7 +305,8 @@ body.navbar-active .navbar {
     background-color: #333333;
     border-color: #333333;
     color: var(--color-bg);
-    box-shadow: var(--shadow-medium);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
 }
 
 .btn-primary:active {
@@ -410,7 +335,7 @@ body.navbar-active .navbar {
 
 @media (max-width: 768px) {
     .hero-content {
-        margin: 0 auto;
+        margin: 2rem 0 0 0;
     }
 
     .hero h1 {
@@ -448,7 +373,6 @@ body.navbar-active .navbar {
 .about .container {
     max-width: 700px;
     background-color: transparent;
-    margin: 0 auto;
 }
 
 .about h2 {
@@ -468,7 +392,7 @@ body.navbar-active .navbar {
 
 .projects {
     width: 100%;
-    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -481,8 +405,6 @@ body.navbar-active .navbar {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
-    max-width: 900px;
-    margin: 0 auto;
 }
 
 .project-card {
@@ -499,7 +421,7 @@ body.navbar-active .navbar {
 
 .project-card:hover {
     box-shadow: var(--shadow-medium);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
 }
 
 .project-card h3 {
@@ -569,13 +491,12 @@ body.navbar-active .navbar {
 
 .interests {
     width: 100%;
-    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
 .interests>.container {
-    max-width: 900px;
-    margin: 0 auto;
+    text-align: center;
 }
 
 .interests h2 {
@@ -615,40 +536,34 @@ body.navbar-active .navbar {
 
 .hobbies {
     width: 100%;
-    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
 .hobbies h2 {
     margin-bottom: var(--spacing-xl);
-    text-align: left;
 }
 
 .hobbies-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
-    max-width: 100%;
-    margin: 0 auto;
-    width: 100%;
 }
 
 .hobby-card {
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
     border: none;
     border-radius: 16px;
     background-color: var(--color-bg);
     transition: var(--transition);
     box-shadow: var(--shadow-soft);
-    width: 100%;
-    min-width: 0;
 }
 
 .hobby-card:hover {
     box-shadow: var(--shadow-medium);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
 }
 
 .hobby-card h3 {
@@ -665,14 +580,13 @@ body.navbar-active .navbar {
     min-height: auto;
     min-width: 0;
     align-items: center;
-    justify-content: flex-start;
-    padding: var(--spacing-md);
+    justify-content: center;
+    padding: var(--spacing-xl);
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     border-radius: 12px;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: var(--shadow-inset);
-    width: 100%;
 }
 
 .hobby-showcase p {
@@ -683,10 +597,9 @@ body.navbar-active .navbar {
 
 .videos-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
     width: 100%;
-    margin: 0 auto;
 }
 
 .video-item {
@@ -695,7 +608,6 @@ body.navbar-active .navbar {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
-    min-width: 0;
 }
 
 .video-item iframe {
@@ -712,10 +624,9 @@ body.navbar-active .navbar {
 
 .cooking-gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
     width: 100%;
-    margin: 0 auto;
 }
 
 .dish-item {
@@ -724,7 +635,6 @@ body.navbar-active .navbar {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
-    min-width: 0;
 }
 
 .dish-item img {
@@ -738,7 +648,7 @@ body.navbar-active .navbar {
 
 .skills {
     width: 100%;
-    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -751,8 +661,6 @@ body.navbar-active .navbar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-xl);
-    max-width: 1000px;
-    margin: 0 auto;
 }
 
 .skill-category {
@@ -766,7 +674,7 @@ body.navbar-active .navbar {
 
 .skill-category:hover {
     box-shadow: var(--shadow-medium);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .skill-category h3 {
@@ -800,7 +708,6 @@ body.navbar-active .navbar {
     margin-bottom: var(--spacing-lg);
     border: none;
     padding-bottom: 0;
-    text-align: center;
 }
 
 .contact>.container>p:nth-of-type(1) {
@@ -972,29 +879,6 @@ body.navbar-active .navbar {
 
     .skill-category {
         padding: var(--spacing-md);
-    }
-
-    .hobbies {
-        padding: 1.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
-    }
-
-    .hobbies-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-lg);
-    }
-
-    .hobby-card {
-        padding: var(--spacing-md);
-    }
-
-    .hobby-showcase {
-        padding: var(--spacing-sm);
-    }
-
-    .videos-container,
-    .cooking-gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-md);
     }
 }
 
