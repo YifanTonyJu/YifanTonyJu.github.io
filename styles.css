@@ -258,7 +258,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 var(--spacing-lg);
+    margin-top: -30px;
+    padding-top: 30px;
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
     text-align: center;
     box-sizing: border-box;
 }
@@ -437,13 +440,13 @@ body {
 
 .projects {
     width: 100%;
-    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
 .projects h2 {
     margin-bottom: var(--spacing-xl);
-    text-align: center;
+    text-align: left;
 }
 
 .projects-grid {
@@ -538,17 +541,18 @@ body {
 
 .interests {
     width: 100%;
-    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
 .interests>.container {
-    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .interests h2 {
     margin-bottom: var(--spacing-lg);
-    text-align: center;
+    text-align: left;
 }
 
 .interests-grid {
@@ -583,13 +587,13 @@ body {
 
 .hobbies {
     width: 100%;
-    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
 .hobbies h2 {
     margin-bottom: var(--spacing-xl);
-    text-align: center;
+    text-align: left;
 }
 
 .hobbies-grid {
@@ -698,7 +702,7 @@ body {
 
 .skills {
     width: 100%;
-    padding: 2rem var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     box-sizing: border-box;
 }
 
@@ -760,6 +764,7 @@ body {
     margin-bottom: var(--spacing-lg);
     border: none;
     padding-bottom: 0;
+    text-align: center;
 }
 
 .contact>.container>p:nth-of-type(1) {
