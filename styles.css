@@ -180,10 +180,12 @@ a:hover {
     box-shadow: var(--shadow-soft);
     transform: translateY(-100%);
     transition: transform 0.3s ease-in-out;
+    pointer-events: none;
 }
 
 .navbar.show {
     transform: translateY(0);
+    pointer-events: auto;
 }
 
 .navbar-trigger {
@@ -191,14 +193,41 @@ a:hover {
     top: 0;
     left: 0;
     right: 0;
-    height: 20px;
+    height: 50px;
     z-index: 99;
     cursor: pointer;
     pointer-events: auto;
 }
 
 body {
-    padding-top: 30px;
+    padding-top: 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.navbar-active::before {
+    opacity: 1;
+}
+
+body.navbar-active {
+    pointer-events: none;
+}
+
+body.navbar-active .navbar {
+    pointer-events: auto;
 }
 
 .navbar-content {
@@ -254,38 +283,36 @@ body {
 
 .hero {
     width: 100%;
-    min-height: calc(100vh - 20px);
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: var(--spacing-lg);
-    padding-right: var(--spacing-lg);
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     text-align: center;
     box-sizing: border-box;
+    position: relative;
 }
 
 .hero .container {
     width: 100%;
-    display: flex;
-    justify-content: center;
+    height: 100%;
+    position: relative;
 }
 
 .hero-content {
-    max-width: 620px;
-    margin: 0 auto;
-    padding: 4rem 2.5rem;
+    max-width: 750px;
+    padding: 2.5rem 3rem;
     background-color: var(--color-surface);
     border-radius: 28px;
     box-shadow: var(--shadow-soft);
     transition: var(--transition);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .hero-content:hover {
     box-shadow: var(--shadow-medium);
-    transform: translateY(-4px);
+    transform: translate(-50%, -50%) translateY(-2px);
 }
 
 .hero h1 {
@@ -353,8 +380,7 @@ body {
     background-color: #333333;
     border-color: #333333;
     color: var(--color-bg);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
 }
 
 .btn-primary:active {
@@ -472,7 +498,7 @@ body {
 
 .project-card:hover {
     box-shadow: var(--shadow-medium);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
 }
 
 .project-card h3 {
@@ -618,7 +644,7 @@ body {
 
 .hobby-card:hover {
     box-shadow: var(--shadow-medium);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
 }
 
 .hobby-card h3 {
@@ -731,7 +757,7 @@ body {
 
 .skill-category:hover {
     box-shadow: var(--shadow-medium);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .skill-category h3 {

@@ -418,6 +418,14 @@
             body.classList.remove('navbar-active');
         }
 
+        // Initialize: hide navbar on page load
+        window.addEventListener('load', () => {
+            hideNavbar();
+        });
+        
+        // Also hide on DOMContentLoaded
+        hideNavbar();
+
         // Show navbar when mouse enters trigger area
         navbarTrigger.addEventListener('mouseenter', showNavbar);
         
