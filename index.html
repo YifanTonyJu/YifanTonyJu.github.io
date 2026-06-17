@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=7">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/JYF_logo.svg">
 </head>
 
@@ -411,23 +411,26 @@
         }
 
         function hideNavbar() {
-            navbarTimeout = setTimeout(() => {
-                navbar.classList.remove('show');
-            }, 3000);
+            clearTimeout(navbarTimeout);
+            navbar.classList.remove('show');
         }
 
+        // Show navbar when mouse enters trigger area
         navbarTrigger.addEventListener('mouseenter', showNavbar);
-        navbarTrigger.addEventListener('mouseleave', hideNavbar);
         
+        // Hide navbar when mouse leaves navbar
+        navbar.addEventListener('mouseleave', hideNavbar);
+        
+        // Keep navbar visible while hovering over it
         navbar.addEventListener('mouseenter', () => {
             clearTimeout(navbarTimeout);
         });
-        
-        navbar.addEventListener('mouseleave', hideNavbar);
 
-        // Navigation link click - keep navbar visible for 3 seconds
+        // Navigation link click - keep navbar visible briefly then hide
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', showNavbar);
+            item.addEventListener('click', () => {
+                navbarTimeout = setTimeout(hideNavbar, 2000);
+            });
         });
 
         // WeChat redirection function for mobile devices
