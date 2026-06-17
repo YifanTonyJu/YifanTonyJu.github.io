@@ -860,9 +860,12 @@ a:hover {
     }
 
     .about,
-    .interests,
-    .contact {
+    .interests {
         padding: 2.5rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
+    }
+
+    .contact {
+        padding: 3.5rem var(--spacing-md) var(--spacing-xl) var(--spacing-md);
     }
 
     .projects {
