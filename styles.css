@@ -961,14 +961,14 @@ a:hover {
 
     .about,
     .contact {
-        padding: 4rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: 2.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .projects,
     .interests,
     .skills,
     .hobbies {
-        padding: 4rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: 2.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .project-card,
