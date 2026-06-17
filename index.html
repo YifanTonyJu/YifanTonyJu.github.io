@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=129">
+    <link rel="stylesheet" href="styles.css?v=130">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/JYF_logo.svg">
 </head>
 
@@ -342,7 +342,7 @@
             <div class="contact-info">
                 <p><strong>Email:</strong> <a href="mailto:yifan.ju@mail.utoronto.ca">yifan.ju@mail.utoronto.ca</a></p>
                 <p><strong>GitHub:</strong> <a href="https://github.com/YifanTonyJu" target="_blank">github.com/YifanTonyJu</a></p>
-                <p><strong>WeChat:</strong> <a href="javascript:void(0);" class="wechat-link" onclick="openWeChat()" title="Open WeChat">twowheeljourney</a></p>
+                <p><strong>WeChat:</strong> <a href="javascript:void(0);" class="wechat-link" id="wechat-copy" onclick="copyWeChatID()" title="Click to copy">twowheeljourney</a></p>
                 <p><strong>Location:</strong> Toronto, Canada</p>
             </div>
         </div>
@@ -459,28 +459,45 @@
             }
         }, { passive: true });
 
-        // WeChat redirection function for mobile devices
-        function openWeChat() {
-            const userAgent = navigator.userAgent.toLowerCase();
-            const isMobile = /iphone|ipad|android|webos|blackberry|windows phone/.test(userAgent);
+        // Copy WeChat ID to clipboard
+        function copyWeChatID() {
+            const wechatId = 'twowheeljourney';
+            const wechatLink = document.getElementById('wechat-copy');
             
-            if (isMobile) {
-                // Try to open WeChat app
-                const wechatUrl = 'weixin://dl/chat?account=twowheeljourney';
-                window.location.href = wechatUrl;
+            // Use Clipboard API to copy
+            navigator.clipboard.writeText(wechatId).then(() => {
+                // Visual feedback: change text temporarily
+                const originalText = wechatLink.textContent;
+                wechatLink.textContent = '✓ Copied!';
+                wechatLink.style.color = '#4CAF50';
                 
-                // Fallback: if WeChat app not installed, show message after 2 seconds
+                // Restore original text after 2 seconds
                 setTimeout(() => {
-                    alert('Please add WeChat account: twowheeljourney\n\nIf WeChat app is not installed, please install it first.');
+                    wechatLink.textContent = originalText;
+                    wechatLink.style.color = '';
                 }, 2000);
-            } else {
-                // On desktop, show the WeChat account number
-                alert('Add me on WeChat:\nUsername: twowheeljourney\n\nPlease scan the QR code or search for my WeChat ID on your mobile device.');
-            }
+            }).catch(err => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = wechatId;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                // Visual feedback
+                const originalText = wechatLink.textContent;
+                wechatLink.textContent = '✓ Copied!';
+                wechatLink.style.color = '#4CAF50';
+                setTimeout(() => {
+                    wechatLink.textContent = originalText;
+                    wechatLink.style.color = '';
+                }, 2000);
+            });
         }
     </script>
 
-    <script src="yj-assistant.js?v=129"></script>
+    <script src="yj-assistant.js?v=130"></script>
 
     <script>
         // Section Navigation System
