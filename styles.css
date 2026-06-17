@@ -1066,9 +1066,12 @@ a:hover {
     .projects,
     .interests,
     .skills,
-    .contact,
     .hobbies {
         padding: 2.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+    }
+
+    .contact {
+        padding: 3.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .project-card {
