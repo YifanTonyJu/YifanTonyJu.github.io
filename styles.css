@@ -227,7 +227,7 @@ a:hover {
 
 .hero-content {
     max-width: 620px;
-    margin: auto 0;
+    margin: 0;
     padding: 4rem 2.5rem;
     background-color: var(--color-surface);
     border-radius: 28px;
