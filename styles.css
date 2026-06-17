@@ -84,7 +84,6 @@ body::before {
 
 body.navbar-active::before {
     opacity: 1;
-    pointer-events: auto;
 }
 
 section {
@@ -192,9 +191,10 @@ a:hover {
     top: 0;
     left: 0;
     right: 0;
-    height: 30px;
+    height: 20px;
     z-index: 99;
     cursor: pointer;
+    pointer-events: auto;
 }
 
 body {
@@ -254,14 +254,15 @@ body {
 
 .hero {
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 20px);
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -30px;
-    padding-top: 30px;
     padding-left: var(--spacing-lg);
     padding-right: var(--spacing-lg);
+    padding-top: 4rem;
+    padding-bottom: 4rem;
     text-align: center;
     box-sizing: border-box;
 }
