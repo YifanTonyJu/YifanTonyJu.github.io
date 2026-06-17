@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=8">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/JYF_logo.svg">
 </head>
 
@@ -403,16 +403,19 @@
         // Navbar hide/show functionality
         const navbar = document.getElementById('navbar');
         const navbarTrigger = document.getElementById('navbarTrigger');
+        const body = document.body;
         let navbarTimeout;
 
         function showNavbar() {
             navbar.classList.add('show');
+            body.classList.add('navbar-active');
             clearTimeout(navbarTimeout);
         }
 
         function hideNavbar() {
             clearTimeout(navbarTimeout);
             navbar.classList.remove('show');
+            body.classList.remove('navbar-active');
         }
 
         // Show navbar when mouse enters trigger area

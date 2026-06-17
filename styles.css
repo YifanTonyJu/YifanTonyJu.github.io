@@ -64,6 +64,27 @@ body {
     color: var(--color-text);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 98;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.navbar-active::before {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 section {
@@ -237,7 +258,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 var(--spacing-lg) 4rem var(--spacing-lg);
+    padding: 0 var(--spacing-lg);
     text-align: center;
     box-sizing: border-box;
 }
@@ -358,7 +379,7 @@ body {
 
 @media (max-width: 768px) {
     .hero-content {
-        margin: 2rem 0 0 0;
+        margin: 0 auto;
     }
 
     .hero h1 {
