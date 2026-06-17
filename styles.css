@@ -299,14 +299,14 @@ body.navbar-active .navbar {
 }
 
 .hero-content {
-    max-width: 900px;
+    max-width: 1000px;
     padding: 2.5rem 3rem;
     background-color: var(--color-surface);
     border-radius: 28px;
     box-shadow: var(--shadow-soft);
     transition: var(--transition);
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -318,11 +318,11 @@ body.navbar-active .navbar {
 
 .hero h1 {
     font-size: 3.5rem;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 1rem;
     font-weight: 700;
     color: var(--color-text);
     letter-spacing: -0.03em;
-    line-height: 1.1;
+    line-height: 1.2;
 }
 
 .subtitle {
@@ -926,20 +926,24 @@ body.navbar-active .navbar {
         justify-content: center;
     }
 
-    .hero-content {
+.hero-content {
         padding: 2rem 1.5rem;
-        max-width: 85%;
+        max-width: 90%;
         margin: 0 auto;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
     }
 
     .hero h1 {
         font-size: 1.8rem;
-        margin-bottom: var(--spacing-md);
+        margin-bottom: 0.8rem;
     }
 
     .subtitle {
