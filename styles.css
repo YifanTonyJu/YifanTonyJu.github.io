@@ -625,21 +625,24 @@ body.navbar-active .navbar {
 
 .hobbies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: var(--spacing-xl);
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
+    width: 100%;
 }
 
 .hobby-card {
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
     border: none;
     border-radius: 16px;
     background-color: var(--color-bg);
     transition: var(--transition);
     box-shadow: var(--shadow-soft);
+    width: 100%;
+    min-width: 0;
 }
 
 .hobby-card:hover {
@@ -661,13 +664,14 @@ body.navbar-active .navbar {
     min-height: auto;
     min-width: 0;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: var(--spacing-md);
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     border-radius: 12px;
     overflow: visible;
     box-shadow: var(--shadow-inset);
+    width: 100%;
 }
 
 .hobby-showcase p {
@@ -690,6 +694,7 @@ body.navbar-active .navbar {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
+    min-width: 0;
 }
 
 .video-item iframe {
@@ -718,6 +723,7 @@ body.navbar-active .navbar {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
+    min-width: 0;
 }
 
 .dish-item img {
@@ -965,6 +971,29 @@ body.navbar-active .navbar {
 
     .skill-category {
         padding: var(--spacing-md);
+    }
+
+    .hobbies {
+        padding: 1.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+    }
+
+    .hobbies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+
+    .hobby-card {
+        padding: var(--spacing-md);
+    }
+
+    .hobby-showcase {
+        padding: var(--spacing-sm);
+    }
+
+    .videos-container,
+    .cooking-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
     }
 }
 
