@@ -21,9 +21,12 @@ class YJAssistant {
       this.recognition.continuous = false;
       this.recognition.interimResults = true;
       this.recognition.lang = 'en-US';
+      this.voiceRetryCount = 0;
+      this.maxVoiceRetries = 2;
 
       this.recognition.onstart = () => {
         this.voiceBtn.classList.add('listening');
+        console.log('Voice input started');
       };
 
       this.recognition.onresult = (event) => {
@@ -31,32 +34,59 @@ class YJAssistant {
         for (let i = event.resultIndex; i < event.results.length; i++) {
           transcript += event.results[i][0].transcript;
         }
-        this.inputField.value = transcript;
+        if (transcript.trim()) {
+          this.inputField.value = transcript;
+        }
       };
 
       this.recognition.onend = () => {
         this.voiceBtn.classList.remove('listening');
+        console.log('Voice input ended');
       };
 
       this.recognition.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
         this.voiceBtn.classList.remove('listening');
+        
         // Show error message based on error type
         let errorMsg = 'Voice input error: ';
+        let shouldRetry = false;
+        
         switch(event.error) {
           case 'no-speech':
             errorMsg += 'No speech detected. Please try again.';
+            shouldRetry = true;
             break;
           case 'audio-capture':
-            errorMsg += 'No microphone found.';
+            errorMsg += 'No microphone found. Please check your microphone settings.';
             break;
           case 'network':
-            errorMsg += 'Network error.';
+            errorMsg += 'Network connection issue. Please check your internet connection and try again.';
+            shouldRetry = true;
+            break;
+          case 'not-allowed':
+            errorMsg += 'Microphone access denied. Please allow microphone access in your browser settings.';
             break;
           default:
             errorMsg += event.error;
         }
+        
         this.addMessage(errorMsg, false);
+        
+        // Auto-retry for certain errors
+        if (shouldRetry && this.voiceRetryCount < this.maxVoiceRetries) {
+          this.voiceRetryCount++;
+          console.log(`Retrying voice input (attempt ${this.voiceRetryCount}/${this.maxVoiceRetries})`);
+          setTimeout(() => {
+            try {
+              this.recognition.start();
+            } catch (e) {
+              console.error('Error restarting recognition:', e);
+            }
+          }, 500);
+        } else {
+          this.voiceRetryCount = 0;
+        }
       };
     } else {
       console.warn('Speech Recognition API not supported in this browser');
