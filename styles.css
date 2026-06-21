@@ -1448,11 +1448,20 @@ section.section-hidden {
 }
 
 /* Transcribing Indicator - GPT Style */
+.yj-transcribing-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
 .yj-transcribing {
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 0;
 }
 
 .yj-transcribing-bar {

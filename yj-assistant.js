@@ -71,6 +71,7 @@ YIFAN'S HOBBIES & INTERESTS:
     this.inputField = document.getElementById('yj-input');
     this.sendBtn = document.getElementById('yj-send');
     this.voiceBtn = document.getElementById('yj-voice');
+    this.transcribingIndicator = null; // Reference to transcribing indicator element
   }
 
   // Initialize audio recording using MediaRecorder API
@@ -228,12 +229,12 @@ YIFAN'S HOBBIES & INTERESTS:
       reader.onload = async () => {
         const base64Audio = reader.result.split(',')[1];
         
-        // Show transcribing state with GPT-style indicator
+        // Show transcribing state with GPT-style indicator in input area (not in chat)
         const transcribingDiv = document.createElement('div');
-        transcribingDiv.className = 'yj-message assistant';
+        transcribingDiv.className = 'yj-transcribing-input';
         transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
-        this.messagesContainer.appendChild(transcribingDiv);
-        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        this.inputField.parentNode.insertBefore(transcribingDiv, this.inputField);
+        this.transcribingIndicator = transcribingDiv;
 
         try {
           const response = await fetch('/api/transcribe', {
@@ -252,18 +253,27 @@ YIFAN'S HOBBIES & INTERESTS:
           
           if (data.success && data.text) {
             // Remove transcribing indicator
-            transcribingDiv.remove();
+            if (this.transcribingIndicator) {
+              this.transcribingIndicator.remove();
+              this.transcribingIndicator = null;
+            }
             
             // Fill input with transcribed text
             this.inputField.value = data.text;
             this.inputField.focus();
           } else {
-            transcribingDiv.remove();
+            if (this.transcribingIndicator) {
+              this.transcribingIndicator.remove();
+              this.transcribingIndicator = null;
+            }
             console.error('Transcription failed: No text received', data);
           }
         } catch (error) {
           console.error('Transcription error:', error);
-          transcribingDiv.remove();
+          if (this.transcribingIndicator) {
+            this.transcribingIndicator.remove();
+            this.transcribingIndicator = null;
+          }
         }
       };
       reader.readAsDataURL(audioBlob);
