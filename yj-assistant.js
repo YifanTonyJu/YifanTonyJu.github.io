@@ -8,105 +8,13 @@ class YJAssistant {
     this.conversationHistory = [];
     this.systemPrompt = this.buildSystemPrompt();
     this.initializeElements();
-    this.initializeSpeechRecognition();
+    this.initializeAudioRecording();
     this.setupEventListeners();
   }
 
-  // Initialize Web Speech API for voice recognition
-  initializeSpeechRecognition() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    
-    if (SpeechRecognition) {
-      this.recognition = new SpeechRecognition();
-      this.recognition.continuous = false;
-      this.recognition.interimResults = true;
-      this.recognition.lang = 'en-US';
-      this.voiceRetryCount = 0;
-      this.maxVoiceRetries = 2;
 
-      this.recognition.onstart = () => {
-        this.voiceBtn.classList.add('listening');
-        console.log('Voice input started');
-      };
 
-      this.recognition.onresult = (event) => {
-        let transcript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript;
-        }
-        if (transcript.trim()) {
-          this.inputField.value = transcript;
-        }
-      };
 
-      this.recognition.onend = () => {
-        this.voiceBtn.classList.remove('listening');
-        console.log('Voice input ended');
-      };
-
-      this.recognition.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
-        this.voiceBtn.classList.remove('listening');
-        
-        // Show error message based on error type
-        let errorMsg = 'Voice input error: ';
-        let shouldRetry = false;
-        
-        switch(event.error) {
-          case 'no-speech':
-            errorMsg += 'No speech detected. Please try again.';
-            shouldRetry = true;
-            break;
-          case 'audio-capture':
-            errorMsg += 'No microphone found. Please check your microphone settings.';
-            break;
-          case 'network':
-            errorMsg += 'Network connection issue. Please check your internet connection and try again.';
-            shouldRetry = true;
-            break;
-          case 'not-allowed':
-            errorMsg += 'Microphone access denied. Please allow microphone access in your browser settings.';
-            break;
-          default:
-            errorMsg += event.error;
-        }
-        
-        this.addMessage(errorMsg, false);
-        
-        // Auto-retry for certain errors
-        if (shouldRetry && this.voiceRetryCount < this.maxVoiceRetries) {
-          this.voiceRetryCount++;
-          console.log(`Retrying voice input (attempt ${this.voiceRetryCount}/${this.maxVoiceRetries})`);
-          setTimeout(() => {
-            try {
-              this.recognition.start();
-            } catch (e) {
-              console.error('Error restarting recognition:', e);
-            }
-          }, 500);
-        } else {
-          this.voiceRetryCount = 0;
-        }
-      };
-    } else {
-      console.warn('Speech Recognition API not supported in this browser');
-    }
-  }
-
-  // Toggle voice recording
-  toggleVoiceInput() {
-    if (!this.recognition) {
-      this.addMessage('Voice input is not supported in your browser. Try Chrome, Edge, or Safari.', false);
-      return;
-    }
-
-    if (this.voiceBtn.classList.contains('listening')) {
-      this.recognition.stop();
-    } else {
-      this.inputField.value = ''; // Clear input when starting new recognition
-      this.recognition.start();
-    }
-  }
 
   buildSystemPrompt() {
     return `You are YJ, an AI assistant created by Yifan Ju. You are NOT Yifan Ju yourself - you are his AI assistant. You are helpful, concise, and natural in your responses. You provide information about Yifan and assist with queries. 
@@ -165,6 +73,23 @@ YIFAN'S HOBBIES & INTERESTS:
     this.voiceBtn = document.getElementById('yj-voice');
   }
 
+  // Initialize audio recording using MediaRecorder API
+  initializeAudioRecording() {
+    this.mediaRecorder = null;
+    this.audioChunks = [];
+    this.isRecording = false;
+
+    // Check browser support
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !AudioContext) {
+      console.warn('Audio recording not supported in this browser');
+      if (this.voiceBtn) {
+        this.voiceBtn.disabled = true;
+        this.voiceBtn.title = 'Voice input not supported in this browser';
+      }
+    }
+  }
+
   setupEventListeners() {
     this.toggleBtn.addEventListener('click', () => this.toggleChat());
     this.closeBtn.addEventListener('click', () => this.toggleChat());
@@ -193,6 +118,124 @@ YIFAN'S HOBBIES & INTERESTS:
     
     this.messagesContainer.appendChild(messageDiv);
     this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+  }
+
+  // Toggle voice input recording
+  async toggleVoiceInput() {
+    if (this.isRecording) {
+      this.stopRecording();
+    } else {
+      await this.startRecording();
+    }
+  }
+
+  // Start recording audio
+  async startRecording() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      this.mediaRecorder = new MediaRecorder(stream);
+      this.audioChunks = [];
+      this.isRecording = true;
+
+      // Update UI
+      this.voiceBtn.classList.add('listening');
+
+      this.mediaRecorder.ondataavailable = (event) => {
+        this.audioChunks.push(event.data);
+      };
+
+      this.mediaRecorder.onstop = async () => {
+        this.isRecording = false;
+        this.voiceBtn.classList.remove('listening');
+        
+        // Create audio blob
+        const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
+        
+        // Send to backend for transcription
+        await this.transcribeAudio(audioBlob);
+      };
+
+      this.mediaRecorder.start();
+      console.log('Recording started');
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+      let errorMsg = 'Microphone error: ';
+      if (error.name === 'NotAllowedError') {
+        errorMsg += 'Microphone access denied. Please allow microphone access in your browser settings.';
+      } else if (error.name === 'NotFoundError') {
+        errorMsg += 'No microphone found on your device.';
+      } else {
+        errorMsg += error.message;
+      }
+      this.addMessage(errorMsg, false);
+      this.voiceBtn.classList.remove('listening');
+    }
+  }
+
+  // Stop recording audio
+  stopRecording() {
+    if (this.mediaRecorder && this.isRecording) {
+      this.mediaRecorder.stop();
+      // Stop all audio tracks
+      this.mediaRecorder.stream.getTracks().forEach(track => track.stop());
+      console.log('Recording stopped');
+    }
+  }
+
+  // Send audio to backend for transcription
+  async transcribeAudio(audioBlob) {
+    try {
+      // Convert blob to base64
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64Audio = reader.result.split(',')[1];
+        
+        // Show loading state
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'yj-message assistant loading';
+        loadingDiv.innerHTML = '<p><span class="dot"></span><span class="dot"></span><span class="dot"></span></p>';
+        this.messagesContainer.appendChild(loadingDiv);
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+
+        try {
+          const response = await fetch('/api/transcribe', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ audio: base64Audio })
+          });
+
+          if (!response.ok) {
+            throw new Error(`Transcription error: ${response.status}`);
+          }
+
+          const data = await response.json();
+          
+          if (data.success && data.text) {
+            // Remove loading indicator
+            loadingDiv.remove();
+            
+            // Fill input with transcribed text
+            this.inputField.value = data.text;
+            this.inputField.focus();
+            
+            this.addMessage(`Transcribed: "${data.text}"`, false);
+          } else {
+            loadingDiv.remove();
+            this.addMessage('Transcription failed: No text received', false);
+          }
+        } catch (error) {
+          console.error('Transcription error:', error);
+          loadingDiv.remove();
+          this.addMessage(`Transcription error: ${error.message}`, false);
+        }
+      };
+      reader.readAsDataURL(audioBlob);
+    } catch (error) {
+      console.error('Error preparing audio:', error);
+      this.addMessage('Error preparing audio for transcription', false);
+    }
   }
 
   async sendMessage() {
