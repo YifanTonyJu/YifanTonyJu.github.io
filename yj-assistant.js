@@ -229,9 +229,11 @@ YIFAN'S HOBBIES & INTERESTS:
       reader.onload = async () => {
         const base64Audio = reader.result.split(',')[1];
         
-        // Show transcribing state with GPT-style indicator in input area (not in chat)
+        // Hide input field and show transcribing indicator in its place
+        this.inputField.style.display = 'none';
+        
         const transcribingDiv = document.createElement('div');
-        transcribingDiv.className = 'yj-transcribing-input';
+        transcribingDiv.className = 'yj-transcribing-overlay';
         transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
         this.inputField.parentNode.insertBefore(transcribingDiv, this.inputField);
         this.transcribingIndicator = transcribingDiv;
@@ -252,11 +254,12 @@ YIFAN'S HOBBIES & INTERESTS:
           const data = await response.json();
           
           if (data.success && data.text) {
-            // Remove transcribing indicator
+            // Remove transcribing indicator and show input field
             if (this.transcribingIndicator) {
               this.transcribingIndicator.remove();
               this.transcribingIndicator = null;
             }
+            this.inputField.style.display = 'block';
             
             // Fill input with transcribed text
             this.inputField.value = data.text;
@@ -266,6 +269,7 @@ YIFAN'S HOBBIES & INTERESTS:
               this.transcribingIndicator.remove();
               this.transcribingIndicator = null;
             }
+            this.inputField.style.display = 'block';
             console.error('Transcription failed: No text received', data);
           }
         } catch (error) {
@@ -274,6 +278,7 @@ YIFAN'S HOBBIES & INTERESTS:
             this.transcribingIndicator.remove();
             this.transcribingIndicator = null;
           }
+          this.inputField.style.display = 'block';
         }
       };
       reader.readAsDataURL(audioBlob);
