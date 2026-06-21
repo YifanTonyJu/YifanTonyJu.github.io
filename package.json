@@ -4,6 +4,8 @@
   "description": "Personal website with YJ AI assistant",
   "private": true,
   "scripts": {
-    "dev": "vercel dev"
+    "dev": "vercel dev",
+    "logs": "node logs-monitor.js",
+    "logs:watch": "nodemon logs-monitor.js"
   }
 }

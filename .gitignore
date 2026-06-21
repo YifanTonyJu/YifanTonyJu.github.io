@@ -5,3 +5,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.vercel
+.env*
+vercel-logs.txt
+.logs-last-timestamp
