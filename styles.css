@@ -1447,6 +1447,45 @@ section.section-hidden {
     height: 20px;
 }
 
+/* Transcribing Indicator - GPT Style */
+.yj-transcribing {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.yj-transcribing-bar {
+    width: 3px;
+    height: 12px;
+    background: var(--color-gold);
+    border-radius: 2px;
+    animation: transcribe-wave 0.8s ease-in-out infinite;
+}
+
+.yj-transcribing-bar:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.yj-transcribing-bar:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.yj-transcribing-bar:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes transcribe-wave {
+    0%, 100% {
+        height: 12px;
+        opacity: 0.6;
+    }
+    50% {
+        height: 20px;
+        opacity: 1;
+    }
+}
+
 /* Scrollbar Styling */
 .yj-messages::-webkit-scrollbar {
     width: 6px;

@@ -115,11 +115,47 @@ YIFAN'S HOBBIES & INTERESTS:
     messageDiv.className = `yj-message ${isUser ? 'user' : 'assistant'}`;
     
     const p = document.createElement('p');
-    p.textContent = content;
+    
+    // Convert markdown to HTML only for assistant messages
+    if (!isUser) {
+      p.innerHTML = this.parseMarkdown(content);
+    } else {
+      p.textContent = content;
+    }
+    
     messageDiv.appendChild(p);
     
     this.messagesContainer.appendChild(messageDiv);
     this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+  }
+
+  // Parse basic markdown to HTML
+  parseMarkdown(text) {
+    // Escape HTML special characters first
+    text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    
+    // **bold** -> <strong>bold</strong>
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    
+    // *italic* or _italic_ -> <em>italic</em>
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    text = text.replace(/_(.*?)_/g, '<em>$1</em>');
+    
+    // ~~strikethrough~~ -> <del>strikethrough</del>
+    text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
+    
+    // `code` -> <code>code</code>
+    text = text.replace(/`([^`]*)`/g, '<code style="background: rgba(0,0,0,0.06); padding: 0 4px; border-radius: 3px; font-family: monospace; font-size: 0.9em;">$1</code>');
+    
+    // Line breaks
+    text = text.replace(/\n\n/g, '<br><br>');
+    text = text.replace(/\n/g, '<br>');
+    
+    // Lists: - item -> <li>item</li>
+    text = text.replace(/^\s*[-*]\s+(.+)$/gm, '<li>$1</li>');
+    text = text.replace(/(<li>.*?<\/li>)/s, '<ul style="margin: 8px 0 8px 20px; padding: 0;">$1</ul>');
+    
+    return text;
   }
 
   // Toggle voice input recording
@@ -192,11 +228,11 @@ YIFAN'S HOBBIES & INTERESTS:
       reader.onload = async () => {
         const base64Audio = reader.result.split(',')[1];
         
-        // Show loading state
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'yj-message assistant loading';
-        loadingDiv.innerHTML = '<p><span class="dot"></span><span class="dot"></span><span class="dot"></span></p>';
-        this.messagesContainer.appendChild(loadingDiv);
+        // Show transcribing state with GPT-style indicator
+        const transcribingDiv = document.createElement('div');
+        transcribingDiv.className = 'yj-message assistant';
+        transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
+        this.messagesContainer.appendChild(transcribingDiv);
         this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
 
         try {
@@ -215,19 +251,19 @@ YIFAN'S HOBBIES & INTERESTS:
           const data = await response.json();
           
           if (data.success && data.text) {
-            // Remove loading indicator
-            loadingDiv.remove();
+            // Remove transcribing indicator
+            transcribingDiv.remove();
             
             // Fill input with transcribed text
             this.inputField.value = data.text;
             this.inputField.focus();
           } else {
-            loadingDiv.remove();
+            transcribingDiv.remove();
             console.error('Transcription failed: No text received', data);
           }
         } catch (error) {
           console.error('Transcription error:', error);
-          loadingDiv.remove();
+          transcribingDiv.remove();
         }
       };
       reader.readAsDataURL(audioBlob);
