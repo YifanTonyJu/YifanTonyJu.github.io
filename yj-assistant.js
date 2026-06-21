@@ -8,7 +8,74 @@ class YJAssistant {
     this.conversationHistory = [];
     this.systemPrompt = this.buildSystemPrompt();
     this.initializeElements();
+    this.initializeSpeechRecognition();
     this.setupEventListeners();
+  }
+
+  // Initialize Web Speech API for voice recognition
+  initializeSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (SpeechRecognition) {
+      this.recognition = new SpeechRecognition();
+      this.recognition.continuous = false;
+      this.recognition.interimResults = true;
+      this.recognition.lang = 'en-US';
+
+      this.recognition.onstart = () => {
+        this.voiceBtn.classList.add('listening');
+      };
+
+      this.recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        this.inputField.value = transcript;
+      };
+
+      this.recognition.onend = () => {
+        this.voiceBtn.classList.remove('listening');
+      };
+
+      this.recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        this.voiceBtn.classList.remove('listening');
+        // Show error message based on error type
+        let errorMsg = 'Voice input error: ';
+        switch(event.error) {
+          case 'no-speech':
+            errorMsg += 'No speech detected. Please try again.';
+            break;
+          case 'audio-capture':
+            errorMsg += 'No microphone found.';
+            break;
+          case 'network':
+            errorMsg += 'Network error.';
+            break;
+          default:
+            errorMsg += event.error;
+        }
+        this.addMessage(errorMsg, false);
+      };
+    } else {
+      console.warn('Speech Recognition API not supported in this browser');
+    }
+  }
+
+  // Toggle voice recording
+  toggleVoiceInput() {
+    if (!this.recognition) {
+      this.addMessage('Voice input is not supported in your browser. Try Chrome, Edge, or Safari.', false);
+      return;
+    }
+
+    if (this.voiceBtn.classList.contains('listening')) {
+      this.recognition.stop();
+    } else {
+      this.inputField.value = ''; // Clear input when starting new recognition
+      this.recognition.start();
+    }
   }
 
   buildSystemPrompt() {
@@ -65,12 +132,14 @@ YIFAN'S HOBBIES & INTERESTS:
     this.messagesContainer = document.getElementById('yj-messages');
     this.inputField = document.getElementById('yj-input');
     this.sendBtn = document.getElementById('yj-send');
+    this.voiceBtn = document.getElementById('yj-voice');
   }
 
   setupEventListeners() {
     this.toggleBtn.addEventListener('click', () => this.toggleChat());
     this.closeBtn.addEventListener('click', () => this.toggleChat());
     this.sendBtn.addEventListener('click', () => this.sendMessage());
+    this.voiceBtn.addEventListener('click', () => this.toggleVoiceInput());
     this.inputField.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') this.sendMessage();
     });

@@ -1342,11 +1342,18 @@ section.section-hidden {
     border-radius: 0 0 12px 12px;
 }
 
-.yj-input {
+.yj-input-wrapper {
     flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.yj-input {
+    width: 100%;
     border: 1px solid var(--color-border);
     border-radius: 6px;
-    padding: 0.7rem 0.9rem;
+    padding: 0.7rem 2.8rem 0.7rem 0.9rem;
     font-family: var(--font-family);
     font-size: 0.95rem;
     outline: none;
@@ -1361,6 +1368,54 @@ section.section-hidden {
 
 .yj-input::placeholder {
     color: var(--color-text-weak);
+}
+
+.yj-voice {
+    position: absolute;
+    right: 0.5rem;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    color: var(--color-text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    padding: 0;
+}
+
+.yj-voice:hover {
+    background: rgba(0, 0, 0, 0.08);
+    transform: scale(1.1);
+}
+
+.yj-voice:active {
+    transform: scale(0.95);
+}
+
+.yj-voice.listening {
+    color: #FF6B6B;
+    animation: pulse-listening 1s infinite;
+}
+
+@keyframes pulse-listening {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.yj-voice svg {
+    width: 18px;
+    height: 18px;
 }
 
 .yj-send {
