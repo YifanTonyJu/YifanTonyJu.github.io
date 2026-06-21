@@ -219,8 +219,6 @@ YIFAN'S HOBBIES & INTERESTS:
             // Fill input with transcribed text
             this.inputField.value = data.text;
             this.inputField.focus();
-            
-            this.addMessage(`Transcribed: "${data.text}"`, false);
           } else {
             loadingDiv.remove();
             this.addMessage('Transcription failed: No text received', false);
