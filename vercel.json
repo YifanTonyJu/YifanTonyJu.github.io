@@ -6,6 +6,11 @@
       "methods": ["POST", "OPTIONS"]
     },
     {
+      "src": "/api/transcribe",
+      "dest": "/api/transcribe.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
       "src": "/(?!api/).*\\.(css|js)$",
       "dest": "/$1",
       "headers": {
