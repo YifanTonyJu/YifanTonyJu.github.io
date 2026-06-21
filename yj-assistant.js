@@ -78,10 +78,6 @@ YIFAN'S HOBBIES & INTERESTS:
     this.mediaRecorder = null;
     this.audioChunks = [];
     this.isRecording = false;
-    this.audioContext = null;
-    this.analyser = null;
-    this.animationId = null;
-    this.waveformCanvas = null;
 
     // Check browser support
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -94,64 +90,7 @@ YIFAN'S HOBBIES & INTERESTS:
     }
   }
 
-  // Create waveform visualization canvas
-  createWaveformCanvas() {
-    // Remove existing canvas if any
-    if (this.waveformCanvas) {
-      this.waveformCanvas.remove();
-      this.waveformCanvas = null;
-    }
 
-    // Create canvas element
-    const canvas = document.createElement('canvas');
-    canvas.className = 'yj-waveform-canvas';
-    canvas.width = 200;
-    canvas.height = 60;
-    
-    // Insert before input field
-    this.inputField.parentNode.insertBefore(canvas, this.inputField);
-    this.waveformCanvas = canvas;
-    
-    return canvas;
-  }
-
-  // Draw waveform on canvas
-  drawWaveform() {
-    if (!this.waveformCanvas || !this.analyser) return;
-
-    const canvas = this.waveformCanvas;
-    const ctx = canvas.getContext('2d');
-    const dataArray = new Uint8Array(this.analyser.frequencyBinCount);
-    this.analyser.getByteFrequencyData(dataArray);
-
-    // Clear canvas
-    ctx.fillStyle = 'rgba(255, 255, 255, 0)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Draw waveform bars
-    ctx.fillStyle = '#C2A46D';
-    ctx.strokeStyle = '#C2A46D';
-    ctx.lineWidth = 1;
-
-    const barWidth = (canvas.width / dataArray.length) * 2.5;
-    let x = 0;
-
-    for (let i = 0; i < dataArray.length; i++) {
-      const barHeight = (dataArray[i] / 255) * canvas.height;
-      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-      x += barWidth + 1;
-    }
-
-    this.animationId = requestAnimationFrame(() => this.drawWaveform());
-  }
-
-  // Stop waveform animation
-  stopWaveformAnimation() {
-    if (this.animationId) {
-      cancelAnimationFrame(this.animationId);
-      this.animationId = null;
-    }
-  }
 
   setupEventListeners() {
     this.toggleBtn.addEventListener('click', () => this.toggleChat());
@@ -203,18 +142,6 @@ YIFAN'S HOBBIES & INTERESTS:
       // Update UI
       this.voiceBtn.classList.add('listening');
 
-      // Create AudioContext for waveform visualization
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      this.audioContext = new AudioContext();
-      const source = this.audioContext.createMediaStreamSource(stream);
-      this.analyser = this.audioContext.createAnalyser();
-      this.analyser.fftSize = 256;
-      source.connect(this.analyser);
-
-      // Create and draw waveform canvas
-      this.createWaveformCanvas();
-      this.drawWaveform();
-
       this.mediaRecorder.ondataavailable = (event) => {
         this.audioChunks.push(event.data);
       };
@@ -222,13 +149,6 @@ YIFAN'S HOBBIES & INTERESTS:
       this.mediaRecorder.onstop = async () => {
         this.isRecording = false;
         this.voiceBtn.classList.remove('listening');
-        this.stopWaveformAnimation();
-        
-        // Remove waveform canvas
-        if (this.waveformCanvas) {
-          this.waveformCanvas.remove();
-          this.waveformCanvas = null;
-        }
         
         // Create audio blob
         const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
