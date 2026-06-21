@@ -21,10 +21,10 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // 自动调整参数
-    let maxTokens = 100;
-    const tokenIncrement = 50;
-    const maxAttempts = 5;
+    // 自动调整参数 - 优化参数以支持更长的内容
+    let maxTokens = 300;  // 初始值增加到300，适合400字文章
+    const tokenIncrement = 200;  // 每次增加更多token，加快收敛
+    const maxAttempts = 10;  // 增加尝试次数确保完整输出
     let lastMessage = '';
     
     // 循环调用，直到信息完整或达到最大尝试次数
@@ -53,9 +53,11 @@ module.exports = async function handler(req, res) {
       const finishReason = data.choices[0].finish_reason;
       
       lastMessage = assistantMessage;
+      console.log(`Attempt ${attempt + 1}: max_tokens=${maxTokens}, finish_reason=${finishReason}, length=${assistantMessage.length}`);
       
       // 如果正常完成（finish_reason === 'stop'），直接返回
       if (finishReason === 'stop') {
+        console.log(`✅ Response completed normally at attempt ${attempt + 1}`);
         return res.status(200).json({
           success: true,
           message: assistantMessage,
@@ -65,11 +67,12 @@ module.exports = async function handler(req, res) {
       // 如果因为 token 限制被截断（finish_reason === 'length'），增加 max_tokens 再试
       if (finishReason === 'length') {
         maxTokens += tokenIncrement;
-        console.log(`Response truncated, trying again with max_tokens: ${maxTokens}`);
+        console.log(`⏱️ Response truncated, retrying with max_tokens: ${maxTokens}`);
         continue;
       }
       
       // 其他 finish_reason，直接返回
+      console.log(`⚠️ Other finish_reason: ${finishReason}, returning at attempt ${attempt + 1}`);
       return res.status(200).json({
         success: true,
         message: assistantMessage,
@@ -77,6 +80,7 @@ module.exports = async function handler(req, res) {
     }
     
     // 超过最大尝试次数，返回最后的结果
+    console.log(`⚠️ Reached max attempts, returning last message with length: ${lastMessage.length}`);
     return res.status(200).json({
       success: true,
       message: lastMessage,

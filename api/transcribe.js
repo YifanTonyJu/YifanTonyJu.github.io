@@ -65,8 +65,7 @@ module.exports = async function handler(req, res) {
     // 添加 model 部分
     bodyParts.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="model"\r\n\r\nwhisper-1\r\n`));
     
-    // 添加 language 部分
-    bodyParts.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="language"\r\n\r\nen\r\n`));
+    // 移除 language 参数 - 让 Whisper 自动检测语言 (支持英文、中文等)
     
     // 结束边界
     bodyParts.push(Buffer.from(`--${boundary}--\r\n`));

@@ -1397,7 +1397,7 @@ section.section-hidden {
 }
 
 .yj-voice.listening {
-    color: #FF6B6B;
+    color: #C2A46D;
     animation: pulse-listening 1s infinite;
 }
 
@@ -1411,6 +1411,17 @@ section.section-hidden {
     100% {
         transform: scale(1);
     }
+}
+
+/* Waveform Canvas Visualization */
+.yj-waveform-canvas {
+    display: block;
+    width: 100%;
+    height: 60px;
+    margin-bottom: var(--spacing-sm);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(194, 164, 109, 0.08) 0%, rgba(194, 164, 109, 0.04) 100%);
+    border: 1px solid rgba(194, 164, 109, 0.2);
 }
 
 .yj-voice svg {
