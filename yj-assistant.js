@@ -223,18 +223,16 @@ YIFAN'S HOBBIES & INTERESTS:
             this.inputField.focus();
           } else {
             loadingDiv.remove();
-            this.addMessage('Transcription failed: No text received', false);
+            console.error('Transcription failed: No text received', data);
           }
         } catch (error) {
           console.error('Transcription error:', error);
           loadingDiv.remove();
-          this.addMessage(`Transcription error: ${error.message}`, false);
         }
       };
       reader.readAsDataURL(audioBlob);
     } catch (error) {
       console.error('Error preparing audio:', error);
-      this.addMessage('Error preparing audio for transcription', false);
     }
   }
 
