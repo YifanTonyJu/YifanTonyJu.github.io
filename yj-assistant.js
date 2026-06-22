@@ -268,11 +268,15 @@ YIFAN'S HOBBIES & INTERESTS:
     if (this.transcribingBars) {
       this.transcribingBars.forEach((bar, index) => {
         if (hasSound) {
-          // With sound: use frequency bands for varied animation
-          const bandSize = Math.floor(dataArray.length / this.transcribingBars.length);
-          const bandStart = index * bandSize;
-          const bandAvg = dataArray.slice(bandStart, bandStart + bandSize).reduce((a, b) => a + b) / bandSize;
-          const height = Math.max(4, Math.min(28, (bandAvg / 255) * 28)); // Min 4px, max 28px
+          // With sound: use overall volume with variation per bar
+          // Sample different parts of the frequency spectrum for variety
+          const sampleStep = Math.floor(dataArray.length / this.transcribingBars.length);
+          const sampleIndex = index * sampleStep;
+          const sampleValue = dataArray[sampleIndex] || average;
+          
+          // Combine overall average with specific frequency sample for better distribution
+          const blendedValue = (average * 0.6 + sampleValue * 0.4);
+          const height = Math.max(4, Math.min(28, (blendedValue / 255) * 28)); // Min 4px, max 28px
           bar.style.height = height + 'px';
         } else {
           // Without sound: flat dotted line (no animation, just static bars)
