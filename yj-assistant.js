@@ -186,7 +186,7 @@ YIFAN'S HOBBIES & INTERESTS:
       
       const transcribingDiv = document.createElement('div');
       transcribingDiv.className = 'yj-transcribing-overlay';
-      transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
+      transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
       this.inputField.parentNode.insertBefore(transcribingDiv, this.inputField);
       this.transcribingIndicator = transcribingDiv;
       this.transcribingBars = transcribingDiv.querySelectorAll('.yj-transcribing-bar');
@@ -262,16 +262,15 @@ YIFAN'S HOBBIES & INTERESTS:
     if (this.transcribingBars) {
       this.transcribingBars.forEach((bar, index) => {
         if (hasSound) {
-          // With sound: use 3 different frequency bands for varied animation
-          const bandSize = Math.floor(dataArray.length / 3);
+          // With sound: use frequency bands for varied animation
+          const bandSize = Math.floor(dataArray.length / this.transcribingBars.length);
           const bandStart = index * bandSize;
           const bandAvg = dataArray.slice(bandStart, bandStart + bandSize).reduce((a, b) => a + b) / bandSize;
           const height = Math.min(28, (bandAvg / 255) * 28); // Scale to max 28px
           bar.style.height = height + 'px';
         } else {
-          // Without sound: subtle breathing animation (like dotted lines)
-          const breatheHeight = 8 + Math.sin(Date.now() / 300 + index) * 3;
-          bar.style.height = breatheHeight + 'px';
+          // Without sound: flat dotted line (no animation, just static bars)
+          bar.style.height = '8px';
         }
       });
     }
