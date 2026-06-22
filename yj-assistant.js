@@ -79,6 +79,10 @@ YIFAN'S HOBBIES & INTERESTS:
     this.mediaRecorder = null;
     this.audioChunks = [];
     this.isRecording = false;
+    this.audioContext = null;
+    this.analyser = null;
+    this.animationFrameId = null;
+    this.transcribingBars = null;
 
     // Check browser support
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -185,6 +189,18 @@ YIFAN'S HOBBIES & INTERESTS:
       transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
       this.inputField.parentNode.insertBefore(transcribingDiv, this.inputField);
       this.transcribingIndicator = transcribingDiv;
+      this.transcribingBars = transcribingDiv.querySelectorAll('.yj-transcribing-bar');
+
+      // Setup Web Audio API for real-time frequency analysis
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      this.audioContext = new AudioContext();
+      const source = this.audioContext.createMediaStreamSource(stream);
+      this.analyser = this.audioContext.createAnalyser();
+      this.analyser.fftSize = 256;
+      source.connect(this.analyser);
+
+      // Start analyzing audio frequencies
+      this.analyzeAudioFrequencies();
 
       this.mediaRecorder.ondataavailable = (event) => {
         this.audioChunks.push(event.data);
@@ -193,6 +209,12 @@ YIFAN'S HOBBIES & INTERESTS:
       this.mediaRecorder.onstop = async () => {
         this.isRecording = false;
         this.voiceBtn.classList.remove('listening');
+        
+        // Stop frequency analysis
+        if (this.animationFrameId) {
+          cancelAnimationFrame(this.animationFrameId);
+          this.animationFrameId = null;
+        }
         
         // Create audio blob
         const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
@@ -223,6 +245,38 @@ YIFAN'S HOBBIES & INTERESTS:
       }
       this.inputField.style.display = 'block';
     }
+  }
+
+  // Analyze audio frequencies and update wave heights
+  analyzeAudioFrequencies() {
+    const dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteFrequencyData(dataArray);
+
+    // Calculate average frequency for overall volume level
+    const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
+    
+    // Determine if there's significant audio (threshold = 20)
+    const hasSound = average > 20;
+
+    // Update each bar height based on frequency data
+    if (this.transcribingBars) {
+      this.transcribingBars.forEach((bar, index) => {
+        if (hasSound) {
+          // With sound: use 3 different frequency bands for varied animation
+          const bandSize = Math.floor(dataArray.length / 3);
+          const bandStart = index * bandSize;
+          const bandAvg = dataArray.slice(bandStart, bandStart + bandSize).reduce((a, b) => a + b) / bandSize;
+          const height = Math.min(28, (bandAvg / 255) * 28); // Scale to max 28px
+          bar.style.height = height + 'px';
+        } else {
+          // Without sound: subtle breathing animation (like dotted lines)
+          const breatheHeight = 8 + Math.sin(Date.now() / 300 + index) * 3;
+          bar.style.height = breatheHeight + 'px';
+        }
+      });
+    }
+
+    this.animationFrameId = requestAnimationFrame(() => this.analyzeAudioFrequencies());
   }
 
   // Stop recording audio
