@@ -327,8 +327,8 @@ YIFAN'S HOBBIES & INTERESTS:
             }
             this.inputField.style.display = 'block';
             
-            // Append transcribed text to existing input (don't overwrite)
-            this.inputField.value += (this.inputField.value ? ' ' : '') + data.text;
+            // Append transcribed text to existing input (without space)
+            this.inputField.value += data.text;
             this.inputField.focus();
           } else {
             if (this.transcribingIndicator) {
