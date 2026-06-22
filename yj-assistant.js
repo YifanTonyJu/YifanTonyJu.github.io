@@ -176,8 +176,15 @@ YIFAN'S HOBBIES & INTERESTS:
       this.audioChunks = [];
       this.isRecording = true;
 
-      // Update UI
+      // Update UI - hide input field and show transcribing indicator
       this.voiceBtn.classList.add('listening');
+      this.inputField.style.display = 'none';
+      
+      const transcribingDiv = document.createElement('div');
+      transcribingDiv.className = 'yj-transcribing-overlay';
+      transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
+      this.inputField.parentNode.insertBefore(transcribingDiv, this.inputField);
+      this.transcribingIndicator = transcribingDiv;
 
       this.mediaRecorder.ondataavailable = (event) => {
         this.audioChunks.push(event.data);
@@ -190,7 +197,7 @@ YIFAN'S HOBBIES & INTERESTS:
         // Create audio blob
         const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
         
-        // Send to backend for transcription
+        // Send to backend for transcription (indicator already shown)
         await this.transcribeAudio(audioBlob);
       };
 
@@ -208,6 +215,13 @@ YIFAN'S HOBBIES & INTERESTS:
       }
       this.addMessage(errorMsg, false);
       this.voiceBtn.classList.remove('listening');
+      
+      // Clean up if there was an error
+      if (this.transcribingIndicator) {
+        this.transcribingIndicator.remove();
+        this.transcribingIndicator = null;
+      }
+      this.inputField.style.display = 'block';
     }
   }
 
@@ -229,14 +243,7 @@ YIFAN'S HOBBIES & INTERESTS:
       reader.onload = async () => {
         const base64Audio = reader.result.split(',')[1];
         
-        // Hide input field and show transcribing indicator in its place
-        this.inputField.style.display = 'none';
-        
-        const transcribingDiv = document.createElement('div');
-        transcribingDiv.className = 'yj-transcribing-overlay';
-        transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
-        this.inputField.parentNode.insertBefore(transcribingDiv, this.inputField);
-        this.transcribingIndicator = transcribingDiv;
+        // Indicator already shown from startRecording, just keep it during transcription
 
         try {
           const response = await fetch('/api/transcribe', {
@@ -284,6 +291,11 @@ YIFAN'S HOBBIES & INTERESTS:
       reader.readAsDataURL(audioBlob);
     } catch (error) {
       console.error('Error preparing audio:', error);
+      if (this.transcribingIndicator) {
+        this.transcribingIndicator.remove();
+        this.transcribingIndicator = null;
+      }
+      this.inputField.style.display = 'block';
     }
   }
 
