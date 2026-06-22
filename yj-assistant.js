@@ -272,7 +272,7 @@ YIFAN'S HOBBIES & INTERESTS:
           const bandSize = Math.floor(dataArray.length / this.transcribingBars.length);
           const bandStart = index * bandSize;
           const bandAvg = dataArray.slice(bandStart, bandStart + bandSize).reduce((a, b) => a + b) / bandSize;
-          const height = Math.min(28, (bandAvg / 255) * 28); // Scale to max 28px
+          const height = Math.max(4, Math.min(28, (bandAvg / 255) * 28)); // Min 4px, max 28px
           bar.style.height = height + 'px';
         } else {
           // Without sound: flat dotted line (no animation, just static bars)
