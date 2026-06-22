@@ -180,6 +180,12 @@ YIFAN'S HOBBIES & INTERESTS:
       this.audioChunks = [];
       this.isRecording = true;
 
+      // Clean up any previous transcribing indicator
+      if (this.transcribingIndicator) {
+        this.transcribingIndicator.remove();
+        this.transcribingIndicator = null;
+      }
+
       // Update UI - hide input field and show transcribing indicator
       this.voiceBtn.classList.add('listening');
       this.inputField.style.display = 'none';
