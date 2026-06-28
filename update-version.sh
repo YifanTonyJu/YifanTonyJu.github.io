@@ -12,7 +12,7 @@ sed -i '' "s/styles\.css?v=[0-9]*/styles.css?v=$COMMIT_COUNT/g" index.html
 echo "✅ CSS version updated"
 
 # Update JS version
-sed -i '' "s/yj-assistant\.js?v=[0-9]*/yj-assistant.js?v=$COMMIT_COUNT/g" index.html
+sed -i '' "s/pony-assistant\.js?v=[0-9]*/pony-assistant.js?v=$COMMIT_COUNT/g" index.html
 echo "✅ JS version updated"
 
 echo ""

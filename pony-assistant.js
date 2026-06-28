@@ -1,7 +1,7 @@
-// YJ Assistant - AI Chatbot
+// Pony Assistant - AI Chatbot
 // Communicates with backend API that safely handles OpenAI calls
 
-class YJAssistant {
+class PonyAssistant {
   constructor() {
     this.isOpen = false;
     this.isLoading = false;
@@ -17,7 +17,7 @@ class YJAssistant {
 
 
   buildSystemPrompt() {
-    return `You are YJ, an AI assistant created by Yifan Ju. You are NOT Yifan Ju yourself - you are his AI assistant. You are helpful, concise, and natural in your responses. You provide information about Yifan and assist with queries. 
+    return `You are Pony, an AI assistant created by Yifan Ju. You are NOT Yifan Ju yourself - you are his AI assistant. You are helpful, concise, and natural in your responses. You provide information about Yifan and assist with queries. 
 
 TONE & STYLE:
 - Be witty and humorous in your responses, with a preference for dry humor and subtle wit
@@ -64,13 +64,13 @@ YIFAN'S HOBBIES & INTERESTS:
   }
 
   initializeElements() {
-    this.toggleBtn = document.getElementById('yj-toggle');
-    this.closeBtn = document.getElementById('yj-close');
-    this.chatWindow = document.getElementById('yj-chat');
-    this.messagesContainer = document.getElementById('yj-messages');
-    this.inputField = document.getElementById('yj-input');
-    this.sendBtn = document.getElementById('yj-send');
-    this.voiceBtn = document.getElementById('yj-voice');
+    this.toggleBtn = document.getElementById('pony-toggle');
+    this.closeBtn = document.getElementById('pony-close');
+    this.chatWindow = document.getElementById('pony-chat');
+    this.messagesContainer = document.getElementById('pony-messages');
+    this.inputField = document.getElementById('pony-input');
+    this.sendBtn = document.getElementById('pony-send');
+    this.voiceBtn = document.getElementById('pony-voice');
     this.transcribingIndicator = null; // Reference to transcribing indicator element
   }
 
@@ -117,7 +117,7 @@ YIFAN'S HOBBIES & INTERESTS:
 
   addMessage(content, isUser) {
     const messageDiv = document.createElement('div');
-    messageDiv.className = `yj-message ${isUser ? 'user' : 'assistant'}`;
+    messageDiv.className = `pony-message ${isUser ? 'user' : 'assistant'}`;
     
     const p = document.createElement('p');
     
@@ -191,11 +191,11 @@ YIFAN'S HOBBIES & INTERESTS:
       this.inputField.style.display = 'none';
       
       const transcribingDiv = document.createElement('div');
-      transcribingDiv.className = 'yj-transcribing-overlay';
-      transcribingDiv.innerHTML = '<div class="yj-transcribing"><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div><div class="yj-transcribing-bar"></div></div>';
+      transcribingDiv.className = 'pony-transcribing-overlay';
+      transcribingDiv.innerHTML = '<div class="pony-transcribing"><div class="pony-transcribing-bar"></div><div class="pony-transcribing-bar"></div><div class="pony-transcribing-bar"></div><div class="pony-transcribing-bar"></div><div class="pony-transcribing-bar"></div></div>';
       this.inputField.parentNode.insertBefore(transcribingDiv, this.inputField);
       this.transcribingIndicator = transcribingDiv;
-      this.transcribingBars = transcribingDiv.querySelectorAll('.yj-transcribing-bar');
+      this.transcribingBars = transcribingDiv.querySelectorAll('.pony-transcribing-bar');
 
       // Setup Web Audio API for real-time frequency analysis
       const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -380,7 +380,7 @@ YIFAN'S HOBBIES & INTERESTS:
     // Show loading state
     this.isLoading = true;
     const loadingDiv = document.createElement('div');
-    loadingDiv.className = 'yj-message assistant loading';
+    loadingDiv.className = 'pony-message assistant loading';
     loadingDiv.innerHTML = '<p><span class="dot"></span><span class="dot"></span><span class="dot"></span></p>';
     this.messagesContainer.appendChild(loadingDiv);
     this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
@@ -444,7 +444,7 @@ YIFAN'S HOBBIES & INTERESTS:
   }
 }
 
-// Initialize YJ Assistant when DOM is ready
+// Initialize Pony Assistant when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  new YJAssistant();
+  new PonyAssistant();
 });

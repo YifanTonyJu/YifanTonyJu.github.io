@@ -1184,10 +1184,10 @@ section.section-hidden {
 }
 
 /* ==========================================
-   YJ AI Assistant
+   Pony AI Assistant
    ========================================== */
 
-#yj-assistant {
+#pony-assistant {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
@@ -1196,7 +1196,7 @@ section.section-hidden {
 }
 
 /* Toggle Button */
-.yj-toggle {
+.pony-toggle {
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -1212,23 +1212,23 @@ section.section-hidden {
     padding: 0;
 }
 
-.yj-toggle:hover {
+.pony-toggle:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     background: var(--color-bg-secondary);
 }
 
-.yj-toggle:active {
+.pony-toggle:active {
     transform: translateY(-2px);
 }
 
-.yj-toggle svg {
+.pony-toggle svg {
     width: 28px;
     height: 28px;
 }
 
 /* Chat Window */
-.yj-chat {
+.pony-chat {
     position: absolute;
     bottom: 80px;
     right: 0;
@@ -1246,14 +1246,14 @@ section.section-hidden {
     border: 1px solid var(--color-border);
 }
 
-.yj-chat.open {
+.pony-chat.open {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0) scale(1);
 }
 
 /* Header */
-.yj-header {
+.pony-header {
     padding: 1.25rem;
     border-bottom: 1px solid var(--color-border);
     display: flex;
@@ -1263,20 +1263,20 @@ section.section-hidden {
     border-radius: 12px 12px 0 0;
 }
 
-.yj-title {
+.pony-title {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
-.yj-name {
+.pony-name {
     font-weight: 600;
     font-size: 1rem;
     color: var(--color-text);
     letter-spacing: 0.5px;
 }
 
-.yj-status {
+.pony-status {
     font-size: 0.75rem;
     color: #22c55e;
     font-weight: 500;
@@ -1285,7 +1285,7 @@ section.section-hidden {
     border-radius: 4px;
 }
 
-.yj-close {
+.pony-close {
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -1300,12 +1300,12 @@ section.section-hidden {
     transition: var(--transition);
 }
 
-.yj-close:hover {
+.pony-close:hover {
     color: var(--color-text);
 }
 
 /* Messages Container */
-.yj-messages {
+.pony-messages {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
@@ -1315,16 +1315,16 @@ section.section-hidden {
     background: white;
 }
 
-.yj-message {
+.pony-message {
     display: flex;
     margin-bottom: 0.5rem;
 }
 
-.yj-message.user {
+.pony-message.user {
     justify-content: flex-end;
 }
 
-.yj-message p {
+.pony-message p {
     max-width: 80%;
     padding: 0.75rem 1rem;
     border-radius: 10px;
@@ -1334,19 +1334,19 @@ section.section-hidden {
     margin: 0;
 }
 
-.yj-message.user p {
+.pony-message.user p {
     background: var(--color-text);
     color: white;
     border-radius: 10px 4px 10px 10px;
 }
 
-.yj-message.assistant p {
+.pony-message.assistant p {
     background: var(--color-bg-secondary);
     color: var(--color-text);
     border-radius: 10px 10px 4px 10px;
 }
 
-.yj-message.loading p {
+.pony-message.loading p {
     display: flex;
     gap: 4px;
     align-items: center;
@@ -1380,7 +1380,7 @@ section.section-hidden {
 }
 
 /* Input Area */
-.yj-input-area {
+.pony-input-area {
     padding: 1rem;
     border-top: 1px solid var(--color-border);
     display: flex;
@@ -1389,14 +1389,14 @@ section.section-hidden {
     border-radius: 0 0 12px 12px;
 }
 
-.yj-input-wrapper {
+.pony-input-wrapper {
     flex: 1;
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.yj-input {
+.pony-input {
     width: 100%;
     border: 1px solid var(--color-border);
     border-radius: 6px;
@@ -1408,16 +1408,16 @@ section.section-hidden {
     background: white;
 }
 
-.yj-input:focus {
+.pony-input:focus {
     border-color: var(--color-text);
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
-.yj-input::placeholder {
+.pony-input::placeholder {
     color: var(--color-text-weak);
 }
 
-.yj-voice {
+.pony-voice {
     position: absolute;
     right: 0.5rem;
     width: 32px;
@@ -1434,16 +1434,16 @@ section.section-hidden {
     padding: 0;
 }
 
-.yj-voice:hover {
+.pony-voice:hover {
     background: rgba(0, 0, 0, 0.08);
     transform: scale(1.1);
 }
 
-.yj-voice:active {
+.pony-voice:active {
     transform: scale(0.95);
 }
 
-.yj-voice.listening {
+.pony-voice.listening {
     color: #C2A46D;
     animation: pulse-listening 1s infinite;
 }
@@ -1460,12 +1460,12 @@ section.section-hidden {
     }
 }
 
-.yj-voice svg {
+.pony-voice svg {
     width: 18px;
     height: 18px;
 }
 
-.yj-send {
+.pony-send {
     width: 40px;
     height: 40px;
     background: var(--color-text);
@@ -1480,22 +1480,22 @@ section.section-hidden {
     padding: 0;
 }
 
-.yj-send:hover {
+.pony-send:hover {
     background: var(--color-text-light);
     transform: translateY(-2px);
 }
 
-.yj-send:active {
+.pony-send:active {
     transform: translateY(0);
 }
 
-.yj-send svg {
+.pony-send svg {
     width: 20px;
     height: 20px;
 }
 
 /* Transcribing Indicator - GPT Style */
-.yj-transcribing-overlay {
+.pony-transcribing-overlay {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1506,14 +1506,14 @@ section.section-hidden {
     border: 1px solid var(--color-border);
 }
 
-.yj-transcribing {
+.pony-transcribing {
     display: flex;
     align-items: center;
     gap: 4px;
     padding: 0;
 }
 
-.yj-transcribing-bar {
+.pony-transcribing-bar {
     width: 3px;
     height: 12px;
     background: var(--color-gold);
@@ -1522,41 +1522,41 @@ section.section-hidden {
 }
 
 /* Scrollbar Styling */
-.yj-messages::-webkit-scrollbar {
+.pony-messages::-webkit-scrollbar {
     width: 6px;
 }
 
-.yj-messages::-webkit-scrollbar-track {
+.pony-messages::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.yj-messages::-webkit-scrollbar-thumb {
+.pony-messages::-webkit-scrollbar-thumb {
     background: var(--color-border);
     border-radius: 3px;
 }
 
-.yj-messages::-webkit-scrollbar-thumb:hover {
+.pony-messages::-webkit-scrollbar-thumb:hover {
     background: var(--color-text-light);
 }
 
-/* Responsive Design for YJ */
+/* Responsive Design for Pony */
 @media (max-width: 600px) {
-    #yj-assistant {
+    #pony-assistant {
         bottom: 1rem;
         right: 1rem;
     }
 
-    .yj-toggle {
+    .pony-toggle {
         width: 52px;
         height: 52px;
     }
 
-    .yj-toggle svg {
+    .pony-toggle svg {
         width: 26px;
         height: 26px;
     }
 
-    .yj-chat {
+    .pony-chat {
         width: calc(100vw - 2rem);
         max-width: 400px;
         max-height: calc(100vh - 120px);
