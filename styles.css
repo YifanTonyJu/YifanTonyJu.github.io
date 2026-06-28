@@ -1081,7 +1081,7 @@ a:hover {
     }
 
     .hero {
-        padding: 0.0075rem var(--spacing-md) 1.5rem var(--spacing-md);
+        padding: 0.01rem var(--spacing-md) 1.5rem var(--spacing-md);
     }
 
     .hero-content {
