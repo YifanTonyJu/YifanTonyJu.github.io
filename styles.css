@@ -971,7 +971,7 @@ a:hover {
     }
 
     .hero {
-        padding: 4rem var(--spacing-md) 2rem var(--spacing-md);
+        padding: 1.5rem var(--spacing-md) 2rem var(--spacing-md);
         min-height: auto;
     }
 
