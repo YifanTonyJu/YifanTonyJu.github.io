@@ -285,6 +285,13 @@ a:hover {
     .contact-label { font-size: 0.78rem; }
 }
 
+/* Push Get in Touch section further down on desktop for more spacing */
+@media (min-width: 769px) {
+    #contact {
+        margin-top: 2.5rem; /* adjust this value to 2rem or 3rem as needed */
+    }
+}
+
 /* Hide default focus outline but keep accessible focus state */
 .contact-button:focus {
     outline: none;
