@@ -298,11 +298,11 @@ a:hover {
 }
 
 #contact h2 {
-    margin-bottom: var(--spacing-md); /* 1.5rem */
+    margin-bottom: 1rem; /* unified spacing: 1rem */
 }
 
 #contact > p {
-    margin-bottom: var(--spacing-md); /* 1.5rem */
+    margin-bottom: 1rem; /* unified spacing: 1rem */
 }
 
 #contact .contact-info {
