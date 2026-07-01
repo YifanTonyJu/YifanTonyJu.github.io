@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=192">
+    <link rel="stylesheet" href="styles.css?v=193">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=173">
 </head>
 
@@ -329,10 +329,49 @@
             <h2>Get in Touch</h2>
             <p>Feel free to reach out for opportunities, collaborations, or just to chat.</p>
             <div class="contact-info">
-                <p><strong>Email:</strong> <a href="mailto:yifan.ju@mail.utoronto.ca">yifan.ju@mail.utoronto.ca</a></p>
-                <p><strong>GitHub:</strong> <a href="https://github.com/YifanTonyJu" target="_blank">github.com/YifanTonyJu</a></p>
-                <p><strong>WeChat:</strong> <a href="javascript:void(0);" class="wechat-link" id="wechat-copy" onclick="copyWeChatID()" title="Click to copy">twowheeljourney</a></p>
-                <p><strong>Location:</strong> Toronto, Canada</p>
+                <!-- Icon-style contact buttons: GitHub, Email (obfuscated), WeChat (copy), Location -->
+                <div class="contact-icons">
+                    <div class="contact-item">
+                        <a class="contact-button" href="https://github.com/YifanTonyJu" target="_blank" title="GitHub" aria-label="GitHub">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 .297a12 12 0 00-3.79 23.4c.6.111.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.238 1.84 1.238 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.468-2.381 1.235-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.007-.322 3.3 1.23a11.5 11.5 0 016 0c2.29-1.552 3.295-1.23 3.295-1.23.654 1.653.243 2.873.12 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.102.814 2.222v3.293c0 .32.216.694.825.576A12 12 0 0012 .297z"/>
+                            </svg>
+                        </a>
+                        <div class="contact-label">GitHub</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <a class="contact-button" id="email-link" href="#" title="Send email" aria-label="Email">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </a>
+                        <div class="contact-label">Email</div>
+                    </div>
+
+                    <div class="contact-item wechat">
+                        <button class="contact-button" id="wechat-btn" title="Copy WeChat ID" aria-label="WeChat">
+                            <!-- User-provided WeChat SVG (adapted) -->
+                            <svg width="28" height="28" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path class="bg" fill="currentColor" d="M300 255c0 24.854-20.147 45-45 45H45c-24.854 0-45-20.146-45-45V45C0 20.147 20.147 0 45 0h210c24.853 0 45 20.147 45 45v210z"/>
+
+                                <g fill="#fff">
+
+                                <path d="M200.803 111.88c-24.213 1.265-45.268 8.605-62.362 25.188-17.271 16.754-25.155 37.284-23 62.734-9.464-1.172-18.084-2.462-26.753-3.192-2.994-.252-6.547.106-9.083 1.537-8.418 4.75-16.488 10.113-26.053 16.092 1.755-7.938 2.891-14.889 4.902-21.575 1.479-4.914.794-7.649-3.733-10.849-29.066-20.521-41.318-51.232-32.149-82.85 8.483-29.25 29.315-46.989 57.621-56.236 38.635-12.62 82.054.253 105.547 30.927 8.485 11.08 13.688 23.516 15.063 38.224zm-111.437-9.852c.223-5.783-4.788-10.993-10.74-11.167-6.094-.179-11.106 4.478-11.284 10.483-.18 6.086 4.475 10.963 10.613 11.119 6.085.154 11.186-4.509 11.411-10.435zm58.141-11.171c-5.974.11-11.022 5.198-10.916 11.004.109 6.018 5.061 10.726 11.204 10.652 6.159-.074 10.83-4.832 10.772-10.977-.051-6.032-4.981-10.79-11.06-10.679z"/>
+
+                                <path d="M255.201 262.83c-7.667-3.414-14.7-8.536-22.188-9.318-7.459-.779-15.3 3.524-23.104 4.322-23.771 2.432-45.067-4.193-62.627-20.432-33.397-30.89-28.625-78.254 10.014-103.568 34.341-22.498 84.704-14.998 108.916 16.219 21.129 27.24 18.646 63.4-7.148 86.284-7.464 6.623-10.15 12.073-5.361 20.804.884 1.612.985 3.653 1.498 5.689zm-87.274-84.499c4.881.005 8.9-3.815 9.085-8.636.195-5.104-3.91-9.385-9.021-9.406-5.06-.023-9.299 4.318-9.123 9.346.166 4.804 4.213 8.69 9.059 8.696zm56.261-18.022c-4.736-.033-8.76 3.844-8.953 8.629-.205 5.117 3.772 9.319 8.836 9.332 4.898.016 8.768-3.688 8.946-8.562.19-5.129-3.789-9.364-8.829-9.399z"/>
+
+                                </g>
+
+                            </svg>
+                        </button>
+                        <div class="contact-label">WeChat</div>
+                    </div>
+
+                    <!-- location removed per request -->
+                </div>
+                <!-- Small feedback area for copy/toast -->
+                <div id="contact-feedback" aria-live="polite" style="margin-top:0.6rem;color:var(--color-gold);font-weight:600;display:none;"></div>
             </div>
         </div>
     </section>
@@ -380,9 +419,20 @@
                         autocomplete="off"
                     />
                     <button id="pony-voice" class="pony-voice" title="Voice input">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"></path>
-                            <path d="M17 16.91c-1.48 1.46-3.51 2.37-5.77 2.37-2.26 0-4.29-.91-5.77-2.37M19 12c0 .91-.25 1.77-.69 2.51l1.46 1.46C21.54 14.5 22 13.08 22 11.5h-3zm-14 0c0-.91.25-1.77.69-2.51L4.23 7.03C2.46 8.5 2 9.92 2 11.5h3z"></path>
+                        <!-- Replaced microphone SVG with user-provided icon; paths use currentColor -->
+                        <svg width="24" height="24" viewBox="0 0 261.075 261.075" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <g>
+                            <g>
+                                <path style="fill:currentColor;" d="M126.855,174.05h5.744c22.447,0,40.641-18.194,40.641-40.641V40.641
+                                    C173.24,18.194,155.046,0,132.599,0h-5.744c-22.447,0-40.641,18.194-40.641,40.641v92.769
+                                    C86.215,155.856,104.408,174.05,126.855,174.05z"/>
+                                <path style="fill:currentColor;" d="M124.288,201.147v43.61H86.215c-4.504,0-8.159,3.65-8.159,8.159s3.655,8.159,8.159,8.159h92.464
+                                    c4.504,0,8.159-3.65,8.159-8.159s-3.655-8.159-8.159-8.159h-38.073v-43.823c34.832-3.138,63.262-34.44,63.262-71.208
+                                    c0-4.509-3.655-8.159-8.159-8.159s-8.159,3.65-8.159,8.159c0,29.92-24.122,55.201-52.672,55.201h-8.686
+                                    c-28.544,0-52.666-24.699-52.666-53.939c0-4.509-3.655-8.159-8.159-8.159s-8.159,3.65-8.159,8.159
+                                    C57.208,169.073,87.134,200.109,124.288,201.147z"/>
+                            </g>
+                        </g>
                         </svg>
                     </button>
                 </div>
@@ -456,42 +506,71 @@
             }
         }, { passive: true });
 
-        // Copy WeChat ID to clipboard
-        function copyWeChatID() {
+        // Contact icons behavior: decode email and bind mailto, and implement WeChat copy with feedback
+        (function(){
+            // Obfuscated email using percent-encoding to avoid plain text in HTML
+            const hexEmail = '%79%69%66%61%6e%2e%6a%75%40%6d%61%69%6c%2e%75%74%6f%72%6f%6e%74%6f%2e%63%61'; // yifan.ju@mail.utoronto.ca
+            const email = decodeURIComponent(hexEmail);
+
+            const emailLink = document.getElementById('email-link');
+            if (emailLink) {
+                // Show a friendly tooltip title that doesn't reveal email in markup
+                emailLink.title = 'Send email';
+                emailLink.addEventListener('click', function(e){
+                    e.preventDefault();
+                    window.location.href = 'mailto:' + email;
+                });
+            }
+
+            // WeChat copy behavior
+            const wechatBtn = document.getElementById('wechat-btn');
+            const feedback = document.getElementById('contact-feedback');
             const wechatId = 'twowheeljourney';
-            const wechatLink = document.getElementById('wechat-copy');
-            
-            // Use Clipboard API to copy
-            navigator.clipboard.writeText(wechatId).then(() => {
-                // Visual feedback: change text temporarily
-                const originalText = wechatLink.textContent;
-                wechatLink.textContent = '✓ Copied!';
-                wechatLink.style.color = '#4CAF50';
-                
-                // Restore original text after 2 seconds
-                setTimeout(() => {
-                    wechatLink.textContent = originalText;
-                    wechatLink.style.color = '';
+
+            function showFeedback(msg) {
+                if (!feedback) return;
+                feedback.textContent = msg;
+                feedback.style.display = 'block';
+                clearTimeout(feedback._timeout);
+                feedback._timeout = setTimeout(() => {
+                    feedback.style.display = 'none';
                 }, 2000);
-            }).catch(err => {
-                // Fallback for older browsers
-                const textarea = document.createElement('textarea');
-                textarea.value = wechatId;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                
-                // Visual feedback
-                const originalText = wechatLink.textContent;
-                wechatLink.textContent = '✓ Copied!';
-                wechatLink.style.color = '#4CAF50';
-                setTimeout(() => {
-                    wechatLink.textContent = originalText;
-                    wechatLink.style.color = '';
-                }, 2000);
+            }
+
+            if (wechatBtn) {
+                wechatBtn.addEventListener('click', async function(){
+                    try {
+                        await navigator.clipboard.writeText(wechatId);
+                        showFeedback('WeChat ID copied ✓');
+                    } catch (err) {
+                        // fallback
+                        const ta = document.createElement('textarea');
+                        ta.value = wechatId;
+                        document.body.appendChild(ta);
+                        ta.select();
+                        try { document.execCommand('copy'); showFeedback('WeChat ID copied ✓'); }
+                        catch(e) { showFeedback('Copy failed — please copy manually'); }
+                        document.body.removeChild(ta);
+                    }
+
+                    // briefly mark as activated (gold) for visual feedback
+                    wechatBtn.classList.add('activated');
+                    clearTimeout(wechatBtn._deact);
+                    wechatBtn._deact = setTimeout(() => {
+                        wechatBtn.classList.remove('activated');
+                    }, 3000);
+                });
+            }
+
+            // General: briefly show activated (gold) state for any contact button when clicked
+            document.querySelectorAll('.contact-item .contact-button').forEach(btn => {
+                btn.addEventListener('click', function(){
+                    btn.classList.add('activated');
+                    clearTimeout(btn._deact);
+                    btn._deact = setTimeout(() => btn.classList.remove('activated'), 3000);
+                });
             });
-        }
+        })();
     </script>
 
     <script src="pony-assistant.js?v=191"></script>

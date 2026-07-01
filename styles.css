@@ -205,6 +205,93 @@ a:hover {
 }
 
 /* ==========================================
+   Contact Icons - App-like layout
+   ========================================== */
+.contact-icons {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap; /* keep icons in one row */
+    overflow-x: auto; /* allow horizontal scroll on very small screens */
+    padding: 0.6rem 0;
+    width: 100%;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 84px;
+}
+
+
+.contact-item .contact-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-soft) 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-medium);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease;
+    color: #000; /* default icon color black */
+    cursor: pointer;
+}
+
+/* Ensure SVG fills use currentColor */
+.contact-item .contact-button svg { fill: currentColor; color: inherit; }
+
+.contact-item .contact-button:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: var(--shadow-large);
+}
+
+/* hover/focus should change icon color to gold (same for GitHub and Email and WeChat) */
+.contact-item .contact-button:hover,
+.contact-item .contact-button:focus {
+    color: var(--color-gold);
+}
+
+/* only change color on active/click or when explicitly activated */
+.contact-item .contact-button:active,
+.contact-item .contact-button.activated {
+    color: var(--color-gold);
+}
+
+/* WeChat uses same activation color (gold) when clicked per request */
+.contact-item.wechat .contact-button:active,
+.contact-item.wechat .contact-button.activated {
+    color: var(--color-gold);
+}
+
+.contact-label {
+    margin-top: 0.45rem;
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+    text-align: center;
+}
+
+.contact-location .location-text {
+    font-size: 0.92rem;
+    color: var(--color-text-light);
+}
+
+@media (max-width: 480px) {
+    .contact-item { width: 72px; }
+    .contact-button { width: 56px; height: 56px; border-radius: 14px; }
+    .contact-label { font-size: 0.78rem; }
+}
+
+/* Hide default focus outline but keep accessible focus state */
+.contact-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(194,164,109,0.12);
+}
+
+/* ==========================================
    Hero Section
    ========================================== */
 
