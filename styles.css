@@ -292,21 +292,17 @@ a:hover {
     }
 }
 
-/* Contact spacing: equal gap between heading, paragraph, and icons */
-#contact {
-    padding-top: 1rem; /* move the two lines slightly down */
-}
-
+/* Tighter spacing inside the contact section */
 #contact h2 {
-    margin-bottom: 1.5rem; /* equal gap */
+    margin-bottom: 0.8rem; /* reduce space below heading */
 }
 
 #contact > p {
-    margin-bottom: 1.5rem; /* equal gap between paragraph and icons */
+    margin-bottom: 1.5rem; /* move intro paragraph down by 1.5rem */
 }
 
 #contact .contact-info {
-    margin-top: 0; /* icons follow the paragraph spacing */
+    margin-top: 0.2rem; /* bring icons slightly closer */
 }
 
 /* Hide default focus outline but keep accessible focus state */
