@@ -298,7 +298,7 @@ a:hover {
 }
 
 #contact > p {
-    margin-bottom: 0.6rem; /* reduce space between intro paragraph and icons */
+    margin-bottom: 1.5rem; /* move intro paragraph down by 1.5rem */
 }
 
 #contact .contact-info {
