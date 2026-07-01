@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=203">
+    <link rel="stylesheet" href="styles.css?v=204">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=173">
 </head>
 
@@ -559,6 +559,8 @@
                     wechatBtn._deact = setTimeout(() => {
                         wechatBtn.classList.remove('activated');
                     }, 3000);
+                    // remove focus so :focus styles don't keep the icon highlighted
+                    try { wechatBtn.blur(); } catch (e) { /* ignore */ }
                 });
             }
 
@@ -568,6 +570,8 @@
                     btn.classList.add('activated');
                     clearTimeout(btn._deact);
                     btn._deact = setTimeout(() => btn.classList.remove('activated'), 3000);
+                    // ensure the element doesn't retain keyboard/mouse focus which keeps :focus styles
+                    try { btn.blur(); } catch (e) { /* ignore */ }
                 });
             });
         })();
