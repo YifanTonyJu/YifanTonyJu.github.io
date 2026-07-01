@@ -292,6 +292,19 @@ a:hover {
     }
 }
 
+/* Tighter spacing inside the contact section */
+#contact h2 {
+    margin-bottom: 0.8rem; /* reduce space below heading */
+}
+
+#contact > p {
+    margin-bottom: 0.6rem; /* reduce space between intro paragraph and icons */
+}
+
+#contact .contact-info {
+    margin-top: 0.2rem; /* bring icons slightly closer */
+}
+
 /* Hide default focus outline but keep accessible focus state */
 .contact-button:focus {
     outline: none;
