@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=214">
+    <link rel="stylesheet" href="styles.css?v=215">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=173">
 </head>
 
@@ -623,10 +623,10 @@
                 a.addEventListener('touchend', function(e){
                     e.preventDefault();
                     // ensure pressed state was visible on touchstart; now schedule a quick revert
-                    a.classList.add('activated');
-                    clearTimeout(a._deact);
-                    // quick revert so user sees the color return after lifting finger (desktop only)
                     if (!isTouchDevice) {
+                        a.classList.add('activated');
+                        clearTimeout(a._deact);
+                        // quick revert so user sees the color return after lifting finger (desktop only)
                         a._deact = setTimeout(() => { a.classList.remove('activated'); try{ a.blur(); }catch(e){} }, 150);
                         // delay navigation slightly so the visual revert is visible before navigating
                         const target = a.getAttribute('target');
