@@ -315,6 +315,17 @@ a:hover {
     box-shadow: 0 0 0 3px rgba(194,164,109,0.12);
 }
 
+/* On touch devices, avoid relying on :hover (prevents "first tap shows hover" issue) */
+@media (hover: none) and (pointer: coarse) {
+    .contact-item .contact-button:hover,
+    .contact-item .contact-button:focus {
+        /* keep visual stable on touch devices; activation handled in JS */
+        color: inherit;
+        transform: none;
+        box-shadow: var(--shadow-medium);
+    }
+}
+
 /* ==========================================
    Hero Section
    ========================================== */
