@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=211">
+    <link rel="stylesheet" href="styles.css?v=212">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=173">
 </head>
 
@@ -583,11 +583,11 @@
                     // briefly mark as activated (gold) for visual feedback
                     wechatBtn.classList.add('activated');
                     clearTimeout(wechatBtn._deact);
-                    // slightly longer timeout so user can see feedback
+                    // faster timeout for quicker revert (150ms)
                     wechatBtn._deact = setTimeout(() => {
                         wechatBtn.classList.remove('activated');
                         try { wechatBtn.blur(); } catch (e) { }
-                    }, 700);
+                    }, 150);
 
                     // remove activated state immediately when the user releases mouse/touch
                     const removeNow = () => {
@@ -599,6 +599,9 @@
                     };
                     window.addEventListener('mouseup', removeNow, { once: true });
                     window.addEventListener('touchend', removeNow, { once: true });
+                    // also support mouse press/release explicitly
+                    wechatBtn.addEventListener('mousedown', function(){ wechatBtn.classList.add('activated'); });
+                    wechatBtn.addEventListener('mouseup', function(){ clearTimeout(wechatBtn._deact); wechatBtn._deact = setTimeout(()=>{ wechatBtn.classList.remove('activated'); try{ wechatBtn.blur(); }catch(e){} }, 150); });
                 };
 
                 wechatBtn.addEventListener('click', handleWechat);
@@ -638,13 +641,17 @@
                     btn._deact = setTimeout(() => {
                         btn.classList.remove('activated');
                         try { btn.blur(); } catch (e) { }
-                    }, 700);
+                    }, 150);
                 });
 
                 // make touchstart give immediate pressed state (helps UX)
                 btn.addEventListener('touchstart', function(){
                     btn.classList.add('activated');
                 }, { passive: true });
+
+                // mouse press/release should match touch behavior
+                btn.addEventListener('mousedown', function(){ btn.classList.add('activated'); });
+                btn.addEventListener('mouseup', function(){ clearTimeout(btn._deact); btn._deact = setTimeout(()=>{ btn.classList.remove('activated'); try{ btn.blur(); }catch(e){} }, 150); });
 
                 // also remove activated on keyup (keyboard users)
                 btn.addEventListener('keyup', function(){
