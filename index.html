@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=209">
+    <link rel="stylesheet" href="styles.css?v=210">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=173">
 </head>
 
@@ -535,6 +535,11 @@
                     e.preventDefault();
                     window.location.href = 'mailto:' + email;
                 });
+                // On touch devices, open mail client on first tap (avoid hover-first behavior)
+                emailLink.addEventListener('touchend', function(e){
+                    e.preventDefault();
+                    window.location.href = 'mailto:' + email;
+                }, { passive: false });
             }
 
             // WeChat copy behavior
@@ -552,30 +557,37 @@
                 }, 2000);
             }
 
+            // central copy function reused for touch/click
+            async function copyWeChat() {
+                try {
+                    await navigator.clipboard.writeText(wechatId);
+                    showFeedback('WeChat ID copied ✓');
+                } catch (err) {
+                    // fallback
+                    const ta = document.createElement('textarea');
+                    ta.value = wechatId;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try { document.execCommand('copy'); showFeedback('WeChat ID copied ✓'); }
+                    catch(e) { showFeedback('Copy failed — please copy manually'); }
+                    document.body.removeChild(ta);
+                }
+            }
+
             if (wechatBtn) {
-                wechatBtn.addEventListener('click', async function(){
-                    try {
-                        await navigator.clipboard.writeText(wechatId);
-                        showFeedback('WeChat ID copied ✓');
-                    } catch (err) {
-                        // fallback
-                        const ta = document.createElement('textarea');
-                        ta.value = wechatId;
-                        document.body.appendChild(ta);
-                        ta.select();
-                        try { document.execCommand('copy'); showFeedback('WeChat ID copied ✓'); }
-                        catch(e) { showFeedback('Copy failed — please copy manually'); }
-                        document.body.removeChild(ta);
-                    }
+                // core handler used by both click and touch
+                const handleWechat = async function(e){
+                    if (e && e.preventDefault) e.preventDefault();
+                    await copyWeChat();
 
                     // briefly mark as activated (gold) for visual feedback
                     wechatBtn.classList.add('activated');
                     clearTimeout(wechatBtn._deact);
-                    // default short timeout (0.6s) for quicker revert
+                    // slightly longer timeout so user can see feedback
                     wechatBtn._deact = setTimeout(() => {
                         wechatBtn.classList.remove('activated');
                         try { wechatBtn.blur(); } catch (e) { }
-                    }, 150);
+                    }, 700);
 
                     // remove activated state immediately when the user releases mouse/touch
                     const removeNow = () => {
@@ -587,31 +599,53 @@
                     };
                     window.addEventListener('mouseup', removeNow, { once: true });
                     window.addEventListener('touchend', removeNow, { once: true });
-                });
+                };
+
+                wechatBtn.addEventListener('click', handleWechat);
+                wechatBtn.addEventListener('touchend', function(e){
+                    // prefer touch path on mobile — call handler directly and prevent duplicate click
+                    handleWechat(e);
+                }, { passive: false });
             }
 
-            // General: briefly show activated (gold) state for any contact button when clicked
-            document.querySelectorAll('.contact-item .contact-button').forEach(btn => {
+            // Make links open immediately on touch devices to avoid "first-tap shows hover" behavior
+            document.querySelectorAll('.contact-item a[href]').forEach(a => {
+                // ignore anchors with javascript-like hrefs
+                const href = a.getAttribute('href') || '';
+                if (!href || href === '#' || href.startsWith('javascript:')) return;
+
+                a.addEventListener('touchend', function(e){
+                    e.preventDefault();
+                    const target = a.getAttribute('target');
+                    if (target === '_blank') {
+                        window.open(href, '_blank');
+                    } else {
+                        window.location.href = href;
+                    }
+                    // brief visual feedback
+                    a.classList.add('activated');
+                    clearTimeout(a._deact);
+                    a._deact = setTimeout(() => { a.classList.remove('activated'); try{ a.blur(); }catch(e){} }, 700);
+                }, { passive: false });
+            });
+
+            // General: briefly show activated (gold) state for any contact button when clicked or touched
+            document.querySelectorAll('.contact-item .contact-button, .contact-item a').forEach(btn => {
+                // mouse click path
                 btn.addEventListener('click', function(){
                     btn.classList.add('activated');
                     clearTimeout(btn._deact);
-                    // shorter default timeout for faster visual reset
                     btn._deact = setTimeout(() => {
                         btn.classList.remove('activated');
                         try { btn.blur(); } catch (e) { }
-                    }, 150);
-
-                    // remove activated immediately on mouseup / touchend
-                    const removeNow = () => {
-                        clearTimeout(btn._deact);
-                        btn.classList.remove('activated');
-                        try { btn.blur(); } catch (e) { }
-                        window.removeEventListener('mouseup', removeNow);
-                        window.removeEventListener('touchend', removeNow);
-                    };
-                    window.addEventListener('mouseup', removeNow, { once: true });
-                    window.addEventListener('touchend', removeNow, { once: true });
+                    }, 700);
                 });
+
+                // make touchstart give immediate pressed state (helps UX)
+                btn.addEventListener('touchstart', function(){
+                    btn.classList.add('activated');
+                }, { passive: true });
+
                 // also remove activated on keyup (keyboard users)
                 btn.addEventListener('keyup', function(){
                     clearTimeout(btn._deact);
