@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=213">
+    <link rel="stylesheet" href="styles.css?v=214">
     <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=173">
 </head>
 
@@ -528,6 +528,7 @@
             const email = decodeURIComponent(hexEmail);
 
             const emailLink = document.getElementById('email-link');
+            const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
             if (emailLink) {
                 // Show a friendly tooltip title that doesn't reveal email in markup
                 emailLink.title = 'Send email';
@@ -580,14 +581,16 @@
                     if (e && e.preventDefault) e.preventDefault();
                     await copyWeChat();
 
-                    // briefly mark as activated (gold) for visual feedback
-                    wechatBtn.classList.add('activated');
-                    clearTimeout(wechatBtn._deact);
-                    // faster timeout for quicker revert (150ms)
-                    wechatBtn._deact = setTimeout(() => {
-                        wechatBtn.classList.remove('activated');
-                        try { wechatBtn.blur(); } catch (e) { }
-                    }, 150);
+                    // briefly mark as activated (gold) for visual feedback (desktop only)
+                    if (!isTouchDevice) {
+                        wechatBtn.classList.add('activated');
+                        clearTimeout(wechatBtn._deact);
+                        // faster timeout for quicker revert (150ms)
+                        wechatBtn._deact = setTimeout(() => {
+                            wechatBtn.classList.remove('activated');
+                            try { wechatBtn.blur(); } catch (e) { }
+                        }, 150);
+                    }
 
                     // remove activated state immediately when the user releases mouse/touch
                     const removeNow = () => {
@@ -622,41 +625,56 @@
                     // ensure pressed state was visible on touchstart; now schedule a quick revert
                     a.classList.add('activated');
                     clearTimeout(a._deact);
-                    // quick revert so user sees the color return after lifting finger
-                    a._deact = setTimeout(() => { a.classList.remove('activated'); try{ a.blur(); }catch(e){} }, 150);
-
-                    // delay navigation slightly so the visual revert is visible before navigating
-                    const target = a.getAttribute('target');
-                    setTimeout(() => {
-                        if (target === '_blank') {
-                            window.open(href, '_blank');
-                        } else {
-                            window.location.href = href;
-                        }
-                    }, 60);
+                    // quick revert so user sees the color return after lifting finger (desktop only)
+                    if (!isTouchDevice) {
+                        a._deact = setTimeout(() => { a.classList.remove('activated'); try{ a.blur(); }catch(e){} }, 150);
+                        // delay navigation slightly so the visual revert is visible before navigating
+                        const target = a.getAttribute('target');
+                        setTimeout(() => {
+                            if (target === '_blank') {
+                                window.open(href, '_blank');
+                            } else {
+                                window.location.href = href;
+                            }
+                        }, 60);
+                    } else {
+                        // on touch devices navigate immediately after short delay without animation
+                        const target = a.getAttribute('target');
+                        setTimeout(() => {
+                            if (target === '_blank') {
+                                window.open(href, '_blank');
+                            } else {
+                                window.location.href = href;
+                            }
+                        }, 10);
+                    }
                 }, { passive: false });
             });
 
             // General: briefly show activated (gold) state for any contact button when clicked or touched
             document.querySelectorAll('.contact-item .contact-button, .contact-item a').forEach(btn => {
-                // mouse click path
+                // mouse click path (desktop only for visual activation)
                 btn.addEventListener('click', function(){
-                    btn.classList.add('activated');
-                    clearTimeout(btn._deact);
-                    btn._deact = setTimeout(() => {
-                        btn.classList.remove('activated');
-                        try { btn.blur(); } catch (e) { }
-                    }, 150);
+                    if (!isTouchDevice) {
+                        btn.classList.add('activated');
+                        clearTimeout(btn._deact);
+                        btn._deact = setTimeout(() => {
+                            btn.classList.remove('activated');
+                            try { btn.blur(); } catch (e) { }
+                        }, 150);
+                    }
                 });
 
-                // make touchstart give immediate pressed state (helps UX)
+                // make touchstart give immediate pressed state (helps UX) - but skip visual activation on touch devices
                 btn.addEventListener('touchstart', function(){
-                    btn.classList.add('activated');
+                    if (!isTouchDevice) btn.classList.add('activated');
                 }, { passive: true });
 
-                // mouse press/release should match touch behavior
-                btn.addEventListener('mousedown', function(){ btn.classList.add('activated'); });
-                btn.addEventListener('mouseup', function(){ clearTimeout(btn._deact); btn._deact = setTimeout(()=>{ btn.classList.remove('activated'); try{ btn.blur(); }catch(e){} }, 150); });
+                // mouse press/release should match touch behavior (desktop only)
+                if (!isTouchDevice) {
+                    btn.addEventListener('mousedown', function(){ btn.classList.add('activated'); });
+                    btn.addEventListener('mouseup', function(){ clearTimeout(btn._deact); btn._deact = setTimeout(()=>{ btn.classList.remove('activated'); try{ btn.blur(); }catch(e){} }, 150); });
+                }
 
                 // also remove activated on keyup (keyboard users)
                 btn.addEventListener('keyup', function(){
