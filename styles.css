@@ -1308,8 +1308,8 @@ section.section-hidden {
 
 /* Toggle Button */
 .pony-toggle {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: white;
     color: var(--color-text);
@@ -1334,8 +1334,8 @@ section.section-hidden {
 }
 
 .pony-toggle svg {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
 }
 
 /* Chat Window */
@@ -1658,13 +1658,13 @@ section.section-hidden {
     }
 
     .pony-toggle {
-        width: 58px;
-        height: 58px;
+        width: 52px;
+        height: 52px;
     }
 
     .pony-toggle svg {
-        width: 30px;
-        height: 30px;
+        width: 26px;
+        height: 26px;
     }
 
     .pony-chat {
