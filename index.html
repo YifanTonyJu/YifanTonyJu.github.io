@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=229">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=229">
+    <link rel="stylesheet" href="styles.css?v=230">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=230">
 </head>
 
 <body>
@@ -521,41 +521,28 @@
             }
 
             if (wechatBtn) {
-                // core handler used by both click and touch
-                const handleWechat = async function(e){
-                    if (e && e.preventDefault) e.preventDefault();
+                // Handle WeChat button click/touch - just copy, animation is handled by generic listener below
+                wechatBtn.addEventListener('click', async function(e){
+                    e.preventDefault();
                     await copyWeChat();
-
-                    // briefly mark as activated (gold) for visual feedback (desktop only)
-                    if (!isTouchDevice) {
-                        wechatBtn.classList.add('activated');
-                        clearTimeout(wechatBtn._deact);
-                        // faster timeout for quicker revert (150ms)
-                        wechatBtn._deact = setTimeout(() => {
-                            wechatBtn.classList.remove('activated');
-                            try { wechatBtn.blur(); } catch (e) { }
-                        }, 150);
-                    }
-
-                    // remove activated state immediately when the user releases mouse/touch
-                    const removeNow = () => {
-                        clearTimeout(wechatBtn._deact);
+                });
+                
+                // On touch devices, show animation and copy
+                wechatBtn.addEventListener('touchend', async function(e){
+                    e.preventDefault();
+                    
+                    // Show activated state briefly
+                    wechatBtn.classList.add('activated');
+                    clearTimeout(wechatBtn._deact);
+                    wechatBtn._deact = setTimeout(() => {
                         wechatBtn.classList.remove('activated');
                         try { wechatBtn.blur(); } catch (e) { }
-                        window.removeEventListener('mouseup', removeNow);
-                        window.removeEventListener('touchend', removeNow);
-                    };
-                    window.addEventListener('mouseup', removeNow, { once: true });
-                    window.addEventListener('touchend', removeNow, { once: true });
-                    // also support mouse press/release explicitly
-                    wechatBtn.addEventListener('mousedown', function(){ wechatBtn.classList.add('activated'); });
-                    wechatBtn.addEventListener('mouseup', function(){ clearTimeout(wechatBtn._deact); wechatBtn._deact = setTimeout(()=>{ wechatBtn.classList.remove('activated'); try{ wechatBtn.blur(); }catch(e){} }, 150); });
-                };
-
-                wechatBtn.addEventListener('click', handleWechat);
-                wechatBtn.addEventListener('touchend', function(e){
-                    // prefer touch path on mobile — call handler directly and prevent duplicate click
-                    handleWechat(e);
+                    }, 150);
+                    
+                    // Copy after brief delay to let animation show
+                    setTimeout(async () => {
+                        await copyWeChat();
+                    }, 60);
                 }, { passive: false });
             }
 
@@ -640,7 +627,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=229"></script>
+    <script src="pony-assistant.js?v=230"></script>
 
     <script>
         // Section Navigation System
