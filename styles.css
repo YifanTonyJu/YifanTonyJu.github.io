@@ -842,7 +842,7 @@ a:hover {
 
 .app-icon-label { font-size: 0.95rem; color: var(--color-text-light); text-align: center; }
 
-.app-icon:hover { transform: translateY(-6px); box-shadow: var(--shadow-large); color: var(--color-gold); }
+.app-icon:hover { transform: translateY(-6px); box-shadow: var(--shadow-large); }
 
 /* Responsive grid for different screen sizes */
 @media (max-width: 1024px) {
