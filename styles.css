@@ -324,6 +324,12 @@ a:hover {
         transform: none;
         box-shadow: var(--shadow-medium);
     }
+
+    /* Allow activated state to show color change on touch devices */
+    .contact-item .contact-button:active,
+    .contact-item .contact-button.activated {
+        color: var(--color-gold);
+    }
 }
 
 /* ==========================================

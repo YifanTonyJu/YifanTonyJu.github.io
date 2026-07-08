@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=228">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=228">
+    <link rel="stylesheet" href="styles.css?v=229">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=229">
 </head>
 
 <body>
@@ -469,10 +469,22 @@
                     e.preventDefault();
                     window.location.href = 'mailto:' + email;
                 });
-                // On touch devices, open mail client on first tap (avoid hover-first behavior)
+                // On touch devices, open mail client on first tap with visual feedback
                 emailLink.addEventListener('touchend', function(e){
                     e.preventDefault();
-                    window.location.href = 'mailto:' + email;
+                    
+                    // Show activated state briefly
+                    emailLink.classList.add('activated');
+                    clearTimeout(emailLink._deact);
+                    emailLink._deact = setTimeout(() => {
+                        emailLink.classList.remove('activated');
+                        try { emailLink.blur(); } catch (e) { }
+                    }, 150);
+                    
+                    // Navigate after brief delay to let animation show
+                    setTimeout(() => {
+                        window.location.href = 'mailto:' + email;
+                    }, 60);
                 }, { passive: false });
             }
 
@@ -598,9 +610,18 @@
                     }
                 });
 
-                // make touchstart give immediate pressed state (helps UX) - but skip visual activation on touch devices
+                // make touchstart give immediate pressed state (helps UX) - now also works on touch devices
                 btn.addEventListener('touchstart', function(){
-                    if (!isTouchDevice) btn.classList.add('activated');
+                    btn.classList.add('activated');
+                }, { passive: true });
+
+                // touchend: remove activated state after touch
+                btn.addEventListener('touchend', function(){
+                    clearTimeout(btn._deact);
+                    btn._deact = setTimeout(()=>{ 
+                        btn.classList.remove('activated'); 
+                        try{ btn.blur(); }catch(e){} 
+                    }, 150);
                 }, { passive: true });
 
                 // mouse press/release should match touch behavior (desktop only)
@@ -619,7 +640,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=228"></script>
+    <script src="pony-assistant.js?v=229"></script>
 
     <script>
         // Section Navigation System
