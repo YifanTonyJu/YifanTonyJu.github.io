@@ -840,21 +840,11 @@ a:hover {
 .app-icon-badge img { width: 70%; height: 70%; object-fit: contain; display: block; }
 .app-icon-badge svg { width: 70%; height: 70%; object-fit: contain; display: block; fill: currentColor; color: inherit; }
 
-.hobby-logo { 
-    transition: color 180ms ease;
-}
-
 .app-icon-label { font-size: 0.95rem; color: var(--color-text-light); text-align: center; }
 
 .app-icon:hover { 
     transform: translateY(-6px); 
     box-shadow: var(--shadow-large);
-    color: var(--color-gold);
-}
-
-/* Touch device activation state for hobby icons */
-.app-icon.activated,
-.app-icon:active {
     color: var(--color-gold);
 }
 
