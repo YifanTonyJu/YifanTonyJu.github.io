@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=239">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=239">
+    <link rel="stylesheet" href="styles.css?v=240">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=240">
 </head>
 
 <body>
@@ -784,12 +784,12 @@
                         icon._deact = setTimeout(() => {
                             icon.classList.remove('activated');
                             try { icon.blur(); } catch (e) { }
-                        }, 150);
+                        }, 100);
                         // navigate after brief delay like contact buttons do
                         setTimeout(() => {
                             const href = icon.getAttribute('href');
                             if (href) window.location.href = href;
-                        }, 60);
+                        }, 40);
                     }
                 });
 
@@ -798,31 +798,31 @@
                     icon.classList.add('activated');
                 }, { passive: true });
 
-                // touchend: remove activated state after touch - same timing as contact buttons
+                // touchend: remove activated state after touch - faster animation
                 icon.addEventListener('touchend', function(e){
                     e.preventDefault();
                     clearTimeout(icon._deact);
                     icon._deact = setTimeout(()=>{ 
                         icon.classList.remove('activated'); 
                         try{ icon.blur(); }catch(e){} 
-                    }, 150);
-                    // navigate immediately after touch (like contact buttons do at 60ms)
+                    }, 100);
+                    // navigate quickly after touch
                     setTimeout(() => {
                         const href = icon.getAttribute('href');
                         if (href) window.location.href = href;
-                    }, 60);
+                    }, 40);
                 }, { passive: false });
 
                 // mouse press/release should match touch behavior (desktop only)
                 if (!isTouchDevice) {
                     icon.addEventListener('mousedown', function(){ icon.classList.add('activated'); });
-                    icon.addEventListener('mouseup', function(){ clearTimeout(icon._deact); icon._deact = setTimeout(()=>{ icon.classList.remove('activated'); try{ icon.blur(); }catch(e){} }, 150); });
+                    icon.addEventListener('mouseup', function(){ clearTimeout(icon._deact); icon._deact = setTimeout(()=>{ icon.classList.remove('activated'); try{ icon.blur(); }catch(e){} }, 100); });
                 }
             });
         })();
     </script>
 
-    <script src="pony-assistant.js?v=239"></script>
+    <script src="pony-assistant.js?v=240"></script>
 
     <script>
         // Section Navigation System
