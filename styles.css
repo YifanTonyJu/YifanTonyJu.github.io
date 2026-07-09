@@ -852,6 +852,12 @@ a:hover {
     color: var(--color-gold);
 }
 
+/* Touch device activation state for hobby icons */
+.app-icon.activated,
+.app-icon:active {
+    color: var(--color-gold);
+}
+
 /* Responsive grid for different screen sizes */
 @media (max-width: 1024px) {
     .app-grid {

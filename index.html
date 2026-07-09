@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=235">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=235">
+    <link rel="stylesheet" href="styles.css?v=236">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=236">
 </head>
 
 <body>
@@ -772,10 +772,33 @@
                     try { btn.blur(); } catch (e) { }
                 });
             });
+
+            // Apply same activation behavior to hobby icons for touch devices
+            document.querySelectorAll('.app-icon').forEach(icon => {
+                // make touchstart give immediate pressed state
+                icon.addEventListener('touchstart', function(){
+                    icon.classList.add('activated');
+                }, { passive: true });
+
+                // touchend: remove activated state after touch
+                icon.addEventListener('touchend', function(){
+                    clearTimeout(icon._deact);
+                    icon._deact = setTimeout(()=>{ 
+                        icon.classList.remove('activated'); 
+                        try{ icon.blur(); }catch(e){} 
+                    }, 150);
+                }, { passive: true });
+
+                // mouse press/release should match touch behavior (desktop only)
+                if (!isTouchDevice) {
+                    icon.addEventListener('mousedown', function(){ icon.classList.add('activated'); });
+                    icon.addEventListener('mouseup', function(){ clearTimeout(icon._deact); icon._deact = setTimeout(()=>{ icon.classList.remove('activated'); try{ icon.blur(); }catch(e){} }, 150); });
+                }
+            });
         })();
     </script>
 
-    <script src="pony-assistant.js?v=235"></script>
+    <script src="pony-assistant.js?v=236"></script>
 
     <script>
         // Section Navigation System
