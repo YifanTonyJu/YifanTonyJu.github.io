@@ -820,7 +820,7 @@ a:hover {
     gap: 0.4rem;
     text-decoration: none;
     width: 100%;
-    transition: transform 180ms ease, box-shadow 180ms ease;
+    transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease;
     color: var(--color-text);
 }
 
@@ -838,11 +838,15 @@ a:hover {
 }
 
 .app-icon-badge img { width: 70%; height: 70%; object-fit: contain; display: block; }
-.app-icon-badge svg { width: 70%; height: 70%; object-fit: contain; display: block; }
+.app-icon-badge svg { width: 70%; height: 70%; object-fit: contain; display: block; fill: currentColor; }
 
 .app-icon-label { font-size: 0.95rem; color: var(--color-text-light); text-align: center; }
 
-.app-icon:hover { transform: translateY(-6px); box-shadow: var(--shadow-large); }
+.app-icon:hover { 
+    transform: translateY(-6px); 
+    box-shadow: var(--shadow-large);
+    color: var(--color-gold);
+}
 
 /* Responsive grid for different screen sizes */
 @media (max-width: 1024px) {
@@ -873,6 +877,15 @@ a:hover {
     .app-icon-badge { width: 55px; height: 55px; border-radius: 12px; }
     .app-icon-label { font-size: 0.8rem; }
     .app-icon { gap: 0.25rem; }
+}
+
+/* On touch devices, avoid relying on :hover (prevents "first tap shows hover" issue) */
+@media (hover: none) and (pointer: coarse) {
+    .app-icon:hover {
+        color: inherit;
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-large);
+    }
 }
 
 /* Fixed back-to-home button for hobby pages */
