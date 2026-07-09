@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=237">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=237">
+    <link rel="stylesheet" href="styles.css?v=238">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=238">
 </head>
 
 <body>
@@ -776,13 +776,17 @@
             // Apply same activation behavior to hobby icons for touch devices
             document.querySelectorAll('.app-icon').forEach(icon => {
                 // mouse click path (desktop only for visual activation)
-                icon.addEventListener('click', function(){
+                icon.addEventListener('click', function(e){
                     if (!isTouchDevice) {
+                        e.preventDefault();
                         icon.classList.add('activated');
                         clearTimeout(icon._deact);
                         icon._deact = setTimeout(() => {
                             icon.classList.remove('activated');
                             try { icon.blur(); } catch (e) { }
+                            // navigate after animation completes
+                            const href = icon.getAttribute('href');
+                            if (href) window.location.href = href;
                         }, 150);
                     }
                 });
@@ -793,13 +797,17 @@
                 }, { passive: true });
 
                 // touchend: remove activated state after touch
-                icon.addEventListener('touchend', function(){
+                icon.addEventListener('touchend', function(e){
+                    e.preventDefault();
                     clearTimeout(icon._deact);
                     icon._deact = setTimeout(()=>{ 
                         icon.classList.remove('activated'); 
                         try{ icon.blur(); }catch(e){} 
+                        // navigate after animation completes
+                        const href = icon.getAttribute('href');
+                        if (href) window.location.href = href;
                     }, 150);
-                }, { passive: true });
+                }, { passive: false });
 
                 // mouse press/release should match touch behavior (desktop only)
                 if (!isTouchDevice) {
@@ -810,7 +818,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=237"></script>
+    <script src="pony-assistant.js?v=238"></script>
 
     <script>
         // Section Navigation System
