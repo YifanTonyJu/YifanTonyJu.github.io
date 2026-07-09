@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=236">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=236">
+    <link rel="stylesheet" href="styles.css?v=237">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=237">
 </head>
 
 <body>
@@ -775,6 +775,18 @@
 
             // Apply same activation behavior to hobby icons for touch devices
             document.querySelectorAll('.app-icon').forEach(icon => {
+                // mouse click path (desktop only for visual activation)
+                icon.addEventListener('click', function(){
+                    if (!isTouchDevice) {
+                        icon.classList.add('activated');
+                        clearTimeout(icon._deact);
+                        icon._deact = setTimeout(() => {
+                            icon.classList.remove('activated');
+                            try { icon.blur(); } catch (e) { }
+                        }, 150);
+                    }
+                });
+
                 // make touchstart give immediate pressed state
                 icon.addEventListener('touchstart', function(){
                     icon.classList.add('activated');
@@ -798,7 +810,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=236"></script>
+    <script src="pony-assistant.js?v=237"></script>
 
     <script>
         // Section Navigation System
