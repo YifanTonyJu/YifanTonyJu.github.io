@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=241">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=241">
+    <link rel="stylesheet" href="styles.css?v=242">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=242">
 </head>
 
 <body>
@@ -784,12 +784,12 @@
                         icon._deact = setTimeout(() => {
                             icon.classList.remove('activated');
                             try { icon.blur(); } catch (e) { }
-                        }, 100);
+                        }, 150);
                         // navigate after animation completes so user sees the gold flash
                         setTimeout(() => {
                             const href = icon.getAttribute('href');
                             if (href) window.location.href = href;
-                        }, 110);
+                        }, 160);
                     }
                 });
 
@@ -805,24 +805,24 @@
                     icon._deact = setTimeout(()=>{ 
                         icon.classList.remove('activated'); 
                         try{ icon.blur(); }catch(e){} 
-                    }, 100);
+                    }, 150);
                     // navigate after animation so user sees the gold flash before leaving page
                     setTimeout(() => {
                         const href = icon.getAttribute('href');
                         if (href) window.location.href = href;
-                    }, 110);
+                    }, 160);
                 }, { passive: false });
 
                 // mouse press/release should match touch behavior (desktop only)
                 if (!isTouchDevice) {
                     icon.addEventListener('mousedown', function(){ icon.classList.add('activated'); });
-                    icon.addEventListener('mouseup', function(){ clearTimeout(icon._deact); icon._deact = setTimeout(()=>{ icon.classList.remove('activated'); try{ icon.blur(); }catch(e){} }, 100); });
+                    icon.addEventListener('mouseup', function(){ clearTimeout(icon._deact); icon._deact = setTimeout(()=>{ icon.classList.remove('activated'); try{ icon.blur(); }catch(e){} }, 150); });
                 }
             });
         })();
     </script>
 
-    <script src="pony-assistant.js?v=241"></script>
+    <script src="pony-assistant.js?v=242"></script>
 
     <script>
         // Section Navigation System
