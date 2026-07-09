@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=240">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=240">
+    <link rel="stylesheet" href="styles.css?v=241">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=241">
 </head>
 
 <body>
@@ -785,11 +785,11 @@
                             icon.classList.remove('activated');
                             try { icon.blur(); } catch (e) { }
                         }, 100);
-                        // navigate after brief delay like contact buttons do
+                        // navigate after animation completes so user sees the gold flash
                         setTimeout(() => {
                             const href = icon.getAttribute('href');
                             if (href) window.location.href = href;
-                        }, 40);
+                        }, 110);
                     }
                 });
 
@@ -798,7 +798,7 @@
                     icon.classList.add('activated');
                 }, { passive: true });
 
-                // touchend: remove activated state after touch - faster animation
+                // touchend: remove activated state after touch - wait for animation to complete
                 icon.addEventListener('touchend', function(e){
                     e.preventDefault();
                     clearTimeout(icon._deact);
@@ -806,11 +806,11 @@
                         icon.classList.remove('activated'); 
                         try{ icon.blur(); }catch(e){} 
                     }, 100);
-                    // navigate quickly after touch
+                    // navigate after animation so user sees the gold flash before leaving page
                     setTimeout(() => {
                         const href = icon.getAttribute('href');
                         if (href) window.location.href = href;
-                    }, 40);
+                    }, 110);
                 }, { passive: false });
 
                 // mouse press/release should match touch behavior (desktop only)
@@ -822,7 +822,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=240"></script>
+    <script src="pony-assistant.js?v=241"></script>
 
     <script>
         // Section Navigation System
