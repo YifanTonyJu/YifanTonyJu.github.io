@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=246">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=246">
+    <link rel="stylesheet" href="styles.css?v=247">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=247">
 </head>
 
 <body>
@@ -831,7 +831,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=246"></script>
+    <script src="pony-assistant.js?v=247"></script>
 
     <script>
         // Section Navigation System
@@ -888,18 +888,21 @@
                 e.preventDefault();
                 const sectionId = item.getAttribute('data-section');
                 showSection(sectionId);
-                // Update the address bar URL to reflect the current section
-                if (window.location.hash.substring(1) !== sectionId) {
-                    history.pushState(null, '', '#' + sectionId);
+                // Update the address bar URL to reflect the current section (no hash)
+                const newUrl = sectionId === 'hero'
+                    ? window.location.pathname
+                    : window.location.pathname + '?section=' + sectionId;
+                if (window.location.pathname + window.location.search !== newUrl) {
+                    history.pushState(null, '', newUrl);
                 }
             });
         });
         
-        // Show section on page load — prefer URL hash if present
+        // Show section on page load — prefer URL query param if present
         window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.substring(1);
-            if (hash && document.getElementById(hash)) {
-                showSection(hash);
+            const section = new URLSearchParams(window.location.search).get('section');
+            if (section && document.getElementById(section)) {
+                showSection(section);
             } else {
                 showSection('hero');
             }
@@ -907,8 +910,8 @@
         
         // Handle back/forward button navigation
         window.addEventListener('popstate', () => {
-            const hash = window.location.hash.substring(1) || 'hero';
-            showSection(hash);
+            const section = new URLSearchParams(window.location.search).get('section') || 'hero';
+            showSection(section);
         });
 
         // Intersection Observer for scroll animations (only for visible section)
