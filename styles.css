@@ -162,7 +162,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     gap: 2.5rem;
-    padding: 1.2rem var(--spacing-lg);
+    padding: 0.7rem var(--spacing-lg);
     flex-wrap: wrap;
     max-width: 900px;
     margin: 0 auto;
@@ -285,10 +285,189 @@ a:hover {
     .contact-label { font-size: 0.78rem; }
 }
 
-/* Push Get in Touch section further down on desktop for more spacing */
+/* ==========================================
+   Book a Meeting (Cal.com)
+   ========================================== */
+.contact-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 520px;
+    margin: 2rem auto 1.5rem;
+    color: var(--color-text-weak);
+}
+.contact-divider::before,
+.contact-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+}
+.contact-divider span {
+    font-size: 0.9rem;
+    color: var(--color-text-weak);
+}
+
+.meeting-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 1.6rem;
+    text-align: left;
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-soft) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    box-shadow: var(--shadow-medium);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.meeting-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-large);
+}
+
+.meeting-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface-soft);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: var(--color-gold);
+    align-self: flex-start;
+}
+
+.meeting-body {
+    flex: 1;
+    min-width: 0;
+}
+.meeting-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.15rem;
+    color: var(--color-text);
+}
+.meeting-desc {
+    margin: 0 0 0.9rem;
+    font-size: 0.92rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
+}
+.meeting-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+.meeting-option {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+.meeting-option-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 96px;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+.meeting-option-label svg {
+    color: var(--color-gold);
+    flex-shrink: 0;
+}
+.segmented {
+    display: inline-flex;
+    gap: 0.25rem;
+    padding: 3px;
+    background: var(--color-surface-soft);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+}
+.seg-btn {
+    border: none;
+    background: transparent;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.82rem;
+    font-family: inherit;
+    color: var(--color-text-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 160ms ease, color 160ms ease;
+}
+.seg-btn:hover {
+    color: var(--color-text);
+}
+.seg-btn.active {
+    background: var(--color-accent);
+    color: #fff;
+}
+
+.meeting-action {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+}
+.meeting-btn {
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 12px;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.meeting-btn:hover {
+    transform: translateY(-2px);
+    background: #1a1a1a;
+    box-shadow: var(--shadow-medium);
+}
+.meeting-btn:active {
+    transform: translateY(0);
+}
+.contact-info .meeting-powered {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    color: var(--color-text-weak);
+    text-decoration: none;
+}
+.contact-info .meeting-powered:hover {
+    color: var(--color-gold);
+}
+
+@media (max-width: 600px) {
+    .meeting-card {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    .meeting-icon {
+        align-self: center;
+    }
+    .meeting-details {
+        align-items: center;
+    }
+    .meeting-action {
+        width: 100%;
+    }
+    .meeting-btn {
+        width: 100%;
+    }
+}
+
+/* Keep Get in Touch close to the navbar on desktop */
 @media (min-width: 769px) {
     #contact {
-        margin-top: 2.5rem; /* adjust this value to 2rem or 3rem as needed */
+        margin-top: 2.5rem;
     }
 }
 
@@ -301,8 +480,8 @@ a:hover {
     margin-bottom: 1rem; /* unified spacing: 1rem */
 }
 
-#contact > p {
-    margin-bottom: 1rem; /* unified spacing: 1rem */
+#contact .container > p {
+    margin-bottom: 1rem; /* pull the subtitle down close to the card */
 }
 
 #contact .contact-info {
@@ -1007,7 +1186,7 @@ body > .back-home + .container {
 
 .contact {
     width: 100%;
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-2xl) var(--spacing-lg);
     text-align: center;
     box-sizing: border-box;
 }

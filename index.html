@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=244">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=244">
+    <link rel="stylesheet" href="styles.css?v=245">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=245">
 </head>
 
 <body>
@@ -453,6 +453,59 @@
                 </div>
                 <!-- Small feedback area for copy/toast -->
                 <div id="contact-feedback" aria-live="polite" style="margin-top:0.6rem;color:var(--color-gold);font-weight:600;display:none;"></div>
+
+                <!-- Divider -->
+                <div class="contact-divider"><span>or</span></div>
+
+                <!-- Book a Meeting card (Cal.com) -->
+                <div class="meeting-card">
+                    <div class="meeting-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div class="meeting-body">
+                        <h3 class="meeting-title">Book a Meeting</h3>
+                        <p class="meeting-desc">Schedule a video call with me.<br>Pick the options that work for you.</p>
+                        <div class="meeting-options">
+                            <div class="meeting-option">
+                                <span class="meeting-option-label" aria-hidden="true">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Duration</span>
+                                </span>
+                                <div class="segmented" id="duration-group" role="group" aria-label="Meeting duration">
+                                    <button type="button" class="seg-btn" data-duration="15">15 min</button>
+                                    <button type="button" class="seg-btn active" data-duration="40">40 min</button>
+                                    <button type="button" class="seg-btn" data-duration="60">60 min</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meeting-action">
+                        <!-- The data-cal-link is set dynamically from the selected options (see the Cal.com script). -->
+                        <button
+                            id="meeting-book-btn"
+                            class="meeting-btn"
+                            data-cal-link="yifanju/30min"
+                            data-cal-namespace="30min"
+                            data-cal-config='{"layout":"month_view"}'
+                        >Schedule a Time</button>
+                        <a class="meeting-powered" href="https://cal.com" target="_blank" rel="noopener">
+                            Powered by Cal.com
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -778,7 +831,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=244"></script>
+    <script src="pony-assistant.js?v=245"></script>
 
     <script>
         // Section Navigation System
@@ -894,6 +947,58 @@
                 }
             });
         }, { passive: true });
+    </script>
+
+    <!-- Cal.com embed (Book a Meeting) -->
+    <script type="text/javascript">
+        (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+        Cal("init", "30min", { origin: "https://cal.com" });
+        Cal.ns["30min"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+
+        // Interactive Book-a-Meeting options -> update Cal.com booking link/config
+        (function () {
+            // ===== Cal.com config: change to your own username =====
+            const CAL_USERNAME = "tonyju";
+            // Map each duration to the matching Cal.com event slug.
+            const DURATION_SLUGS = {
+                "15": CAL_USERNAME + "/quick-chat",
+                "40": CAL_USERNAME + "/normal-discussion",
+                "60": CAL_USERNAME + "/in-depth-meeting"
+            };
+            // ======================================================
+
+            const btn = document.getElementById("meeting-book-btn");
+            if (!btn) return;
+
+            const durationGroup = document.getElementById("duration-group");
+
+            const state = { duration: "40" };
+
+            function syncCal() {
+                const calLink = DURATION_SLUGS[state.duration] || DURATION_SLUGS["40"];
+                const config = {
+                    layout: "month_view"
+                };
+                btn.setAttribute("data-cal-link", calLink);
+                btn.setAttribute("data-cal-config", JSON.stringify(config));
+            }
+
+            function wireGroup(group, key) {
+                if (!group) return;
+                group.addEventListener("click", function (e) {
+                    const b = e.target.closest(".seg-btn");
+                    if (!b || !group.contains(b)) return;
+                    group.querySelectorAll(".seg-btn").forEach(function (x) { x.classList.remove("active"); });
+                    b.classList.add("active");
+                    state[key] = b.getAttribute("data-" + key);
+                    syncCal();
+                });
+            }
+
+            wireGroup(durationGroup, "duration");
+
+            syncCal();
+        })();
     </script>
 </body>
 
