@@ -292,9 +292,6 @@ a:hover {
         flex-wrap: wrap;
         padding: 0.2rem 0;
     }
-    .contact-divider {
-        margin: 1.2rem auto 1.2rem; /* tighten the large gap above/below "or" */
-    }
 }
 
 /* ==========================================
@@ -318,6 +315,13 @@ a:hover {
 .contact-divider span {
     font-size: 0.9rem;
     color: var(--color-text-weak);
+}
+
+/* Mobile: tighten the large gap above/below the "or" divider (placed after base rules to win) */
+@media (max-width: 480px) {
+    .contact-divider {
+        margin: 1.2rem auto 1.2rem;
+    }
 }
 
 .meeting-card {
@@ -1470,7 +1474,7 @@ body > .back-home + .container {
     }
 
     .contact {
-        padding: 3.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: 2rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .projects,
@@ -1574,7 +1578,7 @@ body > .back-home + .container {
     }
 
     .contact {
-        padding: 3.5rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+        padding: 2rem var(--spacing-md) var(--spacing-lg) var(--spacing-md);
     }
 
     .project-card {
