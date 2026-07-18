@@ -291,7 +291,7 @@ a:hover {
         overflow-x: visible; /* no scroll needed: 3 icons fit */
         flex-wrap: nowrap;
         padding: 0.2rem 0.25rem;
-        margin-top: 1rem; /* move the 3 icons down by one unit */
+        margin-top: 1.5rem; /* move the 3 icons down by one unit */
         width: 100%;
     }
     .contact-item {
