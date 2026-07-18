@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=245">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=245">
+    <link rel="stylesheet" href="styles.css?v=246">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=246">
 </head>
 
 <body>
@@ -831,7 +831,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=245"></script>
+    <script src="pony-assistant.js?v=246"></script>
 
     <script>
         // Section Navigation System
@@ -888,6 +888,10 @@
                 e.preventDefault();
                 const sectionId = item.getAttribute('data-section');
                 showSection(sectionId);
+                // Update the address bar URL to reflect the current section
+                if (window.location.hash.substring(1) !== sectionId) {
+                    history.pushState(null, '', '#' + sectionId);
+                }
             });
         });
         
