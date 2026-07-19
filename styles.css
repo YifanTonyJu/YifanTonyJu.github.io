@@ -339,15 +339,10 @@ a:hover {
     margin: 0 auto;
     padding: 1.6rem;
     text-align: left;
-    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-soft) 100%);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 18px;
-    box-shadow: var(--shadow-medium);
-    transition: transform 180ms ease, box-shadow 180ms ease;
-}
-.meeting-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-large);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .meeting-icon {
@@ -360,8 +355,12 @@ a:hover {
     justify-content: center;
     background: var(--color-surface-soft);
     border: 1px solid rgba(0, 0, 0, 0.06);
-    color: var(--color-gold);
+    color: var(--color-text);
     align-self: flex-start;
+    transition: color 180ms ease;
+}
+.meeting-icon:hover {
+    color: var(--color-gold);
 }
 
 .meeting-body {
@@ -399,7 +398,7 @@ a:hover {
     color: var(--color-text-light);
 }
 .meeting-option-label svg {
-    color: var(--color-gold);
+    color: var(--color-text);
     flex-shrink: 0;
 }
 .segmented {
@@ -425,7 +424,7 @@ a:hover {
     color: var(--color-text);
 }
 .seg-btn.active {
-    background: var(--color-accent);
+    background: var(--color-gold);
     color: #fff;
 }
 
@@ -449,7 +448,7 @@ a:hover {
 }
 .meeting-btn:hover {
     transform: translateY(-2px);
-    background: #1a1a1a;
+    background: var(--color-gold);
     box-shadow: var(--shadow-medium);
 }
 .meeting-btn:active {
