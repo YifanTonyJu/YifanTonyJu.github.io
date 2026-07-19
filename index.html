@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yifan (Tony) Ju - Personal Website</title>
     <meta name="description" content="Portfolio of Yifan (Tony) Ju - Computer Science Specialist passionate about robotics, systems programming, intelligent systems, and software engineering.">
-    <link rel="stylesheet" href="styles.css?v=256">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=256">
+    <link rel="stylesheet" href="styles.css?v=257">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=257">
 </head>
 
 <body>
@@ -480,8 +480,8 @@
                                     <span>Duration</span>
                                 </span>
                                 <div class="segmented" id="duration-group" role="group" aria-label="Meeting duration">
-                                    <button type="button" class="seg-btn" data-duration="15">15 min</button>
-                                    <button type="button" class="seg-btn active" data-duration="40">40 min</button>
+                                    <button type="button" class="seg-btn active" data-duration="15">15 min</button>
+                                    <button type="button" class="seg-btn" data-duration="40">40 min</button>
                                     <button type="button" class="seg-btn" data-duration="60">60 min</button>
                                 </div>
                             </div>
@@ -831,7 +831,7 @@
         })();
     </script>
 
-    <script src="pony-assistant.js?v=256"></script>
+    <script src="pony-assistant.js?v=257"></script>
 
     <script>
         // Section Navigation System
@@ -980,10 +980,10 @@
 
             const durationGroup = document.getElementById("duration-group");
 
-            const state = { duration: "40" };
+            const state = { duration: "15" };
 
             function syncCal() {
-                const calLink = DURATION_SLUGS[state.duration] || DURATION_SLUGS["40"];
+                const calLink = DURATION_SLUGS[state.duration] || DURATION_SLUGS["15"];
                 const config = {
                     layout: "month_view"
                 };
