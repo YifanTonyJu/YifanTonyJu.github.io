@@ -215,7 +215,7 @@ a:hover {
     flex-wrap: nowrap; /* keep icons in one row */
     overflow-x: auto; /* allow horizontal scroll on very small screens */
     padding: 0.6rem 0;
-    margin-top: 1.5rem; /* move the 3 icons down by one unit (desktop) */
+    margin-top: 2.25rem; /* move the 3 icons down by 1.5 units (desktop) */
     width: 100%;
 }
 
