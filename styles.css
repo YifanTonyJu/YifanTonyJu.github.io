@@ -1819,10 +1819,10 @@ section.section-hidden {
 }
 
 /* Assistant messages: ChatGPT/Claude style - no bubble, text sits directly on
-   the chat background, full width, only the copy button sits underneath. */
+   the chat background. Keep a chat-like line width (not full width). */
 .pony-message.assistant .markdown-body {
     width: auto;
-    max-width: 100%;
+    max-width: 82%;
     padding: 0;
     border-radius: 0;
     background: transparent;
