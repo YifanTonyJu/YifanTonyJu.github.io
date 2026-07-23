@@ -1791,10 +1791,12 @@ section.section-hidden {
     justify-content: flex-end;
 }
 
-/* Assistant messages stack the bubble and the copy button vertically */
+/* Assistant messages stack the bubble and the copy button vertically.
+   align-items: stretch (default) lets the bubble use the full row width so
+   text is not squeezed into a narrow column. */
 .pony-message.assistant {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .pony-message p {
@@ -1823,7 +1825,8 @@ section.section-hidden {
    The `.markdown-body` class comes from github-markdown-css; the rules below
    only adapt it (sizing/background) to fit inside the small chat bubble. */
 .pony-message.assistant .markdown-body {
-    max-width: 80%;
+    width: auto;
+    max-width: 92%;
     padding: 0.75rem 0.9rem;
     border-radius: 10px 10px 4px 10px;
     background: var(--color-bg-secondary);
@@ -1831,7 +1834,7 @@ section.section-hidden {
     font-size: 0.88rem;
     line-height: 1.55;
     word-wrap: break-word;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
 }
 
 /* Collapse GitHub's outer margins so the bubble hugs the content */
