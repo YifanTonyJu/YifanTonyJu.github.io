@@ -1818,19 +1818,21 @@ section.section-hidden {
     border-radius: 10px 4px 10px 10px;
 }
 
-/* Assistant messages: ChatGPT/Claude style - no bubble, text sits directly on
-   the chat background. Keep a chat-like line width (not full width). */
-.pony-message.assistant .markdown-body {
+/* Assistant messages: WeChat-style chat bubble with a subtle background.
+   Applies to both markdown-rendered replies and the plain-text welcome message. */
+.pony-message.assistant .markdown-body,
+.pony-message.assistant > p {
     width: auto;
     max-width: 82%;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px 10px 4px 10px;
+    background: var(--color-bg-secondary);
     color: var(--color-text);
     font-size: 0.88rem;
-    line-height: 1.6;
+    line-height: 1.55;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    margin: 0;
 }
 
 /* Collapse GitHub's outer margins so the bubble hugs the content */
