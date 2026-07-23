@@ -1778,13 +1778,13 @@ section.section-hidden {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1.35rem;
     background: white;
 }
 
 .pony-message {
     display: flex;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 .pony-message.user {
@@ -1818,24 +1818,17 @@ section.section-hidden {
     border-radius: 10px 4px 10px 10px;
 }
 
-.pony-message.assistant p {
-    background: var(--color-bg-secondary);
-    color: var(--color-text);
-    border-radius: 10px 10px 4px 10px;
-}
-
-/* Assistant markdown bubble - GitHub-style rendering (github-markdown-css).
-   The `.markdown-body` class comes from github-markdown-css; the rules below
-   only adapt it (sizing/background) to fit inside the small chat bubble. */
+/* Assistant messages: ChatGPT/Claude style - no bubble, text sits directly on
+   the chat background, full width, only the copy button sits underneath. */
 .pony-message.assistant .markdown-body {
     width: auto;
-    max-width: 92%;
-    padding: 0.75rem 0.9rem;
-    border-radius: 10px 10px 4px 10px;
+    max-width: 100%;
+    padding: 0;
+    border-radius: 0;
     background: transparent;
     color: var(--color-text);
     font-size: 0.88rem;
-    line-height: 1.55;
+    line-height: 1.6;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
