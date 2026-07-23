@@ -1791,6 +1791,12 @@ section.section-hidden {
     justify-content: flex-end;
 }
 
+/* Assistant messages stack the bubble and the copy button vertically */
+.pony-message.assistant {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .pony-message p {
     max-width: 80%;
     padding: 0.75rem 1rem;
@@ -1850,6 +1856,41 @@ section.section-hidden {
 .pony-message.assistant .markdown-body table {
     font-size: 0.85em;
     max-width: 100%;
+}
+
+/* ChatGPT-style copy button under each assistant message */
+.pony-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0 0 2px;
+    padding: 4px;
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-text-secondary, #6b7280);
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+/* Fully highlight on hover/focus of the message or button */
+.pony-message.assistant:hover .pony-copy-btn,
+.pony-copy-btn:hover,
+.pony-copy-btn:focus-visible,
+.pony-copy-btn.copied {
+    opacity: 1;
+}
+
+.pony-copy-btn:hover {
+    background: var(--color-bg-secondary, rgba(0, 0, 0, 0.06));
+    color: var(--color-text, #111);
+}
+
+.pony-copy-btn.copied {
+    color: #22a06b;
 }
 
 .pony-message.loading p {

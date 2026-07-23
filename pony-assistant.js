@@ -132,6 +132,16 @@ YIFAN'S HOBBIES & INTERESTS:
       bubble.className = 'markdown-body pony-markdown';
       bubble.innerHTML = this.parseMarkdown(content);
       messageDiv.appendChild(bubble);
+
+      // Copy button (ChatGPT-style): copies the original markdown source.
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'pony-copy-btn';
+      copyBtn.type = 'button';
+      copyBtn.title = 'Copy markdown';
+      copyBtn.setAttribute('aria-label', 'Copy markdown');
+      copyBtn.innerHTML = this.getCopyIcon();
+      copyBtn.addEventListener('click', () => this.copyMessage(content, copyBtn));
+      messageDiv.appendChild(copyBtn);
     } else {
       const p = document.createElement('p');
       p.textContent = content;
@@ -140,6 +150,45 @@ YIFAN'S HOBBIES & INTERESTS:
 
     this.messagesContainer.appendChild(messageDiv);
     this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+  }
+
+  // SVG icons for the copy button (clipboard / check).
+  getCopyIcon() {
+    return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+  }
+
+  getCheckIcon() {
+    return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  }
+
+  // Copy the raw markdown source of a message to the clipboard.
+  async copyMessage(markdown, btn) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(markdown);
+      } else {
+        // Fallback for insecure contexts / older browsers.
+        const ta = document.createElement('textarea');
+        ta.value = markdown;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('copied');
+      btn.innerHTML = this.getCheckIcon();
+      btn.title = 'Copied!';
+      clearTimeout(btn._copyTimer);
+      btn._copyTimer = setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = this.getCopyIcon();
+        btn.title = 'Copy markdown';
+      }, 1500);
+    } catch (err) {
+      console.error('Copy failed:', err);
+    }
   }
 
   // Parse markdown to safe HTML. Uses the `marked` library (ChatGPT-style
