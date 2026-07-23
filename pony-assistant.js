@@ -123,48 +123,65 @@ YIFAN'S HOBBIES & INTERESTS:
   addMessage(content, isUser) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `pony-message ${isUser ? 'user' : 'assistant'}`;
-    
-    const p = document.createElement('p');
-    
-    // Convert markdown to HTML only for assistant messages
+
+    // Convert markdown to rich HTML for assistant messages (block-level content
+    // like lists/code blocks requires a <div>, not a <p>). User messages stay
+    // plain text inside a <p>.
     if (!isUser) {
-      p.innerHTML = this.parseMarkdown(content);
+      const bubble = document.createElement('div');
+      bubble.className = 'pony-markdown';
+      bubble.innerHTML = this.parseMarkdown(content);
+      messageDiv.appendChild(bubble);
     } else {
+      const p = document.createElement('p');
       p.textContent = content;
+      messageDiv.appendChild(p);
     }
-    
-    messageDiv.appendChild(p);
-    
+
     this.messagesContainer.appendChild(messageDiv);
     this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
   }
 
-  // Parse basic markdown to HTML
+  // Parse markdown to safe HTML. Uses the `marked` library (ChatGPT-style
+  // rendering) with DOMPurify sanitization when available, and falls back to a
+  // lightweight built-in parser if the CDN libraries failed to load.
   parseMarkdown(text) {
-    // Escape HTML special characters first
+    if (typeof marked !== 'undefined') {
+      const rawHtml = marked.parse(text, {
+        gfm: true,        // GitHub-flavored markdown (tables, strikethrough, ...)
+        breaks: true,     // treat single newlines as <br>
+        headerIds: false,
+        mangle: false
+      });
+      // Sanitize to prevent XSS from model output.
+      if (typeof DOMPurify !== 'undefined') {
+        const clean = DOMPurify.sanitize(rawHtml, { ADD_ATTR: ['target', 'rel'] });
+        // Make links open in a new tab safely.
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = clean;
+        wrapper.querySelectorAll('a[href]').forEach((a) => {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener noreferrer');
+        });
+        return wrapper.innerHTML;
+      }
+      return rawHtml;
+    }
+    return this.parseMarkdownFallback(text);
+  }
+
+  // Minimal fallback parser (only used if marked.js is unavailable).
+  parseMarkdownFallback(text) {
     text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    
-    // **bold** -> <strong>bold</strong>
     text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    
-    // *italic* or _italic_ -> <em>italic</em>
     text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
     text = text.replace(/_(.*?)_/g, '<em>$1</em>');
-    
-    // ~~strikethrough~~ -> <del>strikethrough</del>
     text = text.replace(/~~(.*?)~~/g, '<del>$1</del>');
-    
-    // `code` -> <code>code</code>
-    text = text.replace(/`([^`]*)`/g, '<code style="background: rgba(0,0,0,0.06); padding: 0 4px; border-radius: 3px; font-family: monospace; font-size: 0.9em;">$1</code>');
-    
-    // Line breaks
+    text = text.replace(/`([^`]*)`/g, '<code>$1</code>');
     text = text.replace(/\n\n/g, '<br><br>');
     text = text.replace(/\n/g, '<br>');
-    
-    // Lists: - item -> <li>item</li>
     text = text.replace(/^\s*[-*]\s+(.+)$/gm, '<li>$1</li>');
-    text = text.replace(/(<li>.*?<\/li>)/s, '<ul style="margin: 8px 0 8px 20px; padding: 0;">$1</ul>');
-    
+    text = text.replace(/(<li>[\s\S]*?<\/li>)/, '<ul>$1</ul>');
     return text;
   }
 
