@@ -129,7 +129,7 @@ YIFAN'S HOBBIES & INTERESTS:
     // plain text inside a <p>.
     if (!isUser) {
       const bubble = document.createElement('div');
-      bubble.className = 'pony-markdown';
+      bubble.className = 'markdown-body pony-markdown';
       bubble.innerHTML = this.parseMarkdown(content);
       messageDiv.appendChild(bubble);
     } else {
