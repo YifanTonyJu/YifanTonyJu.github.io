@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" version="1.1"
+     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#faf9f7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Gold frame -->
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#C2A46D" stroke-width="3"/>
+
+  <!-- Logo (centered near top) -->
+  <image xlink:href="personal_logo.svg" x="506" y="96" width="188" height="220"/>
+
+  <!-- Name -->
+  <text x="600" y="410" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="64" font-weight="700" fill="#000000">Yifan (Tony) Ju</text>
+
+  <!-- Chinese name -->
+  <text x="600" y="466" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="34" font-weight="600" fill="#C2A46D">鞠逸凡</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="524" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="26" fill="#555555">Computer Science Specialist · University of Toronto Scarborough</text>
+
+  <!-- URL -->
+  <text x="600" y="574" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif"
+        font-size="22" letter-spacing="1" fill="#888888">www.yifantonyju.com</text>
+</svg>
