@@ -38,8 +38,8 @@
 
     <!-- GitHub-style markdown rendering for the AI assistant chat -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
-    <link rel="stylesheet" href="styles.css?v=276">
-    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=275">
+    <link rel="stylesheet" href="styles.css?v=277">
+    <link rel="icon" type="image/svg+xml" href="graphs/Logo/personal_logo.svg?v=277">
 </head>
 
 <body>
@@ -88,7 +88,43 @@
         <div class="container">
             <h2>Projects</h2>
             <div class="projects-grid">
-                <!-- Project 1 -->
+                <!-- Project 1: RemedaAI / Polaris -->
+                <article class="project-card">
+                    <h3>RemedaAI / Polaris</h3>
+                    <p>
+                        Worked on the backend of RemedaAI's clinical platform. Built an LLM-based Clinical Extraction Pipeline that turns encounter transcripts and SOAP notes into structured clinical data, with a background job queue for extraction tasks. Developed Transcript Management APIs that work with both OpenMRS and FHIR-based EHR systems, including authorization, patient consent, and audit logging. Investigated the MIMIC-IV data ingestion pipeline and fixed metadata synchronization and large-scale SQLite cleanup problems.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">OpenMRS</span>
+                        <span class="tag">FHIR</span>
+                        <span class="tag">LLM</span>
+                        <span class="tag">MIMIC-IV</span>
+                        <span class="tag">EMR</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">Pytest</span>
+                    </div>
+                </article>
+
+                <!-- Project 2: RemedaAI / Ego -->
+                <article class="project-card">
+                    <h3>RemedaAI / Ego</h3>
+                    <p>
+                        Worked on RemedaAI's local-first digital health record app, where patients can keep and manage their health information on their own device. Helped bring the existing React and TypeScript web app to Android and iOS using Capacitor. Implemented Android system navigation and tested core app features across both mobile platforms.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Capacitor</span>
+                        <span class="tag">Android</span>
+                        <span class="tag">iOS</span>
+                        <span class="tag">Vite</span>
+                        <span class="tag">Mobile</span>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
                 <article class="project-card">
                     <h3>MyMonitoringTool</h3>
                     <p>
@@ -111,29 +147,7 @@
                         class="project-link">View on GitHub</a>
                 </article>
 
-                <!-- Project 2 -->
-                <article class="project-card">
-                    <h3>Toronto Bike Demand Prediction</h3>
-                    <p>
-                        Led a team-based project on predicting station-level hourly bike demand using Toronto Bike Share
-                        data (2021-2024). Implemented data preprocessing and feature engineering pipeline in Python with
-                        temporal and lag-based features. Built a Linear Regression baseline model and conducted model
-                        evaluation. Coordinated task allocation and contributed to report writing.
-                    </p>
-                    <div class="tech-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Pandas</span>
-                        <span class="tag">NumPy</span>
-                        <span class="tag">scikit-learn</span>
-                        <span class="tag">Matplotlib</span>
-                        <span class="tag">Machine Learning</span>
-                        <span class="tag">Git</span>
-                    </div>
-                    <a href="https://github.com/YifanTonyJu/CSCC11-bikeshare-demand-prediction" target="_blank"
-                        class="project-link">View on GitHub</a>
-                </article>
-
-                <!-- Project 3 -->
+                <!-- Project 4 -->
                 <article class="project-card">
                     <h3>File Management System</h3>
                     <p>
@@ -156,7 +170,29 @@
                         class="project-link">View on GitHub</a>
                 </article>
 
-                <!-- Project 4 -->
+                <!-- Project 5 -->
+                <article class="project-card">
+                    <h3>Toronto Bike Demand Prediction</h3>
+                    <p>
+                        Led a team-based project on predicting station-level hourly bike demand using Toronto Bike Share
+                        data (2021-2024). Implemented data preprocessing and feature engineering pipeline in Python with
+                        temporal and lag-based features. Built a Linear Regression baseline model and conducted model
+                        evaluation. Coordinated task allocation and contributed to report writing.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Pandas</span>
+                        <span class="tag">NumPy</span>
+                        <span class="tag">scikit-learn</span>
+                        <span class="tag">Matplotlib</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Git</span>
+                    </div>
+                    <a href="https://github.com/YifanTonyJu/CSCC11-bikeshare-demand-prediction" target="_blank"
+                        class="project-link">View on GitHub</a>
+                </article>
+
+                <!-- Project 6 -->
                 <article class="project-card">
                     <h3>Personal Latex Template</h3>
                     <p>
@@ -181,38 +217,50 @@
             <div class="skills-grid">
                 <!-- Programming Languages -->
                 <div class="skill-category">
-                    <h3>Programming</h3>
-                    <p>Python, C, C++, Java, Haskell, JavaScript, Shell Script, MIPS Assembly, Racket, Prolog</p>
+                    <h3>Programming Languages</h3>
+                    <p>Python, C, C++, Java, JavaScript, TypeScript, Haskell, Racket, Prolog, MIPS Assembly, Shell Script</p>
                 </div>
 
-                <!-- Frameworks & Platforms -->
+                <!-- Web & Mobile Development -->
                 <div class="skill-category">
-                    <h3>Frameworks & Platforms</h3>
-                    <p>PyTorch, OATPP, Vue.js, Vite, Android SDK</p>
+                    <h3>Web & Mobile Development</h3>
+                    <p>FastAPI, REST APIs, HTTP, React, Vue.js, Vite, OATPP, Capacitor, React Native</p>
                 </div>
 
-                <!-- Data & Visualization Libraries -->
+                <!-- AI, ML & Data -->
                 <div class="skill-category">
-                    <h3>Data & Visualization Libraries</h3>
-                    <p>Pandas, NumPy, Matplotlib, Plotly</p>
+                    <h3>AI, ML & Data</h3>
+                    <p>PyTorch, Pandas, NumPy, Matplotlib, Plotly, Machine Learning, Deep Learning, Transformers, Model Training & Evaluation, Data Analysis, LLM/AI API Integration</p>
+                </div>
+
+                <!-- Healthcare Systems, Standards & Data -->
+                <div class="skill-category">
+                    <h3>Healthcare Systems, Standards & Data</h3>
+                    <p>EMR Systems, OpenMRS, FHIR R4, MIMIC-IV</p>
                 </div>
 
                 <!-- Databases -->
                 <div class="skill-category">
                     <h3>Databases</h3>
-                    <p>MySQL, MySQL Workbench</p>
+                    <p>MySQL, SQLite, Redis</p>
                 </div>
 
-                <!-- Systems & Tools -->
+                <!-- Operating Systems -->
                 <div class="skill-category">
-                    <h3>Systems & Tools</h3>
-                    <p>Linux, Git, GitHub, CMake, Makefile, VS Code, Remote SSH, JIRA, Markdown, LaTeX</p>
+                    <h3>Operating Systems</h3>
+                    <p>Linux, Android, iOS</p>
                 </div>
 
-                <!-- Machine Learning -->
+                <!-- Developer Tools -->
                 <div class="skill-category">
-                    <h3>Machine Learning</h3>
-                    <p>Machine Learning, Deep Learning, Transformers, Model Training & Evaluation, Data Analysis</p>
+                    <h3>Developer Tools</h3>
+                    <p>Git, GitHub, CMake, Makefile, VS Code, Remote SSH, JIRA, Pytest, Android Studio, Xcode, MySQL Workbench</p>
+                </div>
+
+                <!-- Writing & Documentation -->
+                <div class="skill-category">
+                    <h3>Writing & Documentation</h3>
+                    <p>LaTeX, Markdown</p>
                 </div>
             </div>
         </div>
@@ -866,7 +914,7 @@
     <!-- Markdown rendering for AI assistant (marked + DOMPurify for XSS-safe HTML) -->
     <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
-    <script src="pony-assistant.js?v=275"></script>
+    <script src="pony-assistant.js?v=277"></script>
 
     <script>
         // Section Navigation System
