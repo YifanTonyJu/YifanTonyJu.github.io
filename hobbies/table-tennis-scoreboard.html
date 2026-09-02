@@ -327,6 +327,7 @@
         .action-buttons .btn {
             flex: 1;
             min-width: 120px;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -425,12 +426,17 @@
             }
 
             .score-display {
-                font-size: clamp(2.5rem, 6vw, 3.5rem);
+                font-size: clamp(3.5rem, 10vw, 5rem);
                 margin-bottom: 0.5rem;
             }
 
             .player-controls {
-                gap: 0.4rem;
+                gap: 0.6rem;
+            }
+
+            .player-controls .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 1rem;
             }
 
             .btn {
@@ -498,13 +504,15 @@
             }
 
             .action-buttons {
-                gap: 0.4rem;
-                flex-wrap: wrap;
+                gap: 0.6rem;
+                flex-wrap: nowrap;
             }
 
             .action-buttons .btn {
-                min-width: 80px;
+                min-width: 0;
                 flex: 1;
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
             }
         }
 
@@ -632,8 +640,8 @@
                     <div class="setting-item">
                         <div class="setting-label">Actions</div>
                         <div class="action-buttons">
-                            <button class="btn" onclick="resetGame()" style="width: 100%; margin-bottom: 0.5rem;">Reset</button>
-                            <button class="btn" onclick="swapSides()" style="width: 100%;">Swap</button>
+                            <button class="btn" onclick="resetGame()">Reset</button>
+                            <button class="btn" onclick="swapSides()">Swap</button>
                         </div>
                     </div>
                 </div>
