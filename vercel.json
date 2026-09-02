@@ -11,6 +11,16 @@
       "methods": ["POST", "OPTIONS"]
     },
     {
+      "src": "/api/nba-scores",
+      "dest": "/api/nba-scores.js",
+      "methods": ["GET", "OPTIONS"]
+    },
+    {
+      "src": "/api/nba-diagnose",
+      "dest": "/api/nba-diagnose.js",
+      "methods": ["GET", "OPTIONS"]
+    },
+    {
       "src": "/(?!api/).*\\.(css|js)$",
       "dest": "/$1",
       "headers": {
