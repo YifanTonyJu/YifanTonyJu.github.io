@@ -1,21 +1,10 @@
-const BALLDONTLIE_API_KEY = process.env.BALLDONTLIE_API_KEY;
-const BALLDONTLIE_API = 'https://api.balldontlie.io/v1';
-
 export default async function handler(req, res) {
-  // Check if API key is configured
-  if (!BALLDONTLIE_API_KEY) {
-    console.error('BALLDONTLIE_API_KEY is not configured');
-    return res.status(500).json({ 
-      error: 'API key not configured',
-      games: []
-    });
-  }
-
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+  res.setHeader('Content-Type', 'application/json');
   
   if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -23,6 +12,20 @@ export default async function handler(req, res) {
   }
 
   try {
+    const BALLDONTLIE_API_KEY = process.env.BALLDONTLIE_API_KEY;
+    const BALLDONTLIE_API = 'https://api.balldontlie.io/v1';
+    
+    // Check if API key is configured
+    if (!BALLDONTLIE_API_KEY) {
+      console.error('BALLDONTLIE_API_KEY is not configured');
+      return res.status(500).json({ 
+        error: 'API key not configured',
+        games: []
+      });
+    }
+
+    console.log('NBA API: Using API key:', BALLDONTLIE_API_KEY.substring(0, 8) + '***');
+    
     // Get today's date
     const today = new Date();
     const year = today.getFullYear();
@@ -30,28 +33,44 @@ export default async function handler(req, res) {
     const day = String(today.getDate()).padStart(2, '0');
     const dateStr = `${year}-${month}-${day}`;
     
-    console.log(`Fetching NBA games for date: ${dateStr}`);
+    console.log(`NBA API: Fetching games for ${dateStr}`);
     
     // Fetch NBA games from BALLDONTLIE API
-    const response = await fetch(
-      `${BALLDONTLIE_API}/games?dates[]=${dateStr}`,
-      {
-        headers: {
-          'Authorization': BALLDONTLIE_API_KEY
-        }
-      }
-    );
+    const url = `${BALLDONTLIE_API}/games?dates[]=${dateStr}`;
+    console.log(`NBA API: Requesting ${url}`);
     
-    console.log(`BALLDONTLIE API response status: ${response.status}`);
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': BALLDONTLIE_API_KEY
+      }
+    });
+    
+    console.log(`NBA API: Response status ${response.status}`);
+    
+    const responseText = await response.text();
+    console.log(`NBA API: Response length ${responseText.length}`);
     
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`BALLDONTLIE API error: ${response.status} - ${errorText}`);
-      throw new Error(`BALLDONTLIE API error: ${response.status}`);
+      console.error(`NBA API Error: ${response.status} - ${responseText.substring(0, 500)}`);
+      return res.status(500).json({ 
+        error: `BALLDONTLIE API error: ${response.status}`,
+        games: []
+      });
     }
     
-    const data = await response.json();
-    console.log(`BALLDONTLIE API response:`, data);
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('NBA API: Failed to parse JSON response');
+      console.error('NBA API: Response preview:', responseText.substring(0, 500));
+      return res.status(500).json({ 
+        error: 'Invalid JSON response from BALLDONTLIE',
+        games: []
+      });
+    }
+    
+    console.log(`NBA API: Successfully parsed ${(data.data || []).length} games`);
     
     // Transform BALLDONTLIE data to our format
     const games = (data.data || []).map(game => ({
@@ -66,18 +85,20 @@ export default async function handler(req, res) {
       visitor_score: game.visitor_team_score
     }));
     
-    console.log(`Returning ${games.length} games`);
-    
-    res.status(200).json({ 
+    return res.status(200).json({ 
       games: games,
       date: dateStr,
-      count: games.length
+      count: games.length,
+      success: true
     });
+    
   } catch (error) {
-    console.error('Error fetching NBA scores:', error.message, error);
-    res.status(500).json({ 
-      error: 'Failed to fetch NBA scores: ' + error.message,
-      games: []
+    console.error('NBA API Error:', error.message);
+    console.error('NBA API Stack:', error.stack);
+    return res.status(500).json({ 
+      error: error.message,
+      games: [],
+      success: false
     });
   }
 }
