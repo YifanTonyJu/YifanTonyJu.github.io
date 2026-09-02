@@ -30,6 +30,8 @@ export default async function handler(req, res) {
     const day = String(today.getDate()).padStart(2, '0');
     const dateStr = `${year}-${month}-${day}`;
     
+    console.log(`Fetching NBA games for date: ${dateStr}`);
+    
     // Fetch NBA games from BALLDONTLIE API
     const response = await fetch(
       `${BALLDONTLIE_API}/games?dates[]=${dateStr}`,
@@ -40,11 +42,16 @@ export default async function handler(req, res) {
       }
     );
     
+    console.log(`BALLDONTLIE API response status: ${response.status}`);
+    
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`BALLDONTLIE API error: ${response.status} - ${errorText}`);
       throw new Error(`BALLDONTLIE API error: ${response.status}`);
     }
     
     const data = await response.json();
+    console.log(`BALLDONTLIE API response:`, data);
     
     // Transform BALLDONTLIE data to our format
     const games = (data.data || []).map(game => ({
@@ -59,15 +66,17 @@ export default async function handler(req, res) {
       visitor_score: game.visitor_team_score
     }));
     
+    console.log(`Returning ${games.length} games`);
+    
     res.status(200).json({ 
       games: games,
       date: dateStr,
       count: games.length
     });
   } catch (error) {
-    console.error('Error fetching NBA scores:', error);
+    console.error('Error fetching NBA scores:', error.message, error);
     res.status(500).json({ 
-      error: 'Failed to fetch NBA scores',
+      error: 'Failed to fetch NBA scores: ' + error.message,
       games: []
     });
   }
