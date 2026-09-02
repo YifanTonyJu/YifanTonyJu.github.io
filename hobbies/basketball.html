@@ -194,9 +194,8 @@
         console.log('NBA Scores API response:', data);
         
         if (!data.games || data.games.length === 0) {
-          console.log('No games found, using demo data');
-          // Show demo data if no games
-          renderGames(getDemoGames(), container);
+          console.log('No games found');
+          container.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #999; font-size: 14px;">No Games</div>';
           setRefreshInterval(1800000);
           return;
         }
@@ -264,38 +263,6 @@
       });
       
       container.innerHTML = html;
-    }
-
-    function getDemoGames() {
-      return [
-        {
-          home_team: 'Boston Celtics',
-          home_team_abbreviation: 'BOS',
-          visitor_team: 'Miami Heat',
-          visitor_team_abbreviation: 'MIA',
-          home_score: 108,
-          visitor_score: 112,
-          status: 'Final'
-        },
-        {
-          home_team: 'Denver Nuggets',
-          home_team_abbreviation: 'DEN',
-          visitor_team: 'Los Angeles Lakers',
-          visitor_team_abbreviation: 'LAL',
-          home_score: 134,
-          visitor_score: 120,
-          status: 'Final'
-        },
-        {
-          home_team: 'Oklahoma City Thunder',
-          home_team_abbreviation: 'OKC',
-          visitor_team: 'Golden State Warriors',
-          visitor_team_abbreviation: 'GSW',
-          home_score: 116,
-          visitor_score: 127,
-          status: 'Final'
-        }
-      ];
     }
 
     function setRefreshInterval(interval) {
