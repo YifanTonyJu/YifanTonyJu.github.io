@@ -1,0 +1,36 @@
+{
+  "games": [
+    {
+      "away_team": "Boston Celtics",
+      "home_team": "Miami Heat",
+      "away_score": 112,
+      "home_score": 108,
+      "status": "Final",
+      "date": "2026-09-02"
+    },
+    {
+      "away_team": "Los Angeles Lakers",
+      "home_team": "Denver Nuggets",
+      "away_score": 120,
+      "home_score": 134,
+      "status": "Final",
+      "date": "2026-09-02"
+    },
+    {
+      "away_team": "Golden State Warriors",
+      "home_team": "Oklahoma City Thunder",
+      "away_score": 127,
+      "home_score": 116,
+      "status": "Final",
+      "date": "2026-09-02"
+    },
+    {
+      "away_team": "Dallas Mavericks",
+      "home_team": "Minnesota Timberwolves",
+      "away_score": 98,
+      "home_score": 105,
+      "status": "Final",
+      "date": "2026-09-02"
+    }
+  ]
+}
