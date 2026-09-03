@@ -119,6 +119,12 @@
       font-size: 11px;
       color: #999;
     }
+    .team-logo {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      margin-bottom: 6px;
+    }
     .score-display {
       text-align: center;
       display: flex;
@@ -188,6 +194,46 @@
   <script>
     let refreshInterval = null;
     let lastGameStatus = null;
+
+    // NBA Team Logo Mapping - using jsDelivr CDN for React-NBA-Logos
+    const teamLogoMap = {
+      'ATL': 'ATL',
+      'BOS': 'BOS',
+      'BRK': 'BRK',
+      'CHA': 'CHA',
+      'CHI': 'CHI',
+      'CLE': 'CLE',
+      'DAL': 'DAL',
+      'DEN': 'DEN',
+      'DET': 'DET',
+      'GSW': 'GSW',
+      'HOU': 'HOU',
+      'LAC': 'LAC',
+      'LAL': 'LAL',
+      'MEM': 'MEM',
+      'MIA': 'MIA',
+      'MIL': 'MIL',
+      'MIN': 'MIN',
+      'NOP': 'NOP',
+      'NYK': 'NYK',
+      'OKC': 'OKC',
+      'ORL': 'ORL',
+      'PHI': 'PHI',
+      'PHX': 'PHX',
+      'POR': 'POR',
+      'SAC': 'SAC',
+      'SAS': 'SAS',
+      'TOR': 'TOR',
+      'UTA': 'UTA',
+      'WAS': 'WAS'
+    };
+
+    function getTeamLogoUrl(abbreviation) {
+      const teamCode = teamLogoMap[abbreviation];
+      if (!teamCode) return null;
+      // Using ESPN CDN for reliable NBA team logos
+      return `https://a.espncdn.com/media/motion/2022/1201/dm_221201_nba_${teamCode.toLowerCase()}_logo.svg`;
+    }
 
     async function fetchNBAScores() {
       try {
@@ -264,6 +310,12 @@
         const homeAbbr = game.home_team_abbreviation;
         const visitorAbbr = game.visitor_team_abbreviation;
         
+        // Get logo URLs
+        const visitorLogoUrl = getTeamLogoUrl(visitorAbbr);
+        const homeLogoUrl = getTeamLogoUrl(homeAbbr);
+        const visitorLogoHtml = visitorLogoUrl ? `<img src="${visitorLogoUrl}" alt="${visitorTeam}" class="team-logo" onerror="this.style.display='none'">` : '';
+        const homeLogoHtml = homeLogoUrl ? `<img src="${homeLogoUrl}" alt="${homeTeam}" class="team-logo" onerror="this.style.display='none'">` : '';
+        
         // Format status display
         let statusDisplay = status;
         if (status === 'Final') statusDisplay = 'Final';
@@ -274,6 +326,7 @@
           <div class="game-item">
             <div class="teams-row">
               <div class="team-block">
+                ${visitorLogoHtml}
                 <div class="team-name">${visitorTeam}</div>
                 <div class="team-code">${visitorAbbr}</div>
               </div>
@@ -282,6 +335,7 @@
                 <div class="game-status">${statusDisplay}</div>
               </div>
               <div class="team-block">
+                ${homeLogoHtml}
                 <div class="team-name">${homeTeam}</div>
                 <div class="team-code">${homeAbbr}</div>
               </div>
