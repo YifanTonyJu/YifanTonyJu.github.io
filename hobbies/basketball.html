@@ -395,16 +395,15 @@
     }
 
     function setRefreshInterval(interval) {
-      // Clear existing interval
-      if (refreshInterval) {
-        clearInterval(refreshInterval);
-        refreshInterval = null;
-      }
-      
-      // Set new interval if provided
-      if (interval) {
-        refreshInterval = setInterval(fetchNBAScores, interval);
-      }
+      // Auto-refresh temporarily disabled
+      // Only manual refresh (cache logic) is active
+      // if (refreshInterval) {
+      //   clearInterval(refreshInterval);
+      //   refreshInterval = null;
+      // }
+      // if (interval) {
+      //   refreshInterval = setInterval(fetchNBAScores, interval);
+      // }
     }
     
     // Fetch scores on page load
