@@ -143,6 +143,17 @@
       color: #4285f4;
       font-weight: 500;
     }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .nba-logo {
+      width: 28px;
+      height: auto;
+      flex-shrink: 0;
+    }
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -167,6 +178,7 @@
     <div class="scores-section">
       <div class="nba-scores-card">
         <div class="card-header">
+          <img src="../graphs/nba-logo.svg" alt="NBA" class="nba-logo">
           <div class="card-title">NBA Scores</div>
           <div class="live-badge">
             <div class="live-dot"></div>
