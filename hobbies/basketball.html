@@ -373,6 +373,7 @@
     
     // Test data for development (showing team logos)
     function loadTestData() {
+      console.log('🏀 Loading TEST data with team logos...');
       const testGames = [
         {
           home_team: 'Los Angeles Lakers',
@@ -411,6 +412,7 @@
       dateDisplay.textContent = today.toLocaleDateString('en-US', options);
       
       renderGames(testGames, container);
+      console.log('✅ Test data loaded successfully!');
     }
     
     // Fetch scores on page load (using test data for now)
