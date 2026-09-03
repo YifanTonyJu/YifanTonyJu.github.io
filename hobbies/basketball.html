@@ -371,8 +371,52 @@
       }
     }
     
-    // Fetch scores on page load
-    fetchNBAScores();
+    // Test data for development (showing team logos)
+    function loadTestData() {
+      const testGames = [
+        {
+          home_team: 'Los Angeles Lakers',
+          home_team_abbreviation: 'LAL',
+          home_score: 120,
+          visitor_team: 'Boston Celtics',
+          visitor_team_abbreviation: 'BOS',
+          visitor_score: 118,
+          status: 'Final'
+        },
+        {
+          home_team: 'Golden State Warriors',
+          home_team_abbreviation: 'GSW',
+          home_score: 125,
+          visitor_team: 'Denver Nuggets',
+          visitor_team_abbreviation: 'DEN',
+          visitor_score: 130,
+          status: 'Final'
+        },
+        {
+          home_team: 'Miami Heat',
+          home_team_abbreviation: 'MIA',
+          home_score: 112,
+          visitor_team: 'New York Knicks',
+          visitor_team_abbreviation: 'NYK',
+          visitor_score: 115,
+          status: 'Final'
+        }
+      ];
+      
+      const container = document.getElementById('games-container');
+      const dateDisplay = document.getElementById('date-display');
+      
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      dateDisplay.textContent = today.toLocaleDateString('en-US', options);
+      
+      renderGames(testGames, container);
+    }
+    
+    // Fetch scores on page load (using test data for now)
+    loadTestData();
+    // Uncomment below to use real API data:
+    // fetchNBAScores();
   </script>
 </body>
 </html>
