@@ -254,17 +254,29 @@
       return teamCode ? `../graphs/team-logos/${teamCode}.svg` : null;
     }
 
-    // Cache for NBA scores to prevent rate limiting
+    // Cache for NBA scores to prevent rate limiting (with smart expiration)
     let scoresCache = {
       data: null,
       timestamp: null,
-      cacheDuration: 120000 // 2 minutes cache duration
+      gameStatus: null // 'In Progress', 'Scheduled', 'Final'
     };
 
+    function getCacheDuration(gameStatus) {
+      // Determine cache duration based on game status
+      if (gameStatus === 'In Progress') {
+        return 15000; // 15 seconds - need fresh data during live games
+      } else if (gameStatus === 'Scheduled') {
+        return 300000; // 5 minutes - upcoming games don't change often
+      } else {
+        return 3600000; // 1 hour - final games don't need frequent updates
+      }
+    }
+
     function isCacheValid() {
-      if (!scoresCache.data || !scoresCache.timestamp) return false;
+      if (!scoresCache.data || !scoresCache.timestamp || !scoresCache.gameStatus) return false;
       const now = Date.now();
-      return (now - scoresCache.timestamp) < scoresCache.cacheDuration;
+      const cacheDuration = getCacheDuration(scoresCache.gameStatus);
+      return (now - scoresCache.timestamp) < cacheDuration;
     }
 
     async function fetchNBAScores() {
@@ -281,17 +293,17 @@
 
         // Check cache first
         if (isCacheValid()) {
-          console.log('Using cached NBA scores');
+          console.log('Using cached NBA scores (status: ' + scoresCache.gameStatus + ')');
           data = scoresCache.data;
         } else {
           // Fetch from our Vercel API
-          console.log('Fetching NBA scores from /api/nba-scores');
+          console.log('Fetching fresh NBA scores from /api/nba-scores');
           const response = await fetch('/api/nba-scores');
           
           if (!response.ok) {
-            // If API fails but we have cached data, use it
+            // If API fails but we have cached data, use it as fallback
             if (scoresCache.data) {
-              console.warn(`API returned status ${response.status}, using cached data`);
+              console.warn(`API returned status ${response.status}, using cached data as fallback`);
               data = scoresCache.data;
             } else {
               throw new Error(`API returned status ${response.status}`);
@@ -308,10 +320,19 @@
               throw new Error('API returned invalid JSON');
             }
             
-            // Update cache
-            scoresCache.data = data;
-            scoresCache.timestamp = Date.now();
-            console.log('NBA Scores API data cached');
+            // Determine most critical game status for cache duration
+            if (data.games && data.games.length > 0) {
+              const statuses = data.games.map(g => g.status);
+              const mostCriticalStatus = 
+                statuses.includes('In Progress') ? 'In Progress' :
+                statuses.includes('Scheduled') ? 'Scheduled' : 'Final';
+              
+              // Update cache with smart expiration
+              scoresCache.data = data;
+              scoresCache.timestamp = Date.now();
+              scoresCache.gameStatus = mostCriticalStatus;
+              console.log('Cached NBA scores with status: ' + mostCriticalStatus);
+            }
           }
         }
         
@@ -330,7 +351,7 @@
         
         // Update refresh interval
         if (hasLiveGames) {
-          setRefreshInterval(60000); // 60 seconds for live games
+          setRefreshInterval(15000); // 15 seconds for live games - get fresh data
         } else if (hasScheduledGames) {
           setRefreshInterval(300000); // 5 minutes for upcoming games
         } else if (allFinal) {
