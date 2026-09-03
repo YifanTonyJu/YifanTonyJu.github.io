@@ -254,6 +254,19 @@
       return teamCode ? `../graphs/team-logos/${teamCode}.svg` : null;
     }
 
+    // Cache for NBA scores to prevent rate limiting
+    let scoresCache = {
+      data: null,
+      timestamp: null,
+      cacheDuration: 120000 // 2 minutes cache duration
+    };
+
+    function isCacheValid() {
+      if (!scoresCache.data || !scoresCache.timestamp) return false;
+      const now = Date.now();
+      return (now - scoresCache.timestamp) < scoresCache.cacheDuration;
+    }
+
     async function fetchNBAScores() {
       try {
         const container = document.getElementById('games-container');
@@ -264,29 +277,45 @@
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         dateDisplay.textContent = today.toLocaleDateString('en-US', options);
         
-        // Fetch from our Vercel API
-        console.log('Fetching NBA scores from /api/nba-scores');
-        const response = await fetch('/api/nba-scores');
-        
-        if (!response.ok) {
-          throw new Error(`API returned status ${response.status}`);
+        let data = null;
+
+        // Check cache first
+        if (isCacheValid()) {
+          console.log('Using cached NBA scores');
+          data = scoresCache.data;
+        } else {
+          // Fetch from our Vercel API
+          console.log('Fetching NBA scores from /api/nba-scores');
+          const response = await fetch('/api/nba-scores');
+          
+          if (!response.ok) {
+            // If API fails but we have cached data, use it
+            if (scoresCache.data) {
+              console.warn(`API returned status ${response.status}, using cached data`);
+              data = scoresCache.data;
+            } else {
+              throw new Error(`API returned status ${response.status}`);
+            }
+          } else {
+            const text = await response.text();
+            console.log('API raw response:', text);
+            
+            try {
+              data = JSON.parse(text);
+            } catch (parseError) {
+              console.error('Failed to parse JSON:', parseError);
+              console.error('Response text:', text);
+              throw new Error('API returned invalid JSON');
+            }
+            
+            // Update cache
+            scoresCache.data = data;
+            scoresCache.timestamp = Date.now();
+            console.log('NBA Scores API data cached');
+          }
         }
         
-        const text = await response.text();
-        console.log('API raw response:', text);
-        
-        let data;
-        try {
-          data = JSON.parse(text);
-        } catch (parseError) {
-          console.error('Failed to parse JSON:', parseError);
-          console.error('Response text:', text);
-          throw new Error('API returned invalid JSON');
-        }
-        
-        console.log('NBA Scores API data:', data);
-        
-        if (!data.games || data.games.length === 0) {
+        if (!data || !data.games || data.games.length === 0) {
           console.log('No games found');
           container.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #999; font-size: 14px;">No Games</div>';
           setRefreshInterval(1800000);
