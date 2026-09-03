@@ -239,41 +239,19 @@
       'WAS': 'WAS'
     };
 
-    // NBA Team Logo URL mapping - Using GitHub source (no CORS issues)
-    const nbaLogoUrls = {
-      'ATL': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/atlanta-hawks.svg',
-      'BOS': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/boston-celtics.svg',
-      'BRK': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/brooklyn-nets.svg',
-      'CHA': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/charlotte-hornets.svg',
-      'CHI': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/chicago-bulls.svg',
-      'CLE': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/cleveland-cavaliers.svg',
-      'DAL': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/dallas-mavericks.svg',
-      'DEN': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/denver-nuggets.svg',
-      'DET': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/detroit-pistons.svg',
-      'GSW': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/golden-state-warriors.svg',
-      'HOU': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/houston-rockets.svg',
-      'LAC': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/la-clippers.svg',
-      'LAL': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/los-angeles-lakers.svg',
-      'MEM': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/memphis-grizzlies.svg',
-      'MIA': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/miami-heat.svg',
-      'MIL': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/milwaukee-bucks.svg',
-      'MIN': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/minnesota-timberwolves.svg',
-      'NOP': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/new-orleans-pelicans.svg',
-      'NYK': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/new-york-knicks.svg',
-      'OKC': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/oklahoma-city-thunder.svg',
-      'ORL': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/orlando-magic.svg',
-      'PHI': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/philadelphia-76ers.svg',
-      'PHX': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/phoenix-suns.svg',
-      'POR': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/portland-trail-blazers.svg',
-      'SAC': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/sacramento-kings.svg',
-      'SAS': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/san-antonio-spurs.svg',
-      'TOR': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/toronto-raptors.svg',
-      'UTA': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/utah-jazz.svg',
-      'WAS': 'https://raw.githubusercontent.com/iamadamdev/nba-logos/master/nba/washington-wizards.svg'
+    // NBA Team Logo URL mapping - Using local SVG files
+    const teamCodeMapping = {
+      'ATL': 'atl', 'BOS': 'bos', 'BRK': 'bkn', 'CHA': 'cha', 'CHI': 'chi',
+      'CLE': 'cle', 'DAL': 'dal', 'DEN': 'den', 'DET': 'det', 'GSW': 'gsw',
+      'HOU': 'hou', 'IND': 'ind', 'LAC': 'lac', 'LAL': 'lal', 'MEM': 'mem',
+      'MIA': 'mia', 'MIL': 'mil', 'MIN': 'min', 'NOP': 'nop', 'NYK': 'nyk',
+      'OKC': 'okc', 'ORL': 'orl', 'PHI': 'phi', 'PHX': 'phx', 'POR': 'por',
+      'SAC': 'sac', 'SAS': 'sas', 'TOR': 'tor', 'UTA': 'uta', 'WAS': 'was'
     };
 
     function getTeamLogoUrl(abbreviation) {
-      return nbaLogoUrls[abbreviation] || null;
+      const teamCode = teamCodeMapping[abbreviation];
+      return teamCode ? `../graphs/team-logos/${teamCode}.svg` : null;
     }
 
     async function fetchNBAScores() {
@@ -445,10 +423,8 @@
       console.log('✅ Test data loaded successfully!');
     }
     
-    // Fetch scores on page load (using test data for now)
-    loadTestData();
-    // Uncomment below to use real API data:
-    // fetchNBAScores();
+    // Fetch scores on page load
+    fetchNBAScores();
   </script>
 </body>
 </html>
