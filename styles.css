@@ -1677,30 +1677,6 @@ section.section-hidden {
     align-items: center;
     justify-content: center;
     padding: 0;
-    position: relative;
-}
-
-.pony-toggle::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 12px;
-    height: 12px;
-    background: #2e7d32;
-    border-radius: 50%;
-    animation: pulse-dot 2s infinite;
-}
-
-@keyframes pulse-dot {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(0.8);
-    }
 }
 
 .pony-toggle:hover {
@@ -1790,6 +1766,28 @@ section.section-hidden {
     padding: 0.2rem 0.5rem;
     background: rgba(34, 197, 94, 0.1);
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.pony-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse-online 2s infinite;
+}
+
+@keyframes pulse-online {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
 }
 
 .pony-close {
