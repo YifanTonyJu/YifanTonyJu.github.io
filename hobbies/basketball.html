@@ -137,6 +137,18 @@
       color: #4285f4;
       font-weight: 500;
     }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .scores-section {
+        width: 100%;
+        max-height: none;
+      }
+      iframe {
+        height: 400px !important;
+      }
+    }
   </style>
 </head>
 <body>
