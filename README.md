@@ -1,2 +1,1 @@
-# Test git hook
-## Automated version updates
+Personal Website
