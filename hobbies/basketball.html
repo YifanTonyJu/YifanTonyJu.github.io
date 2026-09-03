@@ -242,8 +242,8 @@
     function getTeamLogoUrl(abbreviation) {
       const teamCode = teamLogoMap[abbreviation];
       if (!teamCode) return null;
-      // Using ESPN CDN for reliable NBA team logos
-      return `https://a.espncdn.com/media/motion/2022/1201/dm_221201_nba_${teamCode.toLowerCase()}_logo.svg`;
+      // Using jsDelivr CDN for React-NBA-Logos
+      return `https://cdn.jsdelivr.net/gh/ChrisKatsaras/React-NBA-Logos@master/src/Icons/${teamCode}.svg`;
     }
 
     async function fetchNBAScores() {
