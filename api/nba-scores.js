@@ -73,9 +73,10 @@ export default async function handler(req, res) {
     // Check if API key is configured
     if (!BALLDONTLIE_API_KEY) {
       console.error('BALLDONTLIE_API_KEY is not configured');
-      return res.status(500).json({ 
+      return res.status(200).json({ 
         error: 'API key not configured',
-        games: []
+        games: [],
+        success: false
       });
     }
 
@@ -96,25 +97,24 @@ export default async function handler(req, res) {
       }
     }, 3);
     
-    // 处理限流情况 - 返回特殊响应，让前端知道该用缓存
+    // 处理限流情况
     if (response.rateLimited) {
-      console.warn('[NBA API] Still rate limited after retries, signaling client to use cache');
+      console.warn('[NBA API] Rate limited after retries');
       return res.status(200).json({ 
-        error: 'Rate limited - using cache',
         games: [],
         success: false,
-        rateLimited: true,
-        useCache: true
+        rateLimited: true
       });
     }
     
     const responseText = await response.text();
     
     if (!response.ok) {
-      console.error(`[NBA API] Error: ${response.status} - ${responseText.substring(0, 500)}`);
-      return res.status(500).json({ 
-        error: `BALLDONTLIE API error: ${response.status}`,
-        games: []
+      console.error(`[NBA API] Error: ${response.status} - ${responseText.substring(0, 200)}`);
+      return res.status(200).json({ 
+        error: `API error: ${response.status}`,
+        games: [],
+        success: false
       });
     }
     
@@ -123,9 +123,10 @@ export default async function handler(req, res) {
       data = JSON.parse(responseText);
     } catch (parseError) {
       console.error('[NBA API] Failed to parse JSON response');
-      return res.status(500).json({ 
-        error: 'Invalid JSON response from BALLDONTLIE',
-        games: []
+      return res.status(200).json({ 
+        error: 'Invalid JSON response',
+        games: [],
+        success: false
       });
     }
     
@@ -148,13 +149,12 @@ export default async function handler(req, res) {
       games: games,
       date: dateStr,
       count: games.length,
-      success: true,
-      rateLimited: false
+      success: true
     });
     
   } catch (error) {
     console.error('[NBA API] Error:', error.message);
-    return res.status(500).json({ 
+    return res.status(200).json({ 
       error: error.message,
       games: [],
       success: false
