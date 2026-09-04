@@ -21,6 +21,11 @@
       "methods": ["GET", "OPTIONS"]
     },
     {
+      "src": "/api/nba-stress-test",
+      "dest": "/api/nba-stress-test.js",
+      "methods": ["GET", "OPTIONS"]
+    },
+    {
       "src": "/(?!api/).*\\.(css|js)$",
       "dest": "/$1",
       "headers": {

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBA API 诊断工具</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .test-section {
+      margin-bottom: 30px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 20px;
+      background: #fafafa;
+    }
+    .test-section h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+      border-bottom: 2px solid #4285f4;
+      padding-bottom: 10px;
+    }
+    button {
+      background: #4285f4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    button:hover {
+      background: #1967d2;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .result-box {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+      margin-top: 15px;
+      max-height: 400px;
+      overflow-y: auto;
+      font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .result-box pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+    .status-success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .status-error {
+      background: #ffebee;
+      color: #c62828;
+    }
+    .status-pending {
+      background: #fff3e0;
+      color: #e65100;
+    }
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 2px;
+    }
+    .info-box strong {
+      color: #1565c0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table thead {
+      background: #f5f5f5;
+    }
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      font-size: 12px;
+    }
+    table th {
+      font-weight: bold;
+      color: #333;
+    }
+    .cell-success {
+      color: #2e7d32;
+      font-weight: bold;
+    }
+    .cell-error {
+      color: #c62828;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏀 NBA API 诊断工具</h1>
+    
+    <div class="info-box">
+      <strong>目标：</strong> 诊断快速连续刷新时为什么出现 HTTP 500 错误。这个工具会进行多种方式的API测试。
+    </div>
+
+    <!-- Test 1: Single Request -->
+    <div class="test-section">
+      <h2>
+        测试 1: 单个请求
+        <span class="status-badge" id="test1-status">未开始</span>
+      </h2>
+      <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        发起一个正常的API请求，查看响应状态和时间。
+      </p>
+      <button onclick="runTest('single')">▶ 运行测试</button>
+      <div class="result-box" id="test1-result" style="display: none;">
+        <pre id="test1-output"></pre>
+      </div>
+    </div>
+
+    <!-- Test 2: Rapid Sequential Requests -->
+    <div class="test-section">
+      <h2>
+        测试 2: 快速顺序请求（5个，每个间隔100ms）
+        <span class="status-badge" id="test2-status">未开始</span>
+      </h2>
+      <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        模拟用户快速刷新页面的行为（但有间隔）。检查是否出现 429 限流或 5xx 错误。
+      </p>
+      <button onclick="runTest('rapid-sequential')">▶ 运行测试</button>
+      <div class="result-box" id="test2-result" style="display: none;">
+        <table id="test2-table">
+          <thead>
+            <tr>
+              <th>请求 #</th>
+              <th>状态码</th>
+              <th>耗时 (ms)</th>
+              <th>响应大小</th>
+              <th>结果</th>
+            </tr>
+          </thead>
+          <tbody id="test2-body"></tbody>
+        </table>
+        <div style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+          <div><strong>总数:</strong> <span id="test2-total">-</span></div>
+          <div><strong>成功:</strong> <span id="test2-success" style="color: #2e7d32;">-</span></div>
+          <div><strong>失败:</strong> <span id="test2-failed" style="color: #c62828;">-</span></div>
+          <div><strong>平均耗时:</strong> <span id="test2-avg">-</span>ms</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Test 3: Parallel Requests -->
+    <div class="test-section">
+      <h2>
+        测试 3: 并行请求（10个同时发起）
+        <span class="status-badge" id="test3-status">未开始</span>
+      </h2>
+      <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        最坏情况：模拟用户狂点刷新按钮。这是最容易触发限流或服务器问题的情况。
+      </p>
+      <button onclick="runTest('parallel')">▶ 运行测试</button>
+      <div class="result-box" id="test3-result" style="display: none;">
+        <table id="test3-table">
+          <thead>
+            <tr>
+              <th>请求 #</th>
+              <th>状态码</th>
+              <th>耗时 (ms)</th>
+              <th>响应大小</th>
+              <th>结果</th>
+            </tr>
+          </thead>
+          <tbody id="test3-body"></tbody>
+        </table>
+        <div style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+          <div><strong>总数:</strong> <span id="test3-total">-</span></div>
+          <div><strong>成功:</strong> <span id="test3-success" style="color: #2e7d32;">-</span></div>
+          <div><strong>失败:</strong> <span id="test3-failed" style="color: #c62828;">-</span></div>
+          <div><strong>平均耗时:</strong> <span id="test3-avg">-</span>ms</div>
+          <div><strong>最小/最大耗时:</strong> <span id="test3-minmax">-</span>ms</div>
+          <div style="margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 4px;">
+            <div>🚫 有限流 (429)？<span id="test3-ratelimit" style="font-weight: bold;">-</span></div>
+            <div>❌ 有服务器错误 (5xx)？<span id="test3-servererror" style="font-weight: bold;">-</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Test 4: Check /api/nba-scores endpoint -->
+    <div class="test-section">
+      <h2>
+        测试 4: 检查 /api/nba-scores 端点
+        <span class="status-badge" id="test4-status">未开始</span>
+      </h2>
+      <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        直接测试你的网站使用的实际API端点。
+      </p>
+      <button onclick="runTest('nba-scores')">▶ 运行测试</button>
+      <div class="result-box" id="test4-result" style="display: none;">
+        <pre id="test4-output"></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const API_BASE = '/api/nba-diagnose';
+    const NBA_SCORES_API = '/api/nba-scores';
+
+    async function runTest(testType) {
+      const testNum = testType === 'single' ? 1 : testType === 'rapid-sequential' ? 2 : testType === 'parallel' ? 3 : 4;
+      const statusEl = document.getElementById(`test${testNum}-status`);
+      const resultEl = document.getElementById(`test${testNum}-result`);
+      
+      statusEl.textContent = '运行中...';
+      statusEl.className = 'status-badge status-pending';
+      resultEl.style.display = 'block';
+
+      try {
+        if (testType === 'nba-scores') {
+          // Special case: test the actual NBA scores endpoint
+          const response = await fetch(NBA_SCORES_API);
+          const data = await response.text();
+          const output = document.getElementById('test4-output');
+          output.textContent = `状态码: ${response.status}\n\n${data}`;
+          
+          statusEl.textContent = response.ok ? '成功' : '失败';
+          statusEl.className = response.ok ? 'status-badge status-success' : 'status-badge status-error';
+        } else {
+          const url = `${API_BASE}?testType=${testType}`;
+          const response = await fetch(url);
+          const result = await response.json();
+
+          if (testType === 'single') {
+            const output = document.getElementById('test1-output');
+            output.textContent = JSON.stringify(result, null, 2);
+            statusEl.textContent = result.success ? '成功' : '失败';
+            statusEl.className = result.success ? 'status-badge status-success' : 'status-badge status-error';
+          } else if (testType === 'rapid-sequential') {
+            renderSequentialResults(result);
+          } else if (testType === 'parallel') {
+            renderParallelResults(result);
+          }
+        }
+      } catch (error) {
+        const testId = testType === 'nba-scores' ? 'test4' : `test${testNum}`;
+        const output = document.getElementById(`${testId}-output`);
+        if (output) {
+          output.textContent = `错误: ${error.message}`;
+        }
+        statusEl.textContent = '错误';
+        statusEl.className = 'status-badge status-error';
+      }
+    }
+
+    function renderSequentialResults(result) {
+      const body = document.getElementById('test2-body');
+      body.innerHTML = '';
+
+      result.results.forEach(r => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>#${r.requestNumber}</td>
+          <td class="${r.statusCode === 200 ? 'cell-success' : 'cell-error'}">${r.statusCode}</td>
+          <td>${r.duration}ms</td>
+          <td>${r.size} bytes</td>
+          <td class="${r.success ? 'cell-success' : 'cell-error'}">${r.success ? '✓ 成功' : '✗ 失败'}</td>
+        `;
+        body.appendChild(row);
+      });
+
+      document.getElementById('test2-total').textContent = result.summary.total;
+      document.getElementById('test2-success').textContent = result.summary.succeeded;
+      document.getElementById('test2-failed').textContent = result.summary.failed;
+      document.getElementById('test2-avg').textContent = result.summary.avgDuration;
+
+      const status = document.getElementById('test2-status');
+      status.textContent = result.summary.hasErrors ? '有错误' : '全部成功';
+      status.className = result.summary.hasErrors ? 'status-badge status-error' : 'status-badge status-success';
+    }
+
+    function renderParallelResults(result) {
+      const body = document.getElementById('test3-body');
+      body.innerHTML = '';
+
+      result.results.forEach(r => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>#${r.requestNumber}</td>
+          <td class="${r.statusCode === 200 ? 'cell-success' : 'cell-error'}">${r.statusCode}</td>
+          <td>${r.duration}ms</td>
+          <td>${r.size || 'N/A'} bytes</td>
+          <td class="${r.success ? 'cell-success' : 'cell-error'}">${r.success ? '✓ 成功' : '✗ 失败'}</td>
+        `;
+        body.appendChild(row);
+      });
+
+      document.getElementById('test3-total').textContent = result.summary.total;
+      document.getElementById('test3-success').textContent = result.summary.succeeded;
+      document.getElementById('test3-failed').textContent = result.summary.failed;
+      document.getElementById('test3-avg').textContent = result.summary.avgDuration;
+      document.getElementById('test3-minmax').textContent = `${result.summary.minDuration}/${result.summary.maxDuration}`;
+      document.getElementById('test3-ratelimit').textContent = result.summary.hasRateLimiting ? '🚫 是' : '✓ 否';
+      document.getElementById('test3-servererror').textContent = result.summary.hasServerErrors ? '❌ 是' : '✓ 否';
+
+      const status = document.getElementById('test3-status');
+      if (result.summary.hasServerErrors) {
+        status.textContent = '有服务器错误';
+        status.className = 'status-badge status-error';
+      } else if (result.summary.hasRateLimiting) {
+        status.textContent = '触发限流';
+        status.className = 'status-badge status-error';
+      } else if (result.summary.hasErrors) {
+        status.textContent = '有其他错误';
+        status.className = 'status-badge status-error';
+      } else {
+        status.textContent = '全部成功';
+        status.className = 'status-badge status-success';
+      }
+    }
+  </script>
+</body>
+</html>
