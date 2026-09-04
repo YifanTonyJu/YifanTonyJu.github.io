@@ -309,7 +309,11 @@
           
           try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000);
+            // Increase timeout to 30 seconds to handle Vercel cold starts
+            const timeoutId = setTimeout(() => {
+              console.warn('[NBA API] Request timeout after 30 seconds');
+              controller.abort();
+            }, 30000);
             
             const response = await fetch('/api/nba-scores', { signal: controller.signal });
             clearTimeout(timeoutId);
@@ -374,7 +378,7 @@
             
             if (fetchError.name === 'AbortError') {
               isTimeoutError = true;
-              console.error('Request timed out after 10 seconds');
+              console.error('Request timed out after 30 seconds (Vercel cold start?)');
             } else if (fetchError.message.includes('Network') || fetchError.message.includes('Failed')) {
               isNetworkError = true;
             }
@@ -384,7 +388,8 @@
               console.log('Using cached data due to fetch error');
             } else {
               if (isTimeoutError) {
-                throw new Error('Request timeout - API is not responding');
+                // Don't show error for timeout, show loading instead
+                throw new Error('_loading_due_to_timeout');
               } else if (isNetworkError) {
                 throw new Error('Network connection failed');
               } else {
@@ -431,6 +436,15 @@
           return;
         }
         
+        // If timeout (likely Vercel cold start), show loading state and retry sooner
+        if (error.message === '_loading_due_to_timeout') {
+          document.getElementById('games-container').innerHTML = 
+            '<div style="text-align: center; padding: 40px 20px; color: #999; font-size: 14px;">Loading scores... (starting server)</div>';
+          // Retry every 5 seconds when timing out
+          setRefreshInterval(5000);
+          return;
+        }
+        
         // If no cache available and rate limited, show neutral message
         if (scoresCache.data === null && error.message.includes('rate limit')) {
           document.getElementById('games-container').innerHTML = 
@@ -467,8 +481,8 @@
           quickDiagnose();
         }
         
-        // Try again in 2 minutes on error (unless rate limited)
-        if (error.message !== '_loading_due_to_rate_limit') {
+        // Try again in 2 minutes on error (unless rate limited or timeout)
+        if (error.message !== '_loading_due_to_rate_limit' && error.message !== '_loading_due_to_timeout') {
           setRefreshInterval(120000);
         }
       }
@@ -478,8 +492,8 @@
     async function quickDiagnose() {
       console.log('=== Quick Diagnosis Start ===');
       try {
-        console.log('1. Testing API endpoint...');
-        const response = await fetch('/api/nba-scores', { signal: AbortSignal.timeout(5000) });
+        console.log('1. Testing API endpoint (timeout: 30 seconds)...');
+        const response = await fetch('/api/nba-scores', { signal: AbortSignal.timeout(30000) });
         console.log('   Response status:', response.status);
         console.log('   Response headers:', response.headers);
         
