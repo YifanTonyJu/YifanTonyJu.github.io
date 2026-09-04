@@ -254,11 +254,13 @@
       return teamCode ? `../graphs/team-logos/${teamCode}.svg` : null;
     }
 
-    // Simple cache to prevent 500 errors from rapid refreshes
+    // Enhanced cache system to handle rate limiting
     let scoresCache = {
       data: null,
       lastRequestTime: null,
-      minRequestInterval: 30000 // Only allow API request every 30 seconds
+      minRequestInterval: 30000, // Only allow API request every 30 seconds
+      requestInProgress: false,
+      consecutiveRateLimits: 0
     };
 
     async function fetchNBAScores() {
@@ -275,49 +277,96 @@
         const now = Date.now();
         const timeSinceLastRequest = scoresCache.lastRequestTime ? (now - scoresCache.lastRequestTime) : Infinity;
 
-        // If less than 30 seconds since last API request, use cache instead
-        if (timeSinceLastRequest < scoresCache.minRequestInterval) {
+        // Prevent concurrent requests
+        if (scoresCache.requestInProgress) {
+          console.log('Request already in progress, using cached data');
           if (scoresCache.data) {
-            console.log('Using cached data (prevent rapid refresh 500 error)');
+            data = scoresCache.data;
+          } else {
+            throw new Error('Request in progress, no cache available');
+          }
+        } 
+        // If less than 30 seconds since last API request, use cache instead
+        else if (timeSinceLastRequest < scoresCache.minRequestInterval) {
+          if (scoresCache.data) {
+            console.log(`Using cached data (${timeSinceLastRequest}ms since last request)`);
             data = scoresCache.data;
           } else {
             throw new Error('No cached data available, please wait before refreshing');
           }
-        } else {
-          // 30+ seconds passed, fetch fresh data from API
+        } 
+        // 30+ seconds passed, fetch fresh data from API
+        else {
           console.log('Fetching fresh NBA scores from /api/nba-scores');
-          const response = await fetch('/api/nba-scores');
+          scoresCache.requestInProgress = true;
           
-          if (!response.ok) {
-            // If API fails but we have cached data, use it
-            if (scoresCache.data) {
-              console.warn(`API returned status ${response.status}, using cached data`);
-              data = scoresCache.data;
-            } else {
-              throw new Error(`API returned status ${response.status}`);
-            }
-          } else {
+          try {
+            const response = await fetch('/api/nba-scores');
             const text = await response.text();
-            console.log('API raw response:', text);
             
+            console.log('API response status:', response.status);
+            
+            let parsedData;
             try {
-              data = JSON.parse(text);
+              parsedData = JSON.parse(text);
             } catch (parseError) {
               console.error('Failed to parse JSON:', parseError);
-              console.error('Response text:', text);
               throw new Error('API returned invalid JSON');
             }
             
-            // Cache successful response
-            scoresCache.data = data;
+            // Check if we got rate limited
+            if (parsedData.rateLimited) {
+              console.warn('API returned rate limit signal, using cached data');
+              scoresCache.consecutiveRateLimits++;
+              
+              if (scoresCache.data) {
+                data = scoresCache.data;
+                console.log(`Using cached data (rate limit #${scoresCache.consecutiveRateLimits})`);
+              } else {
+                throw new Error('API rate limited and no cache available');
+              }
+            } else if (parsedData.success === false) {
+              console.warn('API returned error');
+              
+              if (scoresCache.data) {
+                data = scoresCache.data;
+                console.log('Using cached data due to API error');
+              } else {
+                throw new Error(parsedData.error || 'API error');
+              }
+            } else if (parsedData.success === true || response.ok) {
+              // Success! Update cache and reset rate limit counter
+              data = parsedData;
+              scoresCache.data = data;
+              scoresCache.consecutiveRateLimits = 0;
+              console.log('NBA scores updated successfully');
+            } else {
+              // Unknown response format, try to use it anyway
+              data = parsedData;
+              if (parsedData.games) {
+                scoresCache.data = data;
+                scoresCache.consecutiveRateLimits = 0;
+              }
+            }
+            
+          } catch (fetchError) {
+            console.error('Fetch error:', fetchError.message);
+            
+            if (scoresCache.data) {
+              data = scoresCache.data;
+              console.log('Using cached data due to fetch error');
+            } else {
+              throw fetchError;
+            }
+          } finally {
+            scoresCache.requestInProgress = false;
             scoresCache.lastRequestTime = now;
-            console.log('NBA scores updated');
           }
         }
         
         if (!data || !data.games || data.games.length === 0) {
           console.log('No games found');
-          container.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #999; font-size: 14px;">No Games</div>';
+          container.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #999; font-size: 14px;">No Games Today</div>';
           setRefreshInterval(1800000);
           return;
         }
@@ -339,10 +388,22 @@
         renderGames(data.games, container);
       } catch (error) {
         console.error('Error fetching scores:', error);
+        
+        // Show appropriate error message
+        let errorMsg = error.message;
+        if (errorMsg.includes('rate limit')) {
+          errorMsg = 'API temporarily busy - showing cached data';
+        } else if (errorMsg.includes('No cached')) {
+          errorMsg = 'Loading data, please refresh in a moment';
+        } else if (errorMsg.includes('Network')) {
+          errorMsg = 'Network error - please check your connection';
+        }
+        
         document.getElementById('games-container').innerHTML = 
-          '<div style="text-align: center; padding: 20px; color: #d32f2f; font-size: 14px;">Unable to load scores: ' + error.message + '</div>';
-        // Try again in 1 minute on error
-        setRefreshInterval(60000);
+          '<div style="text-align: center; padding: 20px; color: #d32f2f; font-size: 14px;">Unable to load scores: ' + errorMsg + '</div>';
+        
+        // Try again in 2 minutes on error
+        setRefreshInterval(120000);
       }
     }
 
