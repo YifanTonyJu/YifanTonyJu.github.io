@@ -209,10 +209,15 @@
   </div>
 
   <script>
-    // Simple cache for NBA scores
+    // Enhanced cache for NBA scores with debounce control
     let scoresCache = {
       data: null,
-      lastFetchTime: 0
+      lastFetchTime: 0,
+      requestInProgress: false,
+      lastAttemptTime: 0,
+      minRequestInterval: 5000, // Minimum 5 seconds between requests
+      consecutiveErrors: 0,
+      maxConsecutiveErrors: 3
     };
 
     // Simple team logo mapping
@@ -241,79 +246,109 @@
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         dateDisplay.textContent = today.toLocaleDateString('en-US', options);
         
-        // Only fetch if 30+ seconds have passed since last fetch
+        // ===== DEBOUNCE CHECK 1: Prevent concurrent requests =====
+        if (scoresCache.requestInProgress) {
+          console.log('[Debounce] Request already in progress, skipping...');
+          return;
+        }
+        
+        // ===== DEBOUNCE CHECK 2: Prevent rapid-fire requests =====
+        const timeSinceLastAttempt = now - scoresCache.lastAttemptTime;
+        if (timeSinceLastAttempt < scoresCache.minRequestInterval && scoresCache.data) {
+          console.log(`[Debounce] Too soon (${timeSinceLastAttempt}ms < ${scoresCache.minRequestInterval}ms), using cache`);
+          renderGames(scoresCache.data.games, container);
+          return;
+        }
+        
+        // ===== CACHE VALIDITY CHECK: Return cached data if fresh enough =====
         if (now - scoresCache.lastFetchTime < 30000 && scoresCache.data) {
           console.log('Using cached data (less than 30 seconds since last fetch)');
           renderGames(scoresCache.data.games, container);
           return;
         }
 
-        // Fetch from API with timeout
-        console.log('Fetching NBA scores...');
+        // Mark request as in progress
+        scoresCache.requestInProgress = true;
+        scoresCache.lastAttemptTime = now;
+        
+        console.log('[NBA API] Fetching scores...');
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 15000);
         
         const response = await fetch('/api/nba-scores', { signal: controller.signal });
         clearTimeout(timeoutId);
         
-        console.log('API response status:', response.status);
+        console.log('[NBA API] Response status:', response.status);
         
         if (!response.ok) {
-          console.error('API error status:', response.status);
+          console.error('[NBA API] Error status:', response.status);
           throw new Error('HTTP ' + response.status);
         }
 
         let data;
         try {
           data = await response.json();
-          console.log('API response data:', data);
+          console.log('[NBA API] Parsed response:', data);
         } catch (parseError) {
-          console.error('Failed to parse API response as JSON:', parseError);
+          console.error('[NBA API] Failed to parse JSON:', parseError);
           throw new Error('Invalid JSON response');
         }
         
         // Save to cache
         scoresCache.data = data;
         scoresCache.lastFetchTime = now;
+        scoresCache.consecutiveErrors = 0; // Reset error counter on success
+        console.log('[Cache] Updated successfully');
 
         // Display the games
         if (data.games && data.games.length > 0) {
-          console.log('Found', data.games.length, 'games');
+          console.log('[Render] Found', data.games.length, 'games');
           renderGames(data.games, container);
         } else {
-          console.log('No games found for today');
+          console.log('[Render] No games found for today');
           container.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #999;">No Games Today</div>';
         }
 
       } catch (error) {
-        console.error('Error fetching scores:', error);
-        console.error('Error details:', {
+        scoresCache.consecutiveErrors++;
+        console.error('[NBA API] Error fetching scores:', error);
+        console.error('[NBA API] Error details:', {
           message: error.message,
-          name: error.name
+          name: error.name,
+          consecutiveErrors: scoresCache.consecutiveErrors
         });
         
-        // Fall back to cache if available
+        // Always fall back to cache if available - never show errors
         if (scoresCache.data && scoresCache.data.games && scoresCache.data.games.length > 0) {
-          console.log('Using cached data due to error');
+          console.log('[Cache] Using cached data due to error (still showing latest scores)');
           renderGames(scoresCache.data.games, document.getElementById('games-container'));
-        } else {
-          // Show error only if no cache available
+        } else if (scoresCache.consecutiveErrors >= scoresCache.maxConsecutiveErrors) {
+          // Only show error message after multiple consecutive failures
           const container = document.getElementById('games-container');
           let errorMsg = 'Unable to load scores. ';
           
           if (error.name === 'AbortError') {
-            errorMsg += 'Request timeout. ';
+            errorMsg += 'Request timeout.';
           } else if (error.message.includes('HTTP')) {
-            errorMsg += 'Server error. ';
+            errorMsg += 'Server error.';
           } else if (error.message.includes('Network') || error.message.includes('Failed to fetch')) {
-            errorMsg += 'Network error. ';
+            errorMsg += 'Network error.';
           } else if (error.message.includes('JSON')) {
-            errorMsg += 'Data format error. ';
+            errorMsg += 'Data format error.';
+          } else {
+            errorMsg += 'Please refresh.';
           }
-          errorMsg += 'Please refresh the page.';
           
           container.innerHTML = '<div style="text-align: center; padding: 20px; color: #d32f2f;">' + errorMsg + '</div>';
+        } else {
+          // For first 1-2 errors, show loading state
+          const container = document.getElementById('games-container');
+          container.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">Loading scores...</div>';
         }
+      } finally {
+        // Always mark request as complete
+        scoresCache.requestInProgress = false;
+        console.log('[Debounce] Request completed');
       }
     }
 
