@@ -55,22 +55,6 @@
     .view-schedule-btn:hover {
       background: #f0f0f0;
     }
-    .refresh-btn {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      background: #e3f2fd;
-      border: 1px solid #90caf9;
-      border-radius: 6px;
-      color: #1976d2;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .refresh-btn:hover {
-      background: #bbdefb;
-    }
     .live-badge {
       background: #e8f5e9;
       color: #2e7d32;
@@ -214,10 +198,6 @@
         <div id="games-container">
           <div style="text-align: center; padding: 20px; color: #999;">Loading scores...</div>
         </div>
-
-        <button class="refresh-btn" onclick="scoresCache.lastFetchTime = 0; fetchNBAScores();">
-          🔄 Refresh Scores
-        </button>
 
         <a href="https://www.espn.com/nba/scores" target="_blank" style="text-decoration: none;">
           <button class="view-schedule-btn">
