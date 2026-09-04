@@ -308,16 +308,21 @@
           scoresCache.requestInProgress = true;
           
           try {
-            const response = await fetch('/api/nba-scores');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+            
+            const response = await fetch('/api/nba-scores', { signal: controller.signal });
+            clearTimeout(timeoutId);
+            
             const text = await response.text();
             
-            console.log('API response status:', response.status);
+            console.log('API response status:', response.status, 'Text length:', text.length);
             
             let parsedData;
             try {
               parsedData = JSON.parse(text);
             } catch (parseError) {
-              console.error('Failed to parse JSON:', parseError);
+              console.error('Failed to parse JSON:', parseError, 'Response text:', text.substring(0, 200));
               throw new Error('API returned invalid JSON');
             }
             
@@ -361,13 +366,30 @@
             }
             
           } catch (fetchError) {
-            console.error('Fetch error:', fetchError.message);
+            console.error('Fetch error:', fetchError.message, 'Error name:', fetchError.name);
+            
+            // Better error diagnosis
+            let isNetworkError = false;
+            let isTimeoutError = false;
+            
+            if (fetchError.name === 'AbortError') {
+              isTimeoutError = true;
+              console.error('Request timed out after 10 seconds');
+            } else if (fetchError.message.includes('Network') || fetchError.message.includes('Failed')) {
+              isNetworkError = true;
+            }
             
             if (scoresCache.data) {
               data = scoresCache.data;
               console.log('Using cached data due to fetch error');
             } else {
-              throw fetchError;
+              if (isTimeoutError) {
+                throw new Error('Request timeout - API is not responding');
+              } else if (isNetworkError) {
+                throw new Error('Network connection failed');
+              } else {
+                throw new Error(fetchError.message || 'Load failed');
+              }
             }
           } finally {
             scoresCache.requestInProgress = false;
@@ -416,16 +438,33 @@
         } else {
           // Show user-friendly error message
           let errorMsg = error.message;
+          let errorType = 'default';
+          
           if (errorMsg.includes('rate limit')) {
             errorMsg = 'API temporarily busy - try again in a moment';
+            errorType = 'rate-limit';
+          } else if (errorMsg.includes('timeout')) {
+            errorMsg = 'Server is not responding - please try again';
+            errorType = 'timeout';
+          } else if (errorMsg.includes('Network')) {
+            errorMsg = 'Network connection failed - check your internet';
+            errorType = 'network';
           } else if (errorMsg.includes('No cached')) {
             errorMsg = 'Loading data, please refresh in a moment';
-          } else if (errorMsg.includes('Network')) {
-            errorMsg = 'Network error - please check your connection';
+            errorType = 'loading';
+          } else if (errorMsg.includes('invalid JSON') || errorMsg.includes('Invalid')) {
+            errorMsg = 'API returned invalid data - try again';
+            errorType = 'parse';
           }
           
           document.getElementById('games-container').innerHTML = 
             '<div style="text-align: center; padding: 20px; color: #d32f2f; font-size: 14px;">Unable to load scores: ' + errorMsg + '</div>';
+          
+          console.log('Error type detected:', errorType, 'Full error:', error.message);
+          
+          // Auto-diagnose when error occurs
+          console.warn('Auto-running diagnosis due to error...');
+          quickDiagnose();
         }
         
         // Try again in 2 minutes on error (unless rate limited)
@@ -433,6 +472,35 @@
           setRefreshInterval(120000);
         }
       }
+    }
+
+    // Quick diagnostic function to test API connectivity
+    async function quickDiagnose() {
+      console.log('=== Quick Diagnosis Start ===');
+      try {
+        console.log('1. Testing API endpoint...');
+        const response = await fetch('/api/nba-scores', { signal: AbortSignal.timeout(5000) });
+        console.log('   Response status:', response.status);
+        console.log('   Response headers:', response.headers);
+        
+        const text = await response.text();
+        console.log('   Response length:', text.length);
+        console.log('   Response preview:', text.substring(0, 300));
+        
+        try {
+          const json = JSON.parse(text);
+          console.log('   Parsed JSON successfully');
+          console.log('   Has games:', Array.isArray(json.games), 'Count:', json.games?.length || 0);
+          console.log('   Success flag:', json.success);
+          console.log('   Rate limited:', json.rateLimited);
+        } catch (e) {
+          console.error('   Failed to parse JSON:', e.message);
+        }
+      } catch (error) {
+        console.error('   API Error:', error.message);
+        console.error('   Error name:', error.name);
+      }
+      console.log('=== Quick Diagnosis End ===');
     }
 
     function renderGames(games, container) {
@@ -496,6 +564,9 @@
     }
     
     // Fetch scores on page load
+    console.log('[Basketball Page] Initializing...');
+    console.log('[Basketball Page] Running initial diagnostic...');
+    quickDiagnose();
     fetchNBAScores();
   </script>
 </body>
