@@ -354,6 +354,25 @@
                 background: none;
                 border: 1px solid var(--color-border);
             }
+
+            /* Disable button hover and gold state on mobile */
+            .btn:hover {
+                background-color: var(--color-bg);
+                border-color: var(--color-border);
+                color: var(--color-text);
+            }
+
+            .btn.gold {
+                background-color: var(--color-bg);
+                color: var(--color-text);
+                border-color: var(--color-border);
+            }
+
+            .btn.gold:hover {
+                background-color: var(--color-bg);
+                border-color: var(--color-border);
+                color: var(--color-text);
+            }
         }
 
         @media (max-width: 480px) {
