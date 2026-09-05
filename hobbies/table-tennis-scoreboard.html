@@ -166,7 +166,11 @@
             color: var(--color-bg);
         }
 
-        .btn:active {
+        .btn:active,
+        .btn.pressed {
+            background-color: var(--color-gold);
+            border-color: var(--color-gold);
+            color: var(--color-bg);
             transform: scale(0.98);
         }
 
@@ -349,7 +353,7 @@
                 gap: 0.75rem;
             }
 
-            /* Disable button hover and gold state on mobile */
+            /* Disable button hover on mobile, keep active/pressed state */
             .btn:hover {
                 background-color: var(--color-bg);
                 border-color: var(--color-border);
@@ -366,6 +370,13 @@
                 background-color: var(--color-bg);
                 border-color: var(--color-border);
                 color: var(--color-text);
+            }
+
+            /* Keep pressed state animation on mobile */
+            .btn.pressed {
+                background-color: var(--color-gold);
+                border-color: var(--color-gold);
+                color: var(--color-bg);
             }
         }
 
@@ -684,6 +695,21 @@
         const targetScoreDisplay = document.getElementById('targetScoreDisplay');
         const deuceToggle = document.getElementById('deuceToggle');
         const deuceLabel = document.getElementById('deuceLabel');
+
+        // Helper function to add temporary button press animation
+        function buttonPressed(button) {
+            button.classList.add('pressed');
+            setTimeout(() => {
+                button.classList.remove('pressed');
+            }, 300);
+        }
+
+        // Add click handlers to all buttons for visual feedback
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                buttonPressed(this);
+            });
+        });
 
         function addScore(player) {
             if (gameOver) return;
