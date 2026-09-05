@@ -348,6 +348,12 @@
                 grid-template-columns: 1fr auto 1fr;
                 gap: 0.75rem;
             }
+
+            /* Disable winner highlight on mobile */
+            .player-score.winner {
+                background: none;
+                border: 1px solid var(--color-border);
+            }
         }
 
         @media (max-width: 480px) {
