@@ -314,6 +314,7 @@
             font-size: clamp(0.8rem, 1.8vw, 0.9rem);
             color: var(--color-text-muted);
             min-width: 60px;
+            display: none;
         }
 
         /* Action Buttons */
@@ -685,6 +686,7 @@
             score2 = 0;
             gameOver = false;
             updateDisplay();
+            updateWinner();
         }
 
         function swapSides() {
