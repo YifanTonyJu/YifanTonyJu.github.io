@@ -46,18 +46,21 @@ YIFAN'S RESEARCH INTERESTS:
 Robotics, Systems Programming, Intelligent Systems, Software Engineering
 
 YIFAN'S PROJECTS:
-1. MyMonitoringTool - Linux system monitoring tool (C, fork, pipe, signal handling, /proc filesystem)
-2. Toronto Bike Demand Prediction - ML project using Toronto Bike Share data (Python, Pandas, NumPy, scikit-learn, Matplotlib)
-3. File Management System - Full-stack app (C++, OATPP, Vue.js, REST API, Linux, SSH)
-4. Personal LaTeX Template - Customizable writing template (LaTeX)
+1. RemedaAI / Polaris - Backend development for clinical platform. Built LLM-based Clinical Extraction Pipeline, Transcript Management APIs (OpenMRS & FHIR), and investigated MIMIC-IV data ingestion. Tech: Python, FastAPI, OpenMRS, FHIR, LLM, MIMIC-IV, EMR, Redis, Pytest
+2. RemedaAI / Ego - Local-first digital health record app for patients. Ported React/TypeScript web app to Android and iOS using Capacitor, implemented navigation and testing. Tech: React, TypeScript, Capacitor, Android, iOS, Vite, Mobile
+3. MyMonitoringTool - Linux system monitoring tool (C, fork, pipe, signal handling, /proc filesystem)
+4. Toronto Bike Demand Prediction - ML project using Toronto Bike Share data (Python, Pandas, NumPy, scikit-learn, Matplotlib)
+5. Personal LaTeX Template - Customizable writing template (LaTeX)
 
 YIFAN'S TECHNICAL SKILLS:
-- Languages: Python, C, C++, Java, Haskell, JavaScript, Shell Script, MIPS Assembly, Racket, Prolog
-- Frameworks: PyTorch, OATPP, Vue.js, Vite, Android SDK
-- Data Libraries: Pandas, NumPy, Matplotlib, Plotly
-- Databases: MySQL, MySQL Workbench
-- Tools & Systems: Linux, Git, GitHub, CMake, Makefile, VS Code, Remote SSH, JIRA, Markdown, LaTeX
-- ML/AI: Machine Learning, Deep Learning, Transformers, Model Training & Evaluation, Data Analysis
+- Languages: Python, C, C++, Java, JavaScript, TypeScript, Haskell, Racket, Prolog, MIPS Assembly, Shell Script
+- Web & Mobile Development: FastAPI, REST APIs, HTTP, React, Vue.js, Vite, OATPP, Capacitor, React Native
+- AI, ML & Data: PyTorch, Pandas, NumPy, Matplotlib, Plotly, Machine Learning, Deep Learning, Transformers, Model Training & Evaluation, Data Analysis, LLM/AI API Integration
+- Healthcare Systems & Standards: EMR Systems, OpenMRS, FHIR R4, MIMIC-IV
+- Databases: MySQL, SQLite, Redis
+- Operating Systems: Linux, Android, iOS
+- Developer Tools: Git, GitHub, CMake, Makefile, VS Code, Remote SSH, JIRA, Pytest, Android Studio, Xcode, MySQL Workbench
+- Writing & Documentation: LaTeX, Markdown
 
 YIFAN'S HOBBIES & INTERESTS:
 - Basketball - active hobby
