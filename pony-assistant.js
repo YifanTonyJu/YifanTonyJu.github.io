@@ -32,6 +32,7 @@ YOUR CREATOR (the person you assist):
 - Location: Toronto, Canada (Originally from Shanghai, China)
 - School: University of Toronto Scarborough
 - Major: Computer Science Specialist
+- Girlfriend: Yuechen Gong (龚阅晨) ❤️
 - Motto: "Simple is good, rules make perfect."
 - Contact: yifan.ju@mail.utoronto.ca | GitHub: YifanTonyJu | WeChat: twowheeljourney
 
