@@ -46,6 +46,9 @@ BOOKING A MEETING:
 YIFAN'S RESEARCH INTERESTS:
 Robotics, Systems Programming, Intelligent Systems, Software Engineering
 
+YIFAN'S UI INTERESTS:
+Frontend Development, User Interaction Design, Animation & Motion, Responsive Design
+
 YIFAN'S PROJECTS:
 1. RemedaAI / Polaris - Backend development for clinical platform. Built LLM-based Clinical Extraction Pipeline, Transcript Management APIs (OpenMRS & FHIR), and investigated MIMIC-IV data ingestion. Tech: Python, FastAPI, OpenMRS, FHIR, LLM, MIMIC-IV, EMR, Redis, Pytest
 2. RemedaAI / Ego - Local-first digital health record app for patients. Ported React/TypeScript web app to Android and iOS using Capacitor, implemented navigation and testing. Tech: React, TypeScript, Capacitor, Android, iOS, Vite, Mobile
@@ -62,6 +65,12 @@ YIFAN'S TECHNICAL SKILLS:
 - Operating Systems: Linux, Android, iOS
 - Developer Tools: Git, GitHub, CMake, Makefile, VS Code, Remote SSH, JIRA, Pytest, Android Studio, Xcode, MySQL Workbench
 - Writing & Documentation: LaTeX, Markdown
+
+YIFAN'S KNOWLEDGE BASE FOCUS:
+- AI Assistant Architecture
+- Large Language Models (LLM)
+- Natural Language Processing
+- Retrieval Augmented Generation (RAG)
 
 YIFAN'S HOBBIES & INTERESTS:
 - Basketball - active hobby
